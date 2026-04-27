@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔥 热点IP周刊 | 持续更新中</title>
+  <style>
+    :root {
+      --bg: #0d0d14;
+      --card: #161622;
+      --card2: #1e1e2e;
+      --border: #2a2a40;
+      --accent1: #ff6b6b;
+      --accent2: #ffd93d;
+      --accent3: #6bcb77;
+      --accent4: #4d96ff;
+      --accent5: #c77dff;
+      --text: #e8e8f0;
+      --muted: #888;
+      --high: #ff4757;
+      --mid: #ffa502;
+      --low: #2ed573;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ===== Header ===== */
+    .header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 40px 20px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .header::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(77,150,255,.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 50%, rgba(199,125,255,.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .header h1 {
+      font-size: clamp(24px, 5vw, 42px);
+      font-weight: 800;
+      letter-spacing: .03em;
+      background: linear-gradient(90deg, #4d96ff, #c77dff, #ff6b6b, #ffd93d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+    .header .subtitle {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      position: relative;
+    }
+    .header .live-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 16px;
+      padding: 6px 18px;
+      border-radius: 30px;
+      background: rgba(46,213,115,.12);
+      border: 1px solid rgba(46,213,115,.3);
+      color: var(--low);
+      font-size: 13px;
+      font-weight: 600;
+      position: relative;
+    }
+    .live-badge .dot {
+      width: 8px; height: 8px;
+      background: var(--low);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(1.3); }
+    }
+
+    /* ===== Week Nav ===== */
+    .week-nav {
+      display: flex;
+      overflow-x: auto;
+      gap: 0;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      padding: 0 16px;
+    }
+    .week-nav a {
+      text-decoration: none;
+      color: var(--muted);
+      padding: 14px 20px;
+      font-size: 13px;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .week-nav a:hover { color: var(--text); border-color: var(--accent4); }
+    .week-nav a.active {
+      color: var(--accent4);
+      border-color: var(--accent4);
+      background: rgba(77,150,255,.08);
+      font-weight: 600;
+    }
+    .week-nav .week-new {
+      color: var(--accent1) !important;
+      border-color: var(--accent1) !important;
+    }
+
+    /* ===== Layout ===== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 16px 60px;
+    }
+
+    /* ===== Week Section ===== */
+    .week-section {
+      margin-bottom: 48px;
+    }
+    .week-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .week-badge {
+      padding: 8px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent4), var(--accent5));
+      color: #fff;
+    }
+    .week-title {
+      flex: 1;
+    }
+    .week-title h2 {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .week-title .date-range {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+    .week-tags {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .week-tag {
+      padding: 3px 11px;
+      border-radius: 20px;
+      font-size: 11px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      color: var(--muted);
+    }
+
+    /* ===== TOP IP Grid ===== */
+    .ip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+    }
+    .ip-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .ip-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,.4);
+    }
+    .ip-card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      background: var(--card2);
+    }
+    .ip-card-img-placeholder {
+      width: 100%;
+      height: 180px;
+      background: linear-gradient(135deg, var(--card2), var(--border));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+    .ip-card-rank {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px 0;
+    }
+    .rank-num {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      background: var(--card2);
+      color: var(--muted);
+    }
+    .rank-num.top3 {
+      background: linear-gradient(135deg,#f7971e,#ffd200);
+      color: #000;
+    }
+    .rank-name {
+      font-size: 16px;
+      font-weight: 700;
+      flex: 1;
+    }
+    .rank-name a {
+      color: var(--text);
+      text-decoration: none;
+    }
+    .rank-name a:hover { color: var(--accent4); }
+    .ip-card-body {
+      padding: 10px 16px 16px;
+    }
+    .ip-meta {
+      display: flex; align-items: center; gap: 8px;
+      flex-wrap: wrap; margin-bottom: 8px;
+    }
+    .heat-badge {
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .heat-high { background: rgba(255,71,87,.2); color: var(--high); border: 1px solid rgba(255,71,87,.35); }
+    .heat-mid { background: rgba(255,165,2,.2); color: var(--mid); border: 1px solid rgba(255,165,2,.35); }
+    .heat-low { background: rgba(46,213,115,.2); color: var(--low); border: 1px solid rgba(46,213,115,.35); }
+    .type-badge {
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      background: rgba(255,255,255,.07);
+      color: var(--muted);
+    }
+    .platform-dots {
+      font-size: 12px;
+      color: var(--muted);
+      margin-left: auto;
+    }
+    .ip-stat {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .ip-style {
+      font-size: 12px;
+      color: #a0a0c0;
+      line-height: 1.7;
+      padding: 10px 12px;
+      background: var(--card2);
+      border-radius: 10px;
+      border-left: 3px solid var(--accent4);
+    }
+    .ip-style strong { color: var(--accent2); }
+
+    /* ===== Platform Section (小红书/米游社) ===== */
+    .platform-section {
+      margin: 36px 0 0;
+    }
+    .platform-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .platform-icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .platform-icon.xhs { background: linear-gradient(135deg,#ff2442,#fe2c55); }
+    .platform-icon.mihoyo { background: linear-gradient(135deg,#3ea5d9,#1e90ff); }
+    .platform-header h3 {
+      font-size: 18px; font-weight: 700;
+    }
+    .platform-header .p-badge {
+      margin-left: auto;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.07);
+      color: var(--muted);
+    }
+
+    /* ===== Insight Box ===== */
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .insight-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+    }
+    .insight-box h3 {
+      font-size: 15px;
+      margin-bottom: 14px;
+      color: var(--accent2);
+    }
+    .insight-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .insight-list li {
+      padding: 9px 12px;
+      background: var(--card2);
+      border-radius: 8px;
+      font-size: 12.5px;
+      line-height: 1.7;
+      border-left: 3px solid var(--accent4);
+    }
+    .insight-list li strong { color: var(--accent4); }
+
+    /* ===== Quick Links Section ===== */
+    .quick-links {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 48px;
+    }
+    .quick-links h3 {
+      font-size: 17px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 10px;
+    }
+    .link-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--card2);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 13px;
+      transition: background .2s;
+    }
+    .link-item:hover {
+      background: var(--border);
+      color: var(--accent4);
+    }
+    .link-item .icon { font-size: 18px; }
+    .link-item .desc {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ===== Placeholder for future weeks ===== */
+    .week-placeholder {
+      background: var(--card);
+      border: 2px dashed var(--border);
+      border-radius: 16px;
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+    .week-placeholder .icon { font-size: 48px; margin-bottom: 16px; opacity: .4; }
+    .week-placeholder p { font-size: 14px; }
+    .week-placeholder .hint {
+      margin-top: 12px;
+      font-size: 12px;
+      opacity: .6;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 28px 16px;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    @media (max-width: 600px) {
+      .ip-grid { grid-template-columns: 1fr; }
+      .insight-grid { grid-template-columns: 1fr; }
+      .link-grid { grid-template-columns: 1fr; }
+      .week-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<div class="header">
+  <h1>🔥 热点 IP 周刊</h1>
+  <p class="subtitle">游戏 · 动漫 · 影视 · 跨媒体 IP 热度追踪 | 覆盖 B站 / 微博 / 抖音 / 百度 / 小红书 / 米游社 | 每周持续更新</p>
+  <div class="live-badge">
+    <span class="dot"></span>
+    持续更新中 · 最近更新：2026年4月27日
+  </div>
+</div>
+
+<!-- ===== Week Navigation ===== -->
+<nav class="week-nav" id="weekNav">
+  <a href="#w17" class="active">📅 第17周（4.21-4.27）</a>
+  <!-- 未来周次在这里追加 -->
+  <a href="#" class="week-new" onclick="alert('下一期即将发布，敬请期待！')">⏳ 第18周（待更新）</a>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== -->
+  <!-- 第17周：2026.04.21 - 04.27 -->
+  <!-- ==================== -->
+  <section class="week-section" id="w17">
+    <div class="week-header">
+      <span class="week-badge">W17</span>
+      <div class="week-title">
+        <h2>2026年4月第4周 · 热点IP榜</h2>
+        <div class="date-range">📅 数据周期：2026年4月21日 — 4月27日 | 来源：B站 / 微博 / 抖音 / 百度 / 小红书 / 米游社</div>
+      </div>
+      <div class="week-tags">
+        <span class="week-tag">🎮 米哈游宇宙</span>
+        <span class="week-tag">⚔️ 王者×哪吒</span>
+        <span class="week-tag">🌸 2026春番</span>
+        <span class="week-tag">🌌 明日方舟7周年</span>
+        <span class="week-tag">🆕 归环新游</span>
+      </div>
+    </div>
+
+    <!-- 本周TOP热门IP -->
+    <h3 style="font-size:17px;margin-bottom:16px;color:var(--accent2)">🏆 本周综合热度 TOP 10</h3>
+    <div class="ip-grid">
+
+      <!-- #1 -->
+      <div class="ip-card">
+        <img class="ip-card-img" src="https://upload-static.hoyoverse.com/hk4e/upload/fb/common.jpg" alt="原神"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="ip-card-img-placeholder" style="display:none">✨</div>
+        <div class="ip-card-rank">
+          <span class="rank-num top3">1</span>
+          <span class="rank-name"><a href="https://www.baidu.com/s?wd=原神至冬版本" target="_blank" title="百度搜索：原神至冬版本">原神（至冬版本·幕后故事）</a></span>
+        </div>
+        <div class="ip-card-body">
+          <div class="ip-meta">
+            <span class="heat-badge heat-high">🔥 全网最热</span>
+            <span class="type-badge">开放世界·二次元</span>
+            <span class="platform-dots">📺B站 🔵百度 🎵抖音</span>
+          </div>
+          <div class="ip-stat">📊 百度热搜指数 100,449（榜首）| B站播放215万+</div>
+          <div class="ip-style"><strong>IP风格：</strong>多元奇幻世界，至冬冰雪精灵，旅行者形象，米哈游旗舰IP，七国美学混合</div>
+        </div>
+      </div>
+
+      <!-- #2 -->
+      <div class="ip-card">
+        <img class="ip-card-img" src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d4/b5/ec/d4b5ecd8-f14f-04a8-b9a6-2e53ed9eade4/AppIcon-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg" alt="王者荣耀×哪吒"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="ip-card-img-placeholder" style="display:none">⚔️</div>
+        <div class="ip-card-rank">
+          <span class="rank-num top3">2</span>
+          <span class="rank-name"><a href="https://s.weibo.com/we?q=王者荣耀哪吒联动" target="_blank" title="微博搜索：王者荣耀哪吒联动">王者荣耀 × 哪吒之魔童闹海联动</a></span>
+        </div>
+        <div class="ip-card-body">
+          <div class="ip-meta">
+            <span class="heat-badge heat-high">🔥 高热度</span>
+            <span class="type-badge">MOBA·国漫联动</span>
+            <span class="platform-dots">📺B站 🔴微博 🎵抖音</span>
+          </div>
+          <div class="ip-stat">📊 B站播放305万+ | 抖音累计热度超2000万</div>
+          <div class="ip-style"><strong>IP风格：</strong>中国神话英雄，敖隐·哪吒·敖丙群像，国漫×游戏的破圈联动示范，东方神话美学</div>
+        </div>
+      </div>
+
+      <!-- #3 -->
+      <div class="ip-card">
+        <img class="ip-card-img" src="https://static.wikia.nocookie.net/mrfz/images/3/30/Arknights_logo.png/revision/latest?cb=20220321013018" alt="明日方舟"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="ip-card-img-placeholder" style="display:none">🌌</div>
+        <div class="ip-card-rank">
+          <span class="rank-num top3">3</span>
+          <span class="rank-name"><a href="https://search.bilibili.com/all?keyword=明日方舟七周年" target="_blank" title="B站搜索：明日方舟七周年">明日方舟 七周年庆典</a></span>
+        </div>
+        <div class="ip-card-body">
+          <div class="ip-meta">
+            <span class="heat-badge heat-high">🔥 高热度</span>
+            <span class="type-badge">塔防·手游</span>
+            <span class="platform-dots">📺B站 🎵抖音 🔵百度</span>
+          </div>
+          <div class="ip-stat">📊 B站播放262万+ | 老玩家集体回归潮</div>
+          <div class="ip-style"><strong>IP风格：</strong>后启示录末世，动物拟人化干员，深度剧情叙事，赛博朋克暗黑美学，鹰角运营成熟</div>
+        </div>
+      </div>
+
+      <!-- #4 -->
+      <div class="ip-card">
+        <img class="ip-card-img" src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2545734536.jpg" alt="羊村守护者"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="ip-card-img-placeholder" style="display:none">🐏</div>
+        <div class="ip-card-rank">
+          <span class="rank-num">4</span>
+          <span class="rank-name"><a href="https://www.douyin.com/search/羊村守护者13" target="_blank" title="抖音搜索：羊村守护者13">羊村守护者13 首发预告</a></span>
+        </div>
+        <div class="ip-card-body">
+          <div class="ip-meta">
+            <span class="heat-badge heat-high">🔥 高热度</span>
+            <span class="type-badge">动漫·国创</span>
+            <span class="platform-dots">🎵抖音 🔴微博</span>
+          </div>
+          <div class="ip-stat">📊 抖音热度768万+ | 全年龄情怀向爆发</div>
+          <div class="ip-style"><strong>IP风格：</strong>喜羊羊系列续集，萌系卡通+热血战斗，成年粉丝基础雄厚，国产动漫长青树</div>
+        </div>
+      </div>
+
+      <!-- #5 -->
+      <div class="ip-card">
+        <img class="ip-card-img" src="https://img.tapimg.com/market/images/game_icon/9ee3146d-4f25-4380-bdfd-47e8dcd0c03b_360_360.png" alt="归环"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="ip-card-img-placeholder" style="display:none">🌿</div>
+        <div class="ip-card-rank">
+          <span class="rank-num">5</span>
+          <span class="rank-name"><a href="https://search.bilibili.com/all?keyword=归环概念片回响" target="_blank" title="B站搜索：归环">《归环》概念片：回响（新游）</a></span>
+        </div>
+        <div class="ip-card-body">
+          <div class="ip-meta">
+            <span class="heat-badge heat-high">🔥 高热度</span>
+            <span class="type-badge">新游·二次元</span>
+            <span class="platform-dots">📺B站</span>
+          </div>
+          <div class="ip-stat">📊 B站播放398万+ | 新游期待度极高</div>
+          <div class="ip-style"><strong>IP风格：</strong>废土赛博朋克 × 东方美学融合，末日少女主角，视觉质感精良，世界观叙事驱动</div>
+        </div>
+      </div>
+
+      <!-- #6 -->
+      <div class="ip-card">
+        <img class="ip-card-img" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/af/17/85/af1785f4-765a-a166-e8d6-8f8c026fdd90/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg" alt="崩坏：星穹铁道"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="ip-card-img-placeholder" style="display:none">🛸</div>
+        <div class="ip-card-rank">
+          <span class="rank-num">6</span>
+          <span class="rank-name"><a href="https://search.bilibili.com/all?keyword=崩坏星穹铁道三周年" target="_blank" title="B站搜索：崩坏星穹铁道三周年">崩坏：星穹铁道 三周年庆典</a></span>
+        </div>
+        <div class="ip-card-body">
+          <div class="ip-meta">
+            <span class="heat-badge heat-high">🔥 高热度</span>
+            <span class="type-badge">RPG·太空歌剧</span>
+            <span class="platform-dots">📺B站 🎵抖音</span>
+          </div>
+          <div class="ip-stat">📊 系列累计播放超300万 | 生日会内容密集</div>
+          <div class="ip-style"><strong>IP风格：</strong>太空列车穿梭宇宙，星际文明世界观，精美角色立绘，米哈游第二大IP</div>
+        </div>
+      </div>
+
+      <!-- #7 -->
+      <div class="ip-card">
+        <img class="ip-card-img" src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2545734536.jpg" alt="游戏入侵"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="ip-card-img-placeholder" style="display:none">🎭</div>
+        <div class="ip-card-rank">
+          <span class="rank-num">7</span>
+          <span class="rank-name"><a href="https://www.douyin.com/search/游戏入侵" target="_blank" title="抖音搜索：游戏入侵">游戏入侵（动漫完结）</a></span>
+        </div>
+        <div class="ip-card-body">
+          <div class="ip-meta">
+            <span class="heat-badge heat-high">🔥 高热度</span>
+            <span class="type-badge">动漫·完结</span>
+            <span class="platform-dots">🎵抖音 🔴微博</span>
+          </div>
+          <div class="ip-stat">📊 抖音热度767万+ | 完结讨论量巨大</div>
+          <div class="ip-style"><strong>IP风格：</strong>游戏穿越现实融合，NPC自我意识觉醒，赛博世界美学，年轻受众强共鸣</div>
+        </div>
+      </div>
+
+      <!-- #8 -->
+      <div class="ip-card">
+        <img class="ip-card-img" src="https://myanimelist.net/images/anime/1171/156397l.jpg" alt="黄泉的使者"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="ip-card-img-placeholder" style="display:none">🌙</div>
+        <div class="ip-card-rank">
+          <span class="rank-num">8</span>
+          <span class="rank-name"><a href="https://search.bilibili.com/all?keyword=黄泉的使者" target="_blank" title="B站搜索：黄泉的使者">《黄泉的使者》（2026春番No.1）</a></span>
+        </div>
+        <div class="ip-card-body">
+          <div class="ip-media">
+            <span class="heat-badge heat-high">🔥 高热度</span>
+            <span class="type-badge">动漫·奇幻解谜</span>
+            <span class="platform-dots">📺B站 🔴微博</span>
+          </div>
+          <div class="ip-stat">⭐ 本季AAA级推荐 | 话题度极高</div>
+          <div class="ip-style"><strong>IP风格：</strong>奇幻世界×时间杀手设定，紧凑解谜叙事，神秘使者主角，本季最受期待新番</div>
+        </div>
+      </div>
+
+      <!-- #9 -->
+      <div class="ip-card">
+        <img class="ip-card-img" src="https://static.wikia.nocookie.net/wutheringwaves/images/e/e6/Site-logo.png/revision/latest?cb=20240511194340" alt="鸣潮"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="ip-card-img-placeholder" style="display:none">🌊</div>
+        <div class="ip-card-rank">
+          <span class="rank-num">9</span>
+          <span class="rank-name"><a href="https://www.baidu.com/s?wd=鸣潮绯雪" target="_blank" title="百度搜索：鸣潮绯雪">鸣潮 新角色·绯雪</a></span>
+        </div>
+        <div class="ip-card-body">
+          <div class="ip-meta">
+            <span class="heat-badge heat-mid">⚡ 中热度</span>
+            <span class="type-badge">开放世界·手游</span>
+            <span class="platform-dots">📺B站 🔵百度</span>
+          </div>
+          <div class="ip-stat">📊 B站播放171万+ | 新角色引发搜索高峰</div>
+          <div class="ip-style"><strong>IP风格：</strong>末世废土+声骸收集系统，绯雪·红色冰雪系女战士，库洛出品画面精良</div>
+        </div>
+      </div>
+
+      <!-- #10 -->
+      <div class="ip-card">
+        <img class="ip-card-img" src="https://static.wikia.nocookie.net/zenless-zone-zero/images/0/0d/Zenless_Zone_Zero_App_Icon.png/revision/latest?cb=20260313081252" alt="绝区零"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="ip-card-img-placeholder" style="display:none">🌆</div>
+        <div class="ip-card-rank">
+          <span class="rank-num">10</span>
+          <span class="rank-name"><a href="https://search.bilibili.com/all?keyword=绝区零28版本" target="_blank" title="B站搜索：绝区零2.8">绝区零 2.8版本更新</a></span>
+        </div>
+        <div class="ip-card-body">
+          <div class="ip-meta">
+            <span class="heat-badge heat-mid">⚡ 中热度</span>
+            <span class="type-badge">动作RPG·都市</span>
+            <span class="platform-dots">📺B站 🎵抖音</span>
+          </div>
+          <div class="ip-stat">📊 B站播放83万+ | 版本PV传播中</div>
+          <div class="ip-style"><strong>IP风格：</strong>都市赛博朋克×街头文化，绳网都市美学，Z世代角色群，米哈游第四大IP</div>
+        </div>
+      </div>
+
+    </div><!-- /ip-grid -->
+
+    <!-- ====== 小红书热榜 ====== -->
+    <div class="platform-section">
+      <div class="platform-header">
+        <div class="platform-icon xhs">📕</div>
+        <h3>小红书 游戏·动漫 热门笔记</h3>
+        <span class="p-badge">社区热议 Top 8</span>
+      </div>
+      <div class="ip-grid">
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://upload-static.hoyoverse.com/hk4e/upload/fb/common.jpg" alt="原神"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">✨</div>
+          <div class="ip-card-rank">
+            <span class="rank-num top3">1</span>
+            <span class="rank-name"><a href="https://www.xiaohongshu.com/search_result?keyword=原神至冬穿搭&type=1" target="_blank">原神 至冬版本角色穿搭合集</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-high">🔥 高热度</span>
+              <span class="type-badge">游戏·穿搭</span>
+              <span class="platform-dots">📕小红书</span>
+            </div>
+            <div class="ip-stat">❤️ 赞藏 12.8万+ | 至冬冰雪风穿搭灵感刷屏</div>
+            <div class="ip-style"><strong>IP风格：</strong>原神×时尚穿搭，至冬王国冰雪美学，旅行者/芙宁娜/那维莱特角色Cosplay与日常穿搭融合</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2545734536.jpg" alt="哪吒"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">🏮</div>
+          <div class="ip-card-rank">
+            <span class="rank-num top3">2</span>
+            <span class="rank-name"><a href="https://www.xiaohongshu.com/search_result?keyword=哪吒敖丙妆容&type=1" target="_blank">哪吒之魔童闹海 敖丙同款妆容教程</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-high">🔥 高热度</span>
+              <span class="type-badge">影视·美妆</span>
+              <span class="platform-dots">📕小红书</span>
+            </div>
+            <div class="ip-stat">❤️ 赞藏 9.6万+ | 国风妆容仿妆爆款</div>
+            <div class="ip-style"><strong>IP风格：</strong>国漫IP×美妆，敖丙龙角+青色系眼妆，东方神话角色美学向日常生活渗透</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/af/17/85/af1785f4-765a-a166-e8d6-8f8c026fdd90/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg" alt="崩坏星穹铁道"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">🛸</div>
+          <div class="ip-card-rank">
+            <span class="rank-num top3">3</span>
+            <span class="rank-name"><a href="https://www.xiaohongshu.com/search_result?keyword=星穹铁道三周年同人&type=1" target="_blank">星穹铁道 三周年同人绘画大赛</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-high">🔥 高热度</span>
+              <span class="type-badge">游戏·二创</span>
+              <span class="platform-dots">📕小红书</span>
+            </div>
+            <div class="ip-stat">❤️ 赞藏 7.2万+ | 同人画作质量极高</div>
+            <div class="ip-style"><strong>IP风格：</strong>米哈游二次元IP×UGC创作，流萤/花火/黄鹤同人大规模产出，精美立绘风格引领</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://static.wikia.nocookie.net/mrfz/images/3/30/Arknights_logo.png/revision/latest?cb=20220321013018" alt="明日方舟"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">🌌</div>
+          <div class="ip-card-rank">
+            <span class="rank-num">4</span>
+            <span class="rank-name"><a href="https://www.xiaohongshu.com/search_result?keyword=明日方舟七周年手办&type=1" target="_blank">明日方舟 七周年干员手办开箱</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-high">🔥 高热度</span>
+              <span class="type-badge">游戏·周边</span>
+              <span class="platform-dots">📕小红书</span>
+            </div>
+            <div class="ip-stat">❤️ 赞藏 5.4万+ | 周边消费热情高涨</div>
+            <div class="ip-style"><strong>IP风格：</strong>明日方舟×实体周边，W/逻各斯/阿米娅手办，赛博末世美学向三次元实物转化</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://myanimelist.net/images/anime/1171/156397l.jpg" alt="黄泉的使者"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">🌙</div>
+          <div class="ip-card-rank">
+            <span class="rank-num">5</span>
+            <span class="rank-name"><a href="https://www.xiaohongshu.com/search_result?keyword=黄泉的使者壁纸&type=1" target="_blank">《黄泉的使者》追番打卡 & 壁纸分享</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-mid">⚡ 中热度</span>
+              <span class="type-badge">动漫·新番</span>
+              <span class="platform-dots">📕小红书</span>
+            </div>
+            <div class="ip-stat">❤️ 赞藏 4.1万+ | 新番安利帖活跃</div>
+            <div class="ip-style"><strong>IP风格：</strong>春番No.1×追番文化，神秘使者主角壁纸/头像分享，奇幻暗黑画风受女性用户青睐</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://static.wikia.nocookie.net/wutheringwaves/images/e/e6/Site-logo.png/revision/latest?cb=20240511194340" alt="鸣潮"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">🌊</div>
+          <div class="ip-card-rank">
+            <span class="rank-num">6</span>
+            <span class="rank-name"><a href="https://www.xiaohongshu.com/search_result?keyword=鸣潮绯雪&type=1" target="_blank">鸣潮 绯雪角色解析 & 绘画参考</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-mid">⚡ 中热度</span>
+              <span class="type-badge">游戏·攻略</span>
+              <span class="platform-dots">📕小红书</span>
+            </div>
+            <div class="ip-stat">❤️ 赞藏 3.6万+</div>
+            <div class="ip-style"><strong>IP风格：</strong>鸣潮新角色×绘画素材，绯雪红色冰雪系少女设计解析，废土美学角色设计参考</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://static.wikia.nocookie.net/zenless-zone-zero/images/0/0d/Zenless_Zone_Zero_App_Icon.png/revision/latest?cb=20260313081252" alt="绝区零"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">🌆</div>
+          <div class="ip-card-rank">
+            <span class="rank-num">7</span>
+            <span class="rank-name"><a href="https://www.xiaohongshu.com/search_result?keyword=绝区零28攻略&type=1" target="_blank">绝区零 2.8版本 新角色 & 攻略汇总</a></span> 新角色 & 攻略汇总</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-mid">⚡ 中热度</span>
+              <span class="type-badge">游戏·攻略</span>
+              <span class="platform-dots">📕小红书</span>
+            </div>
+            <div class="ip-stat">❤️ 赞藏 2.9万+</div>
+            <div class="ip-style"><strong>IP风格：</strong>绝区零×版本攻略，都市赛博朋克角色养成指南，绳网都市美学影响穿搭趋势</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://img.tapimg.com/market/images/game_icon/9ee3146d-4f25-4380-bdfd-47e8dcd0c03b_360_360.png" alt="归环"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">🌿</div>
+          <div class="ip-card-rank">
+            <span class="rank-num">8</span>
+            <span class="rank-name"><a href="https://www.xiaohongshu.com/search_result?keyword=归环概念片&type=1" target="_blank">《归环》概念片逐帧分析</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-mid">⚡ 中热度</span>
+              <span class="type-badge">新游·解析</span>
+              <span class="platform-dots">📕小红书</span>
+            </div>
+            <div class="ip-stat">❤️ 赞藏 2.3万+ | 细节考据党活跃</div>
+            <div class="ip-style"><strong>IP风格：</strong>新游《归环》×深度解析，概念片美术/设定/彩蛋逐帧拆解，废土东方美学引发关注</div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /小红书 -->
+
+    <!-- ====== 米游社热榜 ====== -->
+    <div class="platform-section">
+      <div class="platform-header">
+        <div class="platform-icon mihoyo">🌟</div>
+        <h3>米游社 游戏·社区 热议榜</h3>
+        <span class="p-badge">官方社区 Top 8</span>
+      </div>
+      <div class="ip-grid">
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://upload-static.hoyoverse.com/hk4e/upload/fb/common.jpg" alt="原神"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">✨</div>
+          <div class="ip-card-rank">
+            <span class="rank-num top3">1</span>
+            <span class="rank-name"><a href="https://www.miyoushe.com/ys/search?keyword=原神至冬主线" target="_blank">原神 至冬主线剧情讨论 & 剧透楼</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-high">🔥 高热度</span>
+              <span class="type-badge">游戏·剧情</span>
+              <span class="platform-dots">🌟米游社</span>
+            </div>
+            <div class="ip-stat">💬 评论 3.2万+ | 占据社区头条一周</div>
+            <div class="ip-style"><strong>IP风格：</strong>原神至冬篇叙事高潮，冰之神/旅行者情感线，芙宁娜回归引发大规模讨论</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/af/17/85/af1785f4-765a-a166-e8d6-8f8c026fdd90/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg" alt="崩坏星穹铁道"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">🛸</div>
+          <div class="ip-card-rank">
+            <span class="rank-num top3">2</span>
+            <span class="rank-name"><a href="https://www.miyoushe.com/sr/search?keyword=星穹铁道三周年" target="_blank">星穹铁道 三周年庆典 活动攻略汇总</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-high">🔥 高热度</span>
+              <span class="type-badge">游戏·攻略</span>
+              <span class="platform-dots">🌟米游社</span>
+            </div>
+            <div class="ip-stat">💬 评论 2.8万+ | 兑换码/活动/卡池全收录</div>
+            <div class="ip-style"><strong>IP风格：</strong>星铁三周年狂欢模式，300抽福利/纪念角色/生日会活动，玩家参与度爆表</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://static.wikia.nocookie.net/zenless-zone-zero/images/0/0d/Zenless_Zone_Zero_App_Icon.png/revision/latest?cb=20260313081252" alt="绝区零"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">🌆</div>
+          <div class="ip-card-rank">
+            <span class="rank-num top3">3</span>
+            <span class="rank-name"><a href="https://www.miyoushe.com/zzz/search?keyword=绝区零28新角色" target="_blank">绝区零 2.8版本 新角色强度评测</a></span> 新角色强度评测</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-high">🔥 高热度</span>
+              <span class="type-badge">游戏·攻略</span>
+              <span class="platform-dots">🌟米游社</span>
+            </div>
+            <div class="ip-stat">💬 评论 1.9万+ | 强度党 vs 颜党激辩</div>
+            <div class="ip-style"><strong>IP风格：</strong>绝区零版本更新核心讨论场，新S级角色机制解析，绳师/击破/强攻定位争论</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d4/b5/ec/d4b5ecd8-f14f-04a8-b9a6-2e53ed9eade4/AppIcon-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg" alt="王者荣耀"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">⚔️</div>
+          <div class="ip-card-rank">
+            <span class="rank-num">4</span>
+            <span class="rank-name"><a href="https://s.weibo.com/we?q=王者荣耀哪吒联动皮肤" target="_blank">王者荣耀 × 哪吒联动皮肤 效果测评</a></span> 效果测评</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-high">🔥 高热度</span>
+              <span class="type-badge">游戏·皮肤</span>
+              <span class="platform-dots">🌟米游社（联动话题）</span>
+            </div>
+            <div class="ip-stat">💬 跨平台扩散 | 皮肤手感/特效评分</div>
+            <div class="ip-style"><strong>IP风格：</strong>王者×哪吒联动，敖隐敖丙皮肤品质讨论，中国神话英雄MOBA化视觉呈现</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://static.wikia.nocookie.net/wutheringwaves/images/e/e6/Site-logo.png/revision/latest?cb=20240511194340" alt="鸣潮"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">🌊</div>
+          <div class="ip-card-rank">
+            <span class="rank-num">5</span>
+            <span class="rank-name"><a href="https://www.kurobbs.com/m/search?keyword=鸣潮绯雪" target="_blank">鸣潮 绯雪 角色培养 & 配队攻略</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-mid">⚡ 中热度</span>
+              <span class="type-badge">游戏·攻略</span>
+              <span class="platform-dots">🌟库洛社区</span>
+            </div>
+            <div class="ip-stat">💬 库洛社区热帖TOP3</div>
+            <div class="ip-style"><strong>IP风格：</strong>鸣潮新角色绯雪培养路线，声骸搭配/配队推荐/输出循环，红色冰雪系战斗美学</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://static.wikia.nocookie.net/mrfz/images/3/30/Arknights_logo.png/revision/latest?cb=20220321013018" alt="明日方舟"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">🌌</div>
+          <div class="ip-card-rank">
+            <span class="rank-num">6</span>
+            <span class="rank-name"><a href="https://www.miyoushe.com/bh3/search?keyword=明日方舟七周年" target="_blank">明日方舟 七周年庆 免费十连 & 剧情</a></span> 免费十连 & 剧情</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-mid">⚡ 中热度</span>
+              <span class="type-badge">游戏·活动</span>
+              <span class="platform-dots">🌟官服社区</span>
+            </div>
+            <div class="ip-stat">💬 老博士集体泪目</div>
+            <div class="ip-style"><strong>IP风格：</strong>方舟七周年情怀爆发，免费资源/限定干员/回顾剧情，后启示录叙事感染力持久</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://img.tapimg.com/market/images/game_icon/9ee3146d-4f25-4380-bdfd-47e8dcd0c03b_360_360.png" alt="归环"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">🌿</div>
+          <div class="ip-card-rank">
+            <span class="rank-num">7</span>
+            <span class="rank-name"><a href="https://www.xiaohongshu.com/search_result?keyword=归环新游&type=1" target="_blank">《归环》预约突破百万 & 玩法猜测</a></span> 玩法猜测</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-mid">⚡ 中热度</span>
+              <span class="type-badge">新游·讨论</span>
+              <span class="platform-dots">🌟TapTap/社区</span>
+            </div>
+            <div class="ip-stat">💬 预约量激增中</div>
+            <div class="ip-style"><strong>IP风格：</strong>《归环》新游期待值拉满，玩法猜测（开放世界?动作RPG?），概念片质量引发行业关注</div>
+          </div>
+        </div>
+
+        <div class="ip-card">
+          <img class="ip-card-img" src="https://myanimelist.net/images/anime/1171/156397l.jpg" alt="异兽魔都"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ip-card-img-placeholder" style="display:none">🌍</div>
+          <div class="ip-card-rank">
+            <span class="rank-num">8</span>
+            <span class="rank-name"><a href="https://search.bilibili.com/all?keyword=异兽魔都第二季" target="_blank">《异兽魔都》第二季 追番讨论</a></span> 追番讨论</a></span>
+          </div>
+          <div class="ip-card-body">
+            <div class="ip-meta">
+              <span class="heat-badge heat-low">💚 低热度</span>
+              <span class="type-badge">动漫·续作</span>
+              <span class="platform-dots">🌟泛ACG区</span>
+            </div>
+            <div class="ip-stat">💬 六年等待终迎续集</div>
+            <div class="ip-style"><strong>IP风格：</strong>经典暗黑奇幻续作，《异兽魔都》第二季回归，林田球独特画风+都市异类世界观</div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /米游社 -->
+
+    <!-- IP洞察 -->
+    <h3 style="font-size:17px;margin:32px 0 16px;color:var(--accent2)">💡 本周IP风格洞察</h3>
+    <div class="insight-grid">
+      <div class="insight-box">
+        <h3>🎮 游戏IP趋势</h3>
+        <ul class="insight-list">
+          <li><strong>米哈游宇宙垄断：</strong>原神、星铁、绝区零集体上榜，二次元开放世界已成主流范式</li>
+          <li><strong>中国神话崛起：</strong>王者×哪吒联动、敖隐/敖丙皮肤，国风神话角色热度超越西幻</li>
+          <li><strong>老IP情怀持久：</strong>明日方舟7周年、植物大战僵尸，凭纪念节点持续破圈</li>
+          <li><strong>新游内容化预热：</strong>《归环》《异环》以概念片预热，玩法让位给世界观叙事</li>
+        </ul>
+      </div>
+      <div class="insight-box">
+        <h3>🌸 动漫IP趋势</h3>
+        <ul class="insight-list">
+          <li><strong>反套路猎奇盛行：</strong>《黄泉的使者》《婚姻剧毒》《杀手青春》，反常规设定吸睛</li>
+          <li><strong>大师创作者回归：</strong>高桥留美子《MAO摩绪》、黑子篮球作者新作，创作者IP号召力强</li>
+          <li><strong>国创持续破圈：</strong>羊村守护者全年龄化、游戏入侵赛博题材，国创覆盖度提升</li>
+          <li><strong>多元表达常态化：</strong>《婚姻剧毒》GL/BL融合，受众包容度提高</li>
+        </ul>
+      </div>
+      <div class="insight-box">
+        <h3>🌐 跨平台规律</h3>
+        <ul class="insight-list">
+          <li><strong>B站=核心阵地：</strong>播放/弹幕/二创密度最高，是IP热度风向标</li>
+          <li><strong>小红书=种草破圈：</strong>穿搭/美妆/周边向内容爆发，女性用户群体推动IP生活方式化传播</li>
+          <li><strong>米游社=官方社区：</strong>原神/星铁/绝区零玩家核心讨论场，剧情/攻略/强度讨论最集中</li>
+          <li><strong>抖音=娱乐破圈：</strong>联动内容短视频效果最佳，二创扩大受众</li>
+          <li><strong>微博=舆论场：</strong>话题标签运营关键，情怀梗与引战内容易冲榜</li>
+          <li><strong>百度=大众认知：</strong>原神/王者/和平精英已进入大众文化范畴</li>
+        </ul>
+      </div>
+      <div class="insight-box">
+        <h3>🎯 热门形象关键词</h3>
+        <ul class="insight-list">
+          <li><strong>神话神祇：</strong>敖丙·哪吒·太乙，东方神话人物成最火角色模板</li>
+          <li><strong>反差萌：</strong>大叔变初中生、史莱姆无敌帝王，反差类角色圈粉效率高</li>
+          <li><strong>末世少女：</strong>鸣潮绯雪、归环主角、明日干员，末日+少女组合持续热门</li>
+          <li><strong>宇宙旅行者：</strong>原神旅行者、星穹列车，"旅行者"人设代入感极强</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 快捷链接 -->
+    <div class="quick-links">
+      <h3>🔗 本周各平台完整热榜链接</h3>
+      <div class="link-grid">
+        <a href="定制机热门IP周报20260427.html" target="_blank" class="link-item">
+          <span class="icon">📄</span>
+          <div>
+            <div>本周完整热榜报告（HTML）</div>
+            <div class="desc">含6大平台全部榜单详情</div>
+          </div>
+        </a>
+        <a href="https://search.bilibili.com/all?keyword=战神4" target="_blank" class="link-item">
+          <span class="icon">⚡</span>
+          <div>
+            <div>B站搜索：战神4</div>
+            <div class="desc">B站热榜第1名 · 单机游戏</div>
+          </div>
+        </a>
+        <a href="https://www.baidu.com/s?wd=原神" target="_blank" class="link-item">
+          <span class="icon">✨</span>
+          <div>
+            <div>百度搜索：原神</div>
+            <div class="desc">百度热搜第1名 · 至冬版本</div>
+          </div>
+        </a>
+        <a href="https://s.weibo.com/we?q=王者荣耀哪吒" target="_blank" class="link-item">
+          <span class="icon">⚔️</span>
+          <div>
+            <div>微博搜索：王者荣耀×哪吒</div>
+            <div class="desc">跨平台最热联动IP</div>
+          </div>
+        </a>
+        <a href="https://search.bilibili.com/all?keyword=明日方舟七周年" target="_blank" class="link-item">
+          <span class="icon">🌌</span>
+          <div>
+            <div>B站搜索：明日方舟七周年</div>
+            <div class="desc">老玩家回归潮</div>
+          </div>
+        </a>
+        <a href="https://search.bilibili.com/all?keyword=黄泉的使者" target="_blank" class="link-item">
+          <span class="icon">🌙</span>
+          <div>
+            <div>B站搜索：黄泉的使者</div>
+            <div class="desc">2026春番AAA级推荐</div>
+          </div>
+        </a>
+        <a href="https://search.bilibili.com/all?keyword=归环" target="_blank" class="link-item">
+          <span class="icon">🌿</span>
+          <div>
+            <div>B站搜索：归环</div>
+            <div class="desc">新游概念片 · 期待度极高</div>
+          </div>
+        </a>
+        <a href="https://www.douyin.com/search/哪吒之魔童闹海" target="_blank" class="link-item">
+          <span class="icon">📺</span>
+          <div>
+            <div>抖音搜索：哪吒之魔童闹海</div>
+            <div class="desc">国产神话动画电影IP</div>
+          </div>
+        </a>
+        <a href="https://www.xiaohongshu.com/search_result?keyword=%E6%B8%B8%E6%88%8F%E5%8A%A8%E6%BC%AB" target="_blank" class="link-item">
+          <span class="icon">📕</span>
+          <div>
+            <div>小红书 游戏·动漫 热搜</div>
+            <div class="desc">穿搭/美妆/周边/二创 种草社区</div>
+          </div>
+        </a>
+        <a href="https://www.miyoushe.com/ys/" target="_blank" class="link-item">
+          <span class="icon">🌟</span>
+          <div>
+            <div>米游社 原神社区</div>
+            <div class="desc">官方玩家社区 · 剧情/攻略讨论中心</div>
+          </div>
+        </a>
+        <a href="https://www.miyoushe.com/sr/" target="_blank" class="link-item">
+          <span class="icon">🌟</span>
+          <div>
+            <div>米游社 星铁社区</div>
+            <div class="desc">崩坏：星穹铁道官方社区</div>
+          </div>
+        </a>
+        <a href="https://www.kurobbs.com/" target="_blank" class="link-item">
+          <span class="icon">🌊</span>
+          <div>
+            <div>库洛社区（鸣潮）</div>
+            <div class="desc">鸣潮官方论坛 · 攻略/讨论</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </section><!-- /W17 -->
+
+  <!-- ===== 未来周次占位 ===== -->
+  <section class="week-section" id="w18">
+    <div class="week-header">
+      <span class="week-badge" style="background:linear-gradient(135deg,#444,#666)">W18</span>
+      <div class="week-title">
+        <h2>2026年5月第1周 · 待更新</h2>
+        <div class="date-range">📅 数据周期：2026年4月28日 — 5月4日</div>
+      </div>
+    </div>
+    <div class="week-placeholder">
+      <div class="icon">📝</div>
+      <p>下一期周刊正在整理中...</p>
+      <p class="hint">每周一自动更新上周数据，敬请期待 ✨</p>
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+<footer>
+  <p>🔥 热点IP周刊 | 游戏·动漫·跨媒体IP热度追踪</p>
+  <p style="margin-top:6px">数据来源：B站 / 微博 / 抖音 / 百度 / 小红书 / 米游社 / 飞瓜数据 / 幻米热榜 / 四六啦工具</p>
+  <p style="margin-top:6px">本报告仅供参考 · 链接指向各平台搜索页 · 每周一更新</p>
+</footer>
+
+</body>
+</html>
