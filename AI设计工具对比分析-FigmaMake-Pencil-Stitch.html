@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 设计工具对比分析：Figma Make vs Pencil vs Stitch</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d28;
+    --card-hover: #222636;
+    --border: #2a2e3d;
+    --text: #e8eaed;
+    --text-secondary: #9aa0b0;
+    --accent-figma: #a259ff;
+    --accent-pencil: #ff6b35;
+    --accent-stitch: #4285f4;
+    --success: #34c759;
+    --warning: #ff9500;
+    --danger: #ff3b30;
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 40px 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 48px; }
+  .header h1 {
+    font-size: 32px; font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-figma), var(--accent-pencil), var(--accent-stitch));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+  }
+  .header .subtitle { font-size: 16px; color: var(--text-secondary); }
+  .header .date { font-size: 13px; color: var(--text-secondary); opacity: 0.6; margin-top: 8px; }
+
+  /* Quick Summary Cards */
+  .summary-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+  .summary-card {
+    background: var(--card); border-radius: var(--radius);
+    padding: 24px; border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .summary-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
+  .summary-card.figma { border-top: 3px solid var(--accent-figma); }
+  .summary-card.pencil { border-top: 3px solid var(--accent-pencil); }
+  .summary-card.stitch { border-top: 3px solid var(--accent-stitch); }
+  .summary-card .tool-name {
+    font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 10px;
+    margin-bottom: 4px;
+  }
+  .summary-card figma .tool-name { color: var(--accent-figma); }
+  .summary-card pencil .tool-name { color: var(--accent-pencil); }
+  .summary-card stitch .tool-name { color: var(--accent-stitch); }
+  .summary-card .tagline { font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; }
+  .summary-card .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .summary-card .badge {
+    font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500;
+  }
+  .badge.paid { background: rgba(162,89,255,0.15); color: var(--accent-figma); }
+  .badge.freemium { background: rgba(255,107,53,0.15); color: var(--accent-pencil); }
+  .badge.free { background: rgba(66,133,244,0.15); color: var(--accent-stitch); }
+  .summary-card .one-line { font-size: 13.5px; line-height: 1.7; }
+
+  /* Section */
+  .section { margin-bottom: 44px; }
+  .section-title {
+    font-size: 22px; font-weight: 700; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-title::before {
+    content: ''; width: 4px; height: 24px; border-radius: 2px;
+    background: linear-gradient(180deg, var(--accent-figma), var(--accent-stitch));
+  }
+
+  /* Comparison Table */
+  .compare-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    background: var(--card); border-radius: var(--radius);
+    overflow: hidden; border: 1px solid var(--border);
+  }
+  .compare-table thead th {
+    background: #222636; padding: 16px 18px; text-align: left;
+    font-size: 14px; font-weight: 600; color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table thead th:first-child { width: 160px; }
+  .compare-table tbody td {
+    padding: 16px 18px; font-size: 14px; border-bottom: 1px solid var(--border);
+    vertical-align: top; line-height: 1.75;
+  }
+  .compare-table tbody tr:last-child td { border-bottom: none; }
+  .compare-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+  .dim-label { font-weight: 600; color: var(--text); white-space: nowrap; }
+
+  /* Score Bar */
+  .score-bar { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+  .score-track { flex: 1; height: 6px; background: #2a2e3d; border-radius: 3px; overflow: hidden; }
+  .score-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+  .score-fill.high { background: var(--success); }
+  .score-fill.mid { background: var(--warning); }
+  .score-fill.low { background: var(--danger); }
+  .score-val { font-size: 12px; font-weight: 700; min-width: 30px; }
+
+  /* Pros/Cons Tags */
+  .pro-tag {
+    display: inline-block; font-size: 12.5px; padding: 4px 12px; border-radius: 6px;
+    margin: 3px 4px 3px 0; background: rgba(52,199,89,0.1); color: var(--success);
+  }
+  .con-tag {
+    display: inline-block; font-size: 12.5px; padding: 4px 12px; border-radius: 6px;
+    margin: 3px 4px 3px 0; background: rgba(255,59,48,0.1); color: var(--danger);
+  }
+
+  /* Verdict Box */
+  .verdict-box {
+    background: linear-gradient(135deg, rgba(162,89,255,0.08), rgba(66,133,244,0.08));
+    border: 1px solid rgba(162,89,255,0.2); border-radius: var(--radius);
+    padding: 28px 32px; margin-top: 40px;
+  }
+  .verdict-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+  .verdict-item { display: flex; gap: 16px; margin-bottom: 14px; align-items: flex-start; }
+  .verdict-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .verdict-item strong { color: var(--text); }
+  .verdict-item p { font-size: 14px; color: var(--text-secondary); }
+
+  /* Footer */
+  .footer {
+    text-align: center; margin-top: 48px; padding-top: 24px;
+    border-top: 1px solid var(--border); font-size: 12px; color: var(--text-secondary);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <h1>🔍 AI 设计工具三维对比分析</h1>
+  <p class="subtitle">Figma Make · Pencil · Google Stitch — 从优势、修改灵活度、劣势全面拆解</p>
+  <p class="date">数据截止：2026年4月 | 来源：公开评测 + 官方文档</p>
+</div>
+
+<!-- Quick Summary -->
+<div class="summary-row">
+  <div class="summary-card figma">
+    <div class="tool-name">🟣 Figma Make</div>
+    <div class="tagline">Figma 原生 AI「氛围编码」引擎</div>
+    <div class="meta">
+      <span class="badge paid">$20/月 (Beta)</span>
+      <span class="badge paid">积分制即将上线</span>
+    </div>
+    <p class="one-line">定位：<strong>设计→代码</strong>。深度集成 Figma 生态，将设计文件转化为可交互原型和前端代码。适合已有 Figma 工作流的团队。</p>
+  </div>
+  <div class="summary-card pencil">
+    <div class="tool-name">🟠 Pencil AI</div>
+    <div class="tagline">AI 广告创意生成与预测平台</div>
+    <div class="meta">
+      <span class="badge freemium">$14/月起</span>
+      <span class="badge freemium">Pro 需询价</span>
+    </div>
+    <p class="one-line">定位：<strong>营销素材生产</strong>。面向广告主，基于 $10亿+ 广告支出数据的创意生成+效果预测平台。核心是 Pencil Score。</p>
+  </div>
+  <div class="summary-card stitch">
+    <div class="tool-name">🔵 Google Stitch</div>
+    <div class="tagline">Google Labs AI UI 设计工具</div>
+    <div class="meta">
+      <span class="badge free">完全免费</span>
+      <span class="badge free">实验性产品</span>
+    </div>
+    <p class="one-line">定位：<strong>文字/草图→UI+代码</strong>。Google 出品，从提示词或草图直接生成高保真 UI 并导出代码（含 Flutter）。目前最强免费方案。</p>
+  </div>
+</div>
+
+<!-- Dimension 1: 核心优势 -->
+<div class="section">
+  <h2 class="section-title">维度一 ✅ 核心优势</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>对比项</th>
+        <th style="color:var(--accent-figma)">🟣 Figma Make</th>
+        <th style="color:var(--accent-pencil)">🟠 Pencil AI</th>
+        <th style="color:var(--accent-stitch)">🔵 Google Stitch</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="dim-label">生态整合</td>
+        <td><strong class="pro-tag">无敌</strong> 原生集成 Figma，与 Design 文件、Dev Mode、Slides 无缝衔接，设计师无需离开环境</td>
+        <td>支持 Adobe Firefly 导出、团队协作链接分享，但独立于主流设计工具</td>
+        <td><strong class="pro-tag">强</strong> 可导出 Figma 格式（保留图层+自动布局），融入现有工作流</td>
+      </tr>
+      <tr>
+        <td class="dim-label">生成速度</td>
+        <td>简单原型<strong>几分钟</strong>完成，内置热更新预览</td>
+        <td><strong>2-3 分钟</strong>生成图文+视频广告素材</td>
+        <td><strong>&lt;1 分钟</strong>生成 5 屏完整应用 UI，速度最快</td>
+      </tr>
+      <tr>
+        <td class="dim-label">独特卖点</td>
+        <td>"懂"设计层级——不是复制像素而是理解组件结构，自动添加 SEO/ARIA 标签，集成 Supabase 后端</td>
+        <td><strong>Pencil Score</strong>——基于 $10亿+ 广告数据的投放前效果预测，这是独家壁垒</td>
+        <td>多屏联生成（一次出 5 个关联页面）、语音画布输入、从 URL 直接提取 DESIGN.md 设计系统</td>
+      </tr>
+      <tr>
+        <td class="dim-label">输出质量</td>
+        <td>UI 质量较高（依托 Figma 组件库），但代码较乱</td>
+        <td>多平台适配好（Meta/TikTok/YouTube 等 7 平台 × 5 种宽高比）</td>
+        <td>初稿质量在免费工具中<strong>顶尖</strong>，排版/间距/配色通常合理；Flutter 代码干净</td>
+      </tr>
+      <tr>
+        <td class="dim-label">适用场景</td>
+        <td>Figma 深度用户做快速原型验证、设计转开发交付、内部 Demo 演示</td>
+        <td>电商/DTC 品牌、需要大量 A/B 测试的广告团队、效果营销人员</td>
+        <td>从零开始快速出 UI 方案、创业者/MVP 验证、跨平台 Flutter 项目</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Dimension 2: 修改灵活度 -->
+<div class="section">
+  <h2 class="section-title">维度二 🛠️ 修改灵活度</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>评估项</th>
+        <th style="color:var(--accent-figma)">🟣 Figma Make</th>
+        <th style="color:var(--accent-pencil)">🟠 Pencil AI</th>
+        <th style="color:var(--accent-stitch)">🔵 Google Stitch</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="dim-label">编辑方式</td>
+        <td><strong>内置代码编辑器</strong> + 热更新预览。改代码右侧即时刷新，所见即所得</td>
+        <td>平台内<strong>实时编辑工具</strong> + Adobe Firefly 外部联动导出</td>
+        <td>Stitch 内部可迭代对话修改，但精细调整需<strong>导出到 Figma</strong></td>
+      </tr>
+      <tr>
+        <td class="dim-label">迭代能力</td>
+        <td>可反复对话优化，但 AI 可能<strong>自作主张改掉不相关的部分</strong>，控制感一般</td>
+        <td>A/B 变体批量生成能力强（一次出多个版本），方便横向对比选优</td>
+        <td><strong>无限画布保留所有版本</strong>（如 4 版电商首页并排），对比迭代体验极佳</td>
+      </tr>
+      <tr>
+        <td class="dim-label">输出可编辑性</td>
+        <td>React 代码可直接改，但不整洁需人工清理；设计稿本身完全可控</td>
+        <td>图片/视频素材可在平台内微调，深度定制依赖 Firefly</td>
+        <td>导出 Figma 时保留图层和自动布局，但<strong>响应式结构可能错乱</strong></td>
+      </tr>
+      <tr>
+        <td class="dim-label">灵活性评分</td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill high" style="width:78%"></div></div><span class="score-val" style="color:var(--success)">7.8</span></div>
+          代码层灵活度高，但 AI 行为不可控拉低分数
+        </td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill mid" style="width:70%"></div></div><span class="score-val" style="color:var(--warning)">7.0</span></div>
+          批量变体是优势，但单张深度定制偏弱
+        </td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill mid" style="width:68%"></div></div><span class="score-val" style="color:var(--warning)">6.8</span></div>
+          多版本对比体验最好，但 Figma 导出的结构问题影响后期修改
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Dimension 3: 劣势 -->
+<div class="section">
+  <h2 class="section-title">维度三 ⚠️ 劣势 & 硬伤</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>问题类型</th>
+        <th style="color:var(--accent-figma)">🟣 Figma Make</th>
+        <th style="color:var(--accent-pencil)">🟠 Pencil AI</th>
+        <th style="color:var(--accent-stitch)">🔵 Google Stitch</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="dim-label">价格门槛</td>
+        <td>Beta 不稳定且<strong>即将转向按次收费</strong>（积分制）；免费额度仅约 10 次/月</td>
+        <td>入门 $14 但仅 50 次/月，<strong>高端定价完全不透明</strong>（需联系销售）</td>
+        <td><strong class="pro-tag">完全免费</strong>，无订阅费，无需信用卡</td>
+      </tr>
+      <tr>
+        <td class="dim-label">代码质量</td>
+        <td><strong>非生产级</strong>——大量冗余 div、嵌套混乱，必须经开发者审查重构</td>
+        <td>不涉及代码输出（纯营销素材），此维度不适用</td>
+        <td><strong>Flutter 代码优质</strong>（干净结构清晰）；Web 代码可用但需微调</td>
+      </tr>
+      <tr>
+        <td class="dim-label">稳定性</td>
+        <td>Beta 阶段偶发崩溃/生成失败，需重载</td>
+        <td>稳定运行，商业化成熟度高</td>
+        <td><strong>实验性产品</strong>——长会话 Token 漂移导致后续屏幕风格偏移</td>
+      </tr>
+      <tr>
+        <td class="dim-label">可控性</td>
+        <td>AI 会自作主张改动（把按钮改成下拉菜单而不是修复它）</td>
+        <td>Pencil Score 对小众品类/新品牌预测不准，不能替代实际测试</td>
+        <td>设计风格<strong>同质化严重</strong>——"AI 味"浓，缺乏视觉辨识度</td>
+      </tr>
+      <tr>
+        <td class="dim-label">技术短板</td>
+        <td>仅支持 React 框架；不支持 Vue/Svelte 等其他前端框架</td>
+        <td>生成次数限制严格，高频测试场景不够用</td>
+        <td><strong>响应式缺陷大</strong>——解除自动布局组可能导致整个设计结构崩塌</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Visual Summary -->
+<div class="section">
+  <h2 class="section-title">📊 三维总评雷达图</h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th style="width:140px"></th>
+        <th>🟣 Figma Make</th>
+        <th>🟠 Pencil AI</th>
+        <th>🔵 Google Stitch</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="dim-label">✅ 优势综合</td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill high" style="width:82%"></div></div><span class="score-val" style="color:var(--success)">8.2</span></div>
+          生态整合无敌，设计→开发流程最顺滑
+        </td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill high" style="width:80%"></div></div><span class="score-val" style="color:var(--success)">8.0</span></div>
+          数据驱动的预测能力独一档
+        </td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill high" style="width:85%"></div></div><span class="score-val" style="color:var(--success)">8.5</span></div>
+          免费+速度+多屏生成，综合性价比最高
+        </td>
+      </tr>
+      <tr>
+        <td class="dim-label">🛠️ 修改灵活度</td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill high" style="width:78%"></div></div><span class="score-val" style="color:var(--success)">7.8</span></div>
+          代码编辑器强大，AI 行为不可控扣分
+        </td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill mid" style="width:70%"></div></div><span class="score-val" style="color:var(--warning)">7.0</span></div>
+          批量变体好，单件深度弱
+        </td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill mid" style="width:68%"></div></div><span class="score-val" style="color:var(--warning)">6.8</span></div>
+          版本管理优秀，Figma 导出有坑
+        </td>
+      </tr>
+      <tr>
+        <td class="dim-label">⚠️ 劣势风险</td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill low" style="width:55%"></div></div><span class="score-val" style="color:var(--danger)">5.5</span></div>
+          Beta不稳定 + 即将收费 + 代码差
+        </td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill mid" style="width:62%"></div></div><span class="score-val" style="color:var(--warning)">6.2</span></div>
+          定价不透明 + 次数限制 + 小众预测偏差
+        </td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill mid" style="width:60%"></div></div><span class="score-val" style="color:var(--warning)">6.0</span></div>
+          同质化 + 响应式缺陷 + 实验性质
+        </td>
+      </tr>
+      <tr style="background:rgba(255,255,255,0.03)">
+        <td class="dim-label"><strong>综合推荐度</strong></td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill high" style="width:72%"></div></div><span class="score-val" style="color:var(--success)"><strong>7.2</strong></span></div>
+          <strong>Figma 团队首选</strong>
+        </td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill high" style="width:71%"></div></div><span class="score-val" style="color:var(--success)"><strong>7.1</strong></span></div>
+          <strong>广告营销人必备</strong>
+        </td>
+        <td>
+          <div class="score-bar"><div class="score-track"><div class="score-fill high" style="width:77%"></div></div><span class="score-val" style="color:var(--success)"><strong>7.7</strong></span></div>
+          <strong>免费党 / 创业者最优解</strong>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Verdict -->
+<div class="verdict-box">
+  <div class="verdict-title">💡 选型结论</div>
+  <div class="verdict-item">
+    <span class="verdict-icon">🎯</span>
+    <div><strong>三者定位完全不同，不存在直接竞争关系：</strong>
+    <p>Figma Make = 设计工具增强插件 | Pencil AI = 广告素材工厂 | Stitch = 免费全栈 UI 生成器</p></div>
+  </div>
+  <div class="verdict-item">
+    <span class="verdict-icon">🟣</span>
+    <div><strong>选 Figma Make 当你：</strong>
+    <p>已经是 Figma 重度用户 → 需要把设计稿变成可交互 Demo 给老板看 → 团队协作流程已在 Figma 上</p></div>
+  </div>
+  <div class="verdict-item">
+    <span class="verdict-icon">🟠</span>
+    <div><strong>选 Pencil 当你：</strong>
+    <p>主要工作是投信息流广告 → 需要 A/B 测试大量素材变体 → 在意 ROI 和转化率而非视觉完美度</p></div>
+  </div>
+  <div class="verdict-item">
+    <span class="verdict-icon">🔵</span>
+    <div><strong>选 Stitch 当你：</strong>
+    <p>预算有限（免费！）→ 从零开始做 MVP/UI 方案 → 做 Flutter 跨端项目 → 需要快速产出多个设计方案对比</p></div>
+  </div>
+  <div class="verdict-item">
+    <span class="verdict-icon">⚡</span>
+    <div><strong>最佳组合拳：</strong>
+    <p>Stitch（快速出方案）→ Figma（精细化打磨）→ Figma Make（转代码原型）→ Pencil（如果还要做推广物料）</p></div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  本分析报告由 AI 整理自 Cybernews、Gozade、ToolsForHumans 等公开评测源<br>
+  数据截止 2026年4月27日 · 工具功能迭代快，建议以官方最新文档为准
+</div>
+
+</div>
+</body>
+</html>
