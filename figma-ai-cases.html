@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Figma AI 实战案例集 | 设计周刊</title>
+<style>
+  :root {
+    --bg: #0f1117; --card: #1a1d28; --border: #2a2e3d;
+    --text: #e8eaed; --text-secondary: #9aa0b0;
+    --accent-p: #a259ff; --accent-s: #4ecdc4; --accent-w: #ff6b6b;
+    --accent-g: #f7b731; --accent-b: #54a0ff;
+    --warning: #ff9500; --danger: #ff3b30; --radius: 12px; --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7; padding: 40px 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* Back nav */
+  .back-nav { display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--accent-b);text-decoration:none;margin-bottom:24px;padding:8px 16px;border-radius:8px;background:rgba(84,160,255,.06);border:1px solid rgba(84,160,255,.15);transition:background.15s; }
+  .back-nav:hover { background:rgba(84,160,255,.12); }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 36px; }
+  .header .badge-w { display:inline-block;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent-p);margin-bottom:12px;padding:6px 18px;border:1px solid rgba(162,89,255,.3);border-radius:20px;background:rgba(162,89,255,.06); }
+  .header h1 { font-size:30px;font-weight:800;background:linear-gradient(135deg,var(--accent-p),var(--accent-b));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px; }
+  .header .sub { font-size:15px; color: var(--text-secondary); }
+
+  .source-line { text-align:center;margin-bottom:32px;font-size:13px;color:var(--text-secondary); }
+  .source-line a { color:var(--accent-b);text-decoration:none; }
+  .source-line a:hover { text-decoration:underline; }
+
+  /* Case Card */
+  .case-card { background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:26px 28px;margin-bottom:22px;transition:border-color.2s; }
+  .case-card:hover{border-color:rgba(162,89,255,.4);box-shadow:0 12px 32px rgba(162,89,255,.08); }
+  .case-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px; }
+  .cb-api{background:rgba(162,89,255,.12);color:#c084fc;}.cb-sk{background:rgba(84,160,255,.12);color:#7dd3fc;}.cb-dv{background:rgba(249,115,22,.12);color:#fdba74; }
+  .case-card h3{font-size:17px;font-weight:700;margin-top:8px;margin-bottom:10px; }
+  .case-desc{font-size:13px;color:var(--text-secondary);line-height:1.75;margin-bottom:14px; }
+
+  /* Code Block */
+  .code-blk{background:#13161d;border:1px solid #232635;border-radius:10px;overflow:hidden;margin-top:12px; }
+  .code-hd{display:flex;align-items:center;justify-content:space-between;padding:9px 15px;background:#1a1d26;border-bottom:1px solid #232635;font-size:11.5px;color:var(--text-secondary); }
+  .dots{display:flex;gap:5px; } .dots span{width:9px;height:9px;border-radius:50%; } .dr{background:#ff5f57;}.dy{background:#febc2e;}.dg{background:##4ecdc4; }
+  .code-body{padding:15px 18px;overflow-x:auto;font-size:12px;line-height:1.72; }
+  .code-body pre{margin:0;white-space:pre-wrap;word-break:break-all; }
+  .kw{color:#c084fc;}.fn{color:#7dd3fc;}.str{color:#5eead4;}.num{color:#fdba74;}.cmt{color:#6b7280;font-style:italic;}.prop{color:#f472b6;}.tag2{color:#f97316; }
+
+  /* Result Preview */
+  .result-box{background:linear-gradient(135deg,#1e1b4b,#172554);border:1px solid rgba(99,102,241,.2);border-radius:10px;padding:18px 22px;margin-top:14px;display:flex;align-items:center;gap:22px; }
+  .mockup{width:180px;min-height:300px;background:#fff;border-radius:18px;padding:14px;flex-shrink:0;position:relative;box-shadow:0 8px 32px rgba(0,0,0,.4); }
+  .m-notch{width:70px;height:22px;background:#1a1a1a;border-radius:11px;margin:0 auto 14px; }
+  .m-logo{text-align:center;margin:20px 0 16px; }
+  .m-logo-i{width:50px;height:50px;background:linear-gradient(135deg,var(--accent-p),var(--accent-b));border-radius:12px;margin:0 auto; }
+  .m-inp{width:100%;height:40px;background:#f0f0f5;border-radius:9px;margin-bottom:10px; }
+  .m-btn{width:100%;height:40px;background:#007AFF;border-radius:9px;margin-top:6px; }
+  .res-info h4{font-size:14.5px;font-weight:700;color:#a5b4fc;margin-bottom:7px; }
+  .res-info p{font-size:12.2px;color:#a5b4fc;opacity:.75;line-height:1.65; }
+  .ptags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px; }
+  .ptag{font-size:10px;padding:3px 9px;border-radius:20px;background:rgba(165,180,252,.12);color:#c4b5fd; }
+
+  /* Limit Box */
+  .lim-box{background:rgba(255,59,48,.05);border:1px solid rgba(255,59,48,.15);border-radius:var(--radius);padding:20px 24px;margin-top:20px; }
+  .lim-t{font-size:15px;font-weight:700;color:#ff6b6b;margin-bottom:12px; }
+  .lim-list{list-style:none; }
+  .lim-list li{font-size:12.5px;color:var(--text-secondary);padding:5px 0;padding-left:19px;position:relative;line-height:1.6; }
+  .lim-list li::before{content:'⚠️';position:absolute;left:0;top:5px;font-size:11px; }
+
+  /* Feat Grid */
+  .fg{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:20px; }
+  .fi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 14px;transition:transform.2s; }
+  .fi:hover{transform:translateY(-2px);border-color:rgba(162,89,255,.3); }
+  .fi-icon{font-size:20px;margin-bottom:6px; }.fi-name{font-size:13.5px;font-weight:700;margin-bottom:3px; }
+  .fi-desc{font-size:11.5px;color:var(--text-secondary);line-height:1.6; }
+
+  /* Practice */
+  .practice-box{background:linear-gradient(135deg,rgba(78,205,196,.05),rgba(84,160,255,.05));border:1px solid rgba(78,205,196,.15);border-radius:var(--radius);padding:22px 26px;margin-top:20px; }
+  .practice-t{font-size:16px;font-weight:700;margin-bottom:14px;color:var(--accent-s); }
+  .practice-step{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start; }
+  .step-num{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;background:linear-gradient(135deg,var(--accent-s),var(--accent-b));color:#fff; }
+  .step-text{font-size:13px;color:var(--text-secondary);line-height:1.65; }
+  .step-text strong{color:var(--text); }
+
+  /* Footer */
+  .footer{text-align:center;margin-top:38px;padding-top:20px;border-top:1px solid var(--border);font-size:11.5px;color:var(--text-secondary); }
+  .footer a{color:var(--accent-s);text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Back -->
+  <a href="design-weekly.html" class="back-nav">← 返回设计周刊首页</a>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="badge-w">🔧 Deep Dive</div>
+    <h1>Figma AI 实战案例集</h1>
+    <div class="sub">基于 "Agents Meet the Canvas" 更新 · 可执行代码 + 最佳实践路径</div>
+  </div>
+
+  <div class="source-line">
+    数据来源：
+    <a href="https://www.figma.com/blog/the-figma-canvas-is-now-open-to-agents/" target="_blank">Figma Official Blog</a> ·
+    <a href="https://blog.logrocket.com/ux-design/figma-ai-2026-quick-overview/" target="_blank">LogRocket</a> ·
+    <a href="https://rorklab.net/en/articles/rork-ai/figma-ai-agent-app-ui-automation" target="_blank">Rork Lab</a> ·
+    <a href="https://www.figma.com/release-notes/" target="_blank">Release Notes</a>
+  </div>
+
+
+  <!-- ========== CASE 1: API ========== -->
+  <div class="case-card">
+    <div style="margin-bottom:4px;"><span class="case-badge cb-api">⚡ use_figma Tool (MCP)</span></div>
+    <h3>案例一：用 API 代码自动生成登录页面</h3>
+    <p class="case-desc">不再"生成一张图片"，而是执行<strong>结构化代码创建可编辑图层</strong>。AI 通过 MCP Server 调用 Figma 原生 API → 创建画布帧 → 放置 Logo → 添加输入框组件 → 创建按钮 → 启用 Auto Layout。</p>
+
+    <div class="code-blk">
+      <div class="code-hd"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span>login-screen.ts — AI Agent 执行的绘图脚本</span></div>
+      <div class="code-body"><pre><span class="kw">import</span> { useFigma } <span class="kw">from</span> <span class="str">"@figma/ai-sdk"</span>;
+
+<span class="kw">async function</span> <span class="fn">generateLoginScreen</span>() {
+  <span class="kw">const</span> figma = <span class="fn">useFigma</span>({
+    token: process.env.<span class="prop">FIGMA_TOKEN</span>,
+    fileKey: <span class="str">"YOUR_FILE_KEY"</span>,
+  });
+  <span class="cmt">// ① 创建主画布 (iPhone尺寸)</span>
+  <span class="kw">const</span> frame = <span class="kw">await</span> figma.<span class="fn">createFrame</span>({ name:<span class="str">"Login Screen"</span>, width:<span class="num">375</span>, height:<span class="num">667</span> });
+  <span class="cmt">// ② 放置品牌 Logo</span>
+  <span class="kw">await</span> figma.<span class="fn">placeAsset</span>({ parentId:frame.id, assetUrl:<span class="str">"https://brand.com/logo.png"</span>, width:<span class="num">120</span>, height:<span class="num">120</span> });
+  <span class="cmt">// ③ 邮箱输入框</span>
+  <span class="kw">await</span> figma.<span class="fn">createComponent</span>({ parentId:frame.id, name:<span class="str">"Email Input"</span>, type:<span class="str">"text_input"</span>, width:<span class="num">335</span>, height:<span class="num">48</span>, placeholder:<span class="str">"Enter email"</span> });
+  <span class="cmt">// ④ 密码输入框（安全模式）</span>
+  <span class="kw">await</span> figma.<span class="fn">createComponent</span>({ parentId:frame.id, name:<span class="str">"Password Input"</span>, type:<span class="str">"text_input"</span>, width:<span class="num">335</span>, height:<span class="num">48</span>, placeholder:<span class="str">"Enter password"</span>, isSecure:<span class="tag2">true</span> });
+  <span class="cmt">// ⑤ 登录按钮（iOS蓝）</span>
+  <span class="kw">await</span> figma.<span class="fn">createComponent</span>({ parentId:frame.id, name:<span class="str">"Login Button"</span>, type:<span class="str">"button"</span>, width:<span class="num">335</span>, height:<span class="num">48</span>, label:<span class="str">"Log In"</span>, backgroundColor:<span class="str">"#007AFF"</span> });
+  <span class="cmt">// ⑥ 启用垂直 Auto Layout（响应式）</span>
+  <span class="kw">await</span> figma.<span class="fn">createLayout</span>({ targetId:frame.id, mode:<span class="str">"vertical"</span>, spacing:<span class="num">20</span>, padding:<span class="num">20</span> });
+  <span class="kw">return</span> frame;
+}</pre></div>
+    </div>
+
+    <div class="result-box">
+      <div class="mockup">
+        <div class="m-notch"></div>
+        <div class="m-logo"><div class="m-logo-i"></div></div>
+        <div class="m-inp"></div><div class="m-inp"></div>
+        <div class="m-btn"></div>
+      </div>
+      <div class="res-info">
+        <h4>✨ 输出结果</h4>
+        <p>AI 在 Figma 中生成完整 iPhone 登录页：<br>
+        • 所有元素都是<strong>可编辑的独立图层</strong>（非图片）<br>
+        • Auto Layout 已启用，支持响应式调整<br>
+        • 组件已命名，开发者可直接引用<br>
+        • 整个过程无需人工操作画布</p>
+        <div class="ptags"><span class="ptag">可编辑图层</span><span class="ptag">Auto Layout</span><span class="ptag">组件化</span><span class="ptag">~30秒完成</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========== CASE 2: SKILLS ========== -->
+  <div class="case-card">
+    <div style="margin-bottom:4px;"><span class="case-badge cb-sk">📝 Skills Markdown</span></div>
+    <h3>案例二：用 Markdown 定义按钮组件系统（36变体自动生成）</h3>
+    <p class="case-desc">Figma Skills 是 Markdown 格式的「设计食谱」。你告诉 AI "怎么设计"，它严格按规范在画布上执行。以下定义 3样式×3尺寸×4状态 = <strong>36个按钮变体</strong>：</p>
+
+    <div class="code-blk">
+      <div class="code-hd"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></div></div><span>button-system.skill.md — AI 读取并执行的「设计食谱」</span></div>
+      <div class="code-body"><pre><span class="tag2"># Button Component System</span> (按钮组件系统)
+
+<span class="tag2">## Objective</span>
+Create a complete button component library with variants.
+
+<span class="tag2">## Variants Required</span>
+- Styles: <span class="prop">Primary</span>, Secondary, Danger
+- Sizes: Small (<span class="num">32px</span>), Medium (<span class="num">48px</span>), Large (<span class="num">56px</span>)
+- States: Default, Hover, Active, Disabled
+
+<span class="tag2">## Step 1:</span> Create Main Component
+<span class="num">1.</span> Frame named <span class="str">"Button/Primary/Medium"</span> · <span class="num">200×48px</span>
+<span class="num">2.</span> Fill: <span class="str">#007AFF</span> · Border radius: <span class="num">8px</span> · Text: size <span class="num">16</span> Bold
+
+<span class="tag2">## Step 2:</span> Generate Variants
+For each style × size: auto-generate frame with consistent spacing
+
+<span class="tag2">## Step 3:</span> Add Interactive States
+Default: opacity <span class="num">100%</span> | Hover: −<span class="num">10%</span> brightness
+Active: −<span class="num">20%</span> brightness | Disabled: opacity <span class="num">50%</span>
+
+<span class="tag2">## Step 4:</span> Create Design Tokens
+<span class="prop">color-primary</span>: <span class="str">#007AFF</span> | <span class="prop">color-secondary</span>: <span class="str">"#E5E5EA</span> | <span class="prop">spacing</span>: <span class="num">8/16/24</span>px
+
+<span class="tag2">## Safety Constraints</span>
+- ❌ Never delete existing components
+- ✅ Maintain <span class="num">8px</span> grid alignment
+- ✅ Ensure WCAG AA contrast minimum</pre></div>
+    </div>
+
+    <div class="result-box" style="flex-direction:column;gap:0;padding:18px 22px;">
+      <h4 style="font-size:14.5px;font-weight:700;color:#a5b4fc;margin-bottom:8px;">✨ AI 执行结果</h4>
+      <p style="font-size:12.2px;color:#a5b4fc;opacity:.75;line-height:1.7;">
+        AI 读取这份 Markdown 后，在 Figma 中<strong>自动生成 36 个按钮变体</strong>：
+        Primary / Secondary / Danger × S / M / L × Default / Hover / Active / Disabled。
+        全部遵循 8px 网格对齐 + WCAG AA 对比度标准，同时输出对应的设计令牌（Design Tokens），零人工干预。
+      </p>
+      <div class="ptags" style="margin-top:10px;"><span class="ptag">36变体自动生成</span><span class="ptag">8px网格</span><span class="ptag">WCAG合规</span><span class="ptag">Token化</span><span class="ptag">零人工干预</span></div>
+    </div>
+  </div>
+
+
+  <!-- ========== CASE 3: CODE CONNECT ========== -->
+  <div class="case-card">
+    <div style="margin-bottom:4px;"><span class="case-badge cb-dv">💻 Code Connect + MCP</span></div>
+    <h3>案例三：Code Connect — Figma 组件 ↔ React 代码双向同步</h3>
+    <p class="case-desc">当 AI 在画布上修改组件后，如何保证代码与设计完全一致？通过 Code Connect 配置文件将 Figma 组件属性映射为代码 Props。画布改了，代码跟着改。</p>
+
+    <div class="code-blk">
+      <div class="code-hd"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></div></div><span>figma.config.ts — Code Connect 映射配置</span></div>
+      <div class="code-body"><pre><span class="kw">import</span> { figma } <span class="kw">from</span> <span class="str">"@figma/code-connect"</span>;
+
+<span class="cmt">// 将 Figma 组件映射到 React 代码组件</span>
+<span class="fn">figma</span>.<span class="fn">connect</span>(
+  <span class="str">"Button/Primary/Medium"</span>,     <span class="cmt">// ← Figma 组件路径</span>
+  {
+    component: <span class="str">"./components/Button.tsx"</span>,
+    props: {
+      variant:  figma.<span class="fn">enum</span>(<span class="str">"Variant"</span>),       <span class="cmt">// Primary|Secondary|Danger</span>
+      size:     figma.<span class="fn">enum</span>(<span class="str">"Size"</span>),          <span class="cmt">// S|M|L</span>
+      disabled: figma.<span class="fn">boolean</span>(<span class="str">"Disabled"</span>),
+      label:    figma.<span class="fn">string</span>(<span class="str">"Label"</span>),
+    },
+  },
+);
+<span class="cmt">// 使用效果：AI在Figma中改为Danger+Disabled → React代码自动变为:
+// &lt;Button variant="danger" disabled&gt;...&lt;/Button&gt;</span></pre></div>
+    </div>
+
+    <div class="result-box" style="flex-direction:column;gap:0;padding:18px 22px;">
+      <h4 style="font-size:14.5px;font-weight:700;color:#a5b4fc;margin-bottom:8px;">🔄 双向同步工作流</h4>
+      <p style="font-size:12.2px;color:#a5b4fc;opacity:.75;line-height:1.75;">
+        <strong>①</strong> AI Agent 在 Figma 画布修改按钮（改色/换尺寸/加状态）<br>
+        ↓&nbsp;&nbsp;<strong>②</strong> Code Connect 通过 MCP Server 自动读取属性变更<br>
+        ↓&nbsp;&nbsp;<strong>③</strong> React/Swift/Kotlin 代码自动更新（Props与设计一致）<br>
+        ↓&nbsp;&nbsp;<strong>④</strong> 开发者直接使用最新代码，无需对照设计稿
+      </p>
+      <div class="ptags" style="margin-top:10px;"><span class="ptag">实时双向同步</span><span class="ptag">React/Swift/Kotlin</span><span class="ptag">Props自动映射</span></div>
+    </div>
+  </div>
+
+
+  <!-- All Features -->
+  <h3 style="font-size:17px;font-weight:700;margin:28px 0 16px;">🛠️ Figma AI 全功能一览</h3>
+  <div class="fg">
+    <div class="fi"><div class="fi-icon">✏️</div><div class="fi-name">Replace Content</div><div class="fi-desc">AI生成真实感文案替换占位符，快速填充Demo</div></div>
+    <div class="fi"><div class="fi-icon">🖼️</div><div class="fi-name">Make an Image</div><div class="fi-desc">Prompt生成产品配图，支持参考图上传和多LLM选择</div></div>
+    <div class="fi"><div class="fi-icon">✂️</div><div class="fi-name">Select Area</div><div class="fi-desc">智能选择图片中特定对象/人物，精确抠图</div></div>
+    <div class="fi"><div class="fi-icon">🔍</div><div class="fi-name">Find More Like</div><div class="fi-desc">选中对象搜索团队内相似组件和文件</div></div>
+    <div class="fi"><div class="fi-icon">📐</div><div class="fi-name">First Draft（初稿）</div><div class="fi-desc">文字转UI，线框图/高保真两种模式快速出初稿</div></div>
+    <div class="fi"><div class="fi-icon">🔗</div><div class="fi-name">Add Interactions</div><div class="fi-desc">选中顶层帧后AI自动创建交互连线</div></div>
+    <div class="fi"><div class="fi-icon">📱</div><div class="fi-name">Dev Mode 升级</div><div class="fi-desc">HTML/CSS/Tailwind/SwiftUI/UIKit/Compose/XML 输出</div></div>
+    <div class="fi"><div class="fi-icon">🤖</div><div class="fi-name">MCP Server</div><div class="fi-desc">AI Agent翻译器，Claude Code/Cursor/VS Code调用画布</div></div>
+    <div class="fi"><div class="fi-icon">🌐</div><div class="fi-name">Figma Sites</div><div class="fi-desc">生产级网站构建器，SEO+响应式+原生HTML/CSS输出</div></div>
+  </div>
+
+  <!-- Limitations -->
+  <div class="lim-box">
+    <div class="lim-t">⚠️ 当前局限（实测结论）</div>
+    <ul class="lim-list">
+      <li><strong>Make 生成的代码不具备生产级质量</strong>—— 缺乏无障碍性、语义化标签、模块化结构，需工程师重构</li>
+      <li><strong>First Draft 无法使用你的设计系统</strong>—— 仅基于 Figma 自有 UI 库，不支持企业自定义组件库</li>
+      <li><strong>不常见设计模式无法识别</strong>—— 创新性布局或特殊交互需要人工设计</li>
+      <li><strong>不会创建原型连线</strong>—— First Draft 出来的屏幕之间没有跳转关系</li>
+      <li><strong>视觉细腻度不够</strong>—— AI 生成的设计有明显的「AI 生成感」，缺乏专业细节打磨</li>
+      <li><strong>Make 定位是预览工具</strong>—— 可发布自定义域名但不包含 SEO，不适合生产级网站</li>
+      <li><strong>需 Pro 或以上账户</strong>—— AI Agent 画布功能需要付费订阅才能使用</li>
+    </ul>
+  </div>
+
+  <!-- Best Practice -->
+  <div class="practice-box">
+    <div class="practice-t">💡 推荐使用路径</div>
+    <div class="practice-step"><span class="step-num">1</span><div class="step-text">使用 <strong>First Draft</strong> 快速出初稿（文字描述 → UI线框图/高保真）</div></div>
+    <div class="practice-step"><span class="step-num">2</span><div class="step-text">用 <strong>Make an Image</strong> 补充产品配图和视觉元素</div></div>
+    <div class="practice-step"><span class="step-num">3</span><div class="step-text">进入 <strong>Dev Mode</strong> 获取前端代码框架（注意：需人工重构优化）</div></div>
+    <div class="practice-step"><span class="step-num">4</span><div class="step-text">团队使用 <strong>Skills 系统</strong> 定义设计规范，确保AI输出一致性</div></div>
+    <div class="practice-step"><span class="step-num">5</span><div class="step-text">开发者通过 <strong>MCP Server</strong> 在 IDE 中直接调用 Figma 画布能力</div></div>
+  </div>
+
+<div class="footer">
+  🔧 Figma AI 实战案例集 &nbsp;·&nbsp; 设计周刊深度内容 &nbsp;·&nbsp;
+  <a href="https://github.com/710622830-cyber/custom-ip-weekly">GitHub Pages</a><br>
+  <span style="opacity:.4;margin-top:5px;display:inline-block;">数据来源：Figma Official / LogRocket / Rork Lab · 2026年4月</span>
+</div>
+
+</div>
+</body>
+</html>

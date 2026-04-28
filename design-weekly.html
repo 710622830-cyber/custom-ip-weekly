@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>设计周刊 | AI设计工具每周资讯</title>
+<style>
+  :root {
+    --bg: #0f1117; --card: #1a1d28; --border: #2a2e3d;
+    --text: #e8eaed; --text-secondary: #9aa0b0;
+    --accent-p: #a259ff; --accent-s: #4ecdc4; --accent-w: #ff6b6b;
+    --accent-g: #f7b731; --accent-b: #54a0ff;
+    --warning: #ff9500; --danger: #ff3b30; --radius: 12px; --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7; padding: 40px 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 32px; }
+  .header .badge-w { display:inline-block;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent-s);margin-bottom:12px;padding:6px 18px;border:1px solid rgba(78,205,196,.3);border-radius:20px;background:rgba(78,205,196,.06); }
+  .header h1 { font-size:32px;font-weight:800;background:linear-gradient(135deg,var(--accent-p),var(--accent-b),var(--accent-s));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px; }
+  .header .sub { font-size:15px; color: var(--text-secondary); }
+
+  /* Tab Bar */
+  .tab-bar { display:flex;align-items:center;gap:4px;margin-bottom:28px;padding:14px 18px;background:var(--card);border-radius:var(--radius);border:1px solid var(--border);flex-wrap:wrap; }
+  .tab-label { font-size:11px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px;margin-right:8px;white-space:nowrap; }
+  .tab-btn { padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;color:var(--text-secondary);background:transparent;border:1px solid transparent;cursor:pointer;transition:all.2s;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:5px; }
+  .tab-date { font-size:10px;font-weight:500;color:var(--text-secondary);opacity:.6;margin-left:2px; }
+  .tab-btn.active .tab-date { opacity:1;color:var(--accent-s); }
+  .tab-btn:hover { background:rgba(255,255,255,.04);color:var(--text); }
+  .tab-btn.active { background:linear-gradient(135deg,rgba(162,89,255,.15),rgba(84,160,255,.1));color:var(--accent-p);border-color:rgba(162,89,255,.25); }
+
+  /* Tab Content */
+  .tab-content { display:none; animation:fadeIn .3s ease; }
+  .tab-content.active { display:block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+
+  /* Section */
+  .section { margin-bottom: 32px; }
+  .sec-title { font-size:19px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px; }
+  .sec-title::before { content:'';width:4px;height:20px;border-radius:2px;background:linear-gradient(180deg,var(--accent-p),var(--accent-b)); }
+
+  /* Headline Cards */
+  .hl-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:30px; }
+  .hl-card { background:var(--card);border-radius:var(--radius);padding:22px 18px;border:1px solid var(--border);transition:transform.25s,box-shadow.25s;position:relative;overflow:hidden; }
+  .hl-card:hover { transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.35); }
+  .hl-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px; }
+  .hl-card.hot::before{background:linear-gradient(90deg,#ff6b6b,#f7b731);}.hl-card.new::before{background:linear-gradient(90deg,var(--accent-p),var(--accent-b));}.hl-card.trend::before{background:linear-gradient(90deg,var(--accent-s),var(--accent-p));}
+  .rank { position:absolute;top:14px;right:14px;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0; }
+  .r1{background:linear-gradient(135deg,#ff6b6b,#ee5a24);color:#fff;}.r2{background:linear-gradient(135deg,#f7b731,#e1b12c);color:#fff;}.r3{background:linear-gradient(135deg,var(--accent-p),#8854e0);color:#fff;}
+  .hl-card h3{font-size:15px;font-weight:700;margin-bottom:6px;margin-right:36px;line-height:1.4; }
+  .src{font-size:10.5px;color:var(--text-secondary);margin-bottom:8px; }
+  .hl-card p{font-size:12.5px;color:var(--text-secondary);line-height:1.7; }
+  .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px; }
+  .tag{font-size:10px;padding:3px 8px;border-radius:20px;font-weight:500;background:rgba(255,255,255,.05);color:var(--text-secondary);border:1px solid var(--border); }
+  .tag.ht{background:rgba(255,107,107,.1);color:#ff6b6b;border-color:rgba(255,107,107,.2); }.tag.nt{background:rgba(162,89,255,.1);color:var(--accent-p);border-color:rgba(162,89,255,.2); }.tag.tt{background:rgba(78,205,196,.1);color:var(--accent-s);border-color:rgba(78,205,196,.2); }
+
+  /* Links row */
+  .links-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;align-items:center; }
+  .links-row a{font-size:10.5px;padding:3px 10px;border-radius:6px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:3px;transition:transform.1s; }
+  .links-row a:hover{transform:translateY(-1px); }
+  .lk-article{color:var(--accent-b);background:rgba(84,160,255,.08);border:1px solid rgba(84,160,255,.15); }
+  .lk-official{color:#c084fc;background:rgba(162,89,255,.08);border:1px solid rgba(162,89,255,.15); }
+  .lk-detail{color:#fdba74;background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.15); }
+
+  /* Visual Design Grid */
+  .v-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px; }
+  .v-card { background:var(--card);border-radius:var(--radius-sm);padding:18px 16px;border:1px solid var(--border);transition:transform.2s,box-shadow.2s; }
+  .v-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.3); }
+  .v-card h4{font-size:14px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px; }
+  .v-meta{font-size:10.5px;color:var(--text-secondary);margin-bottom:6px; }
+  .v-desc{font-size:12px;color:var(--text-secondary);line-height:1.7;margin-bottom:8px; }
+  .v-links{display:flex;flex-wrap:wrap;gap:6px; }
+  .v-links a{font-size:10px;padding:3px 9px;border-radius:5px;text-decoration:none;font-weight:600; }
+  .vla{color:var(--accent-b);background:rgba(84,160,255,.08);border:1px solid rgba(84,160,255,.15); }
+  .vlo{color:#c084fc;background:rgba(162,89,255,.08);border:1px solid rgba(162,89,255,.15); }
+
+  /* Figma Summary */
+  .figma-summary { background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:24px 26px; }
+  .figma-summary h3{font-size:16px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px; }
+  .figma-summary p{font-size:13px;color:var(--text-secondary);line-height:1.75;margin-bottom:12px; }
+  .figma-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px; }
+  .figma-links a{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:6px 14px;border-radius:7px;text-decoration:none;font-weight:600;transition:transform.15s,box-shadow.15s; }
+  .figma-links a:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.25); }
+  .fl-of{background:rgba(162,89,255,.1);color:#c084fc;border:1px solid rgba(162,89,255,.2); }
+  .fl-lr{background:rgba(84,160,255,.1);color:#7dd3fc;border:1px solid rgba(84,160,255,.2); }
+  .fl-rk{background:rgba(249,115,22,.1);color:#fdba74;border:1px solid rgba(249,115,22,.2); }
+  .fl-case{background:rgba(255,107,107,.1);color:#ff6b6b;border:1px solid rgba(255,107,107,.2); }
+  .feat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px; }
+  .feat-item{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;padding:12px 14px;text-align:center; }
+  .feat-item .fi-icon{font-size:20px;margin-bottom:4px; }
+  .feat-item .fi-name{font-size:12px;font-weight:600;margin-bottom:2px; }
+  .feat-item .fi-desc{font-size:10.5px;color:var(--text-secondary);line-height:1.5; }
+
+  /* Compare Table */
+  .ctbl{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border); }
+  .ctbl thead th{background:#222636;padding:10px 12px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);border-bottom:1px solid var(--border); }
+  .ctbl thead th:first-child{width:120px; }
+  .ctbl tbody td{padding:10px 12px;font-size:11.8px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55; }
+  .ctbl tbody tr:last-child td{border-bottom:none; }.ctbl tbody tr:hover{background:rgba(255,255,255,.02); }
+  .tn{font-weight:700;white-space:nowrap;font-size:12px; }
+  .pro-tag{display:inline-block;font-size:10px;padding:2px 6px;border-radius:5px;margin:2px 3px 2px 0;background:rgba(162,89,255,.1);color:#c084fc; }
+  .con-tag{display:inline-block;font-size:10px;padding:2px 6px;border-radius:5px;margin:2px 3px 2px 0;background:rgba(255,59,48,.1);color:var(--danger); }
+  .sb{display:flex;align-items:center;gap:4px;margin-top:2px; }.st{flex:1;height:4px;background:#2a2e3d;border-radius:3px;overflow:hidden;max-width:80px; }
+  .sf{height:100%;border-radius:3px; }.sf.hi{background:var(--accent-b);}.sf.md{background:var(--warning);}.sf.lo{background:var(--danger); }
+  .sv{font-size:10.5px;font-weight:700;min-width:20px; }
+
+  /* Pick Table */
+  .ptbl{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border); }
+  .ptbl thead th{background:linear-gradient(90deg,#222636,#1e2230);padding:10px 12px;text-align:left;font-size:11.5px;font-weight:600;color:var(--text-secondary);border-bottom:1px solid var(--border); }
+  .ptbl tbody td{padding:11px 13px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:middle; }
+  .ptbl tbody tr:last-child td{border-bottom:none; }.ptbl tbody tr:hover{background:rgba(255,255,255,.02); }
+  .ps{font-weight:600;color:var(--text);font-size:12px; }
+  .pk{display:inline-block;padding:3px 10px;border-radius:6px;font-weight:600;font-size:11.5px; }
+  .pk.p1{background:rgba(162,89,255,.12);color:#c084fc;}.pk.p2{background:rgba(78,205,196,.12);color:#5eead4;}.pk.p3{background:rgba(84,160,255,.12);color:#7dd3fc; }
+  .pr{color:var(--text-secondary);font-size:11.5px; }
+
+  /* Trend List */
+  .tl{list-style:none; }
+  .ti{display:flex;gap:10px;align-items:flex-start;background:var(--card);border-radius:var(--radius-sm);padding:14px 18px;margin-bottom:8px;border:1px solid var(--border);transition:border-color.2s; }
+  .ti:hover{border-color:var(--accent-p); }
+  .tnum{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;background:linear-gradient(135deg,var(--accent-p),var(--accent-b));color:#fff; }
+  .tc h4{font-size:13.5px;font-weight:700;margin-bottom:3px; }
+  .tc p{font-size:12px;color:var(--text-secondary);line-height:1.55; }
+
+  /* Insight */
+  .ibx{background:linear-gradient(135deg,rgba(162,89,255,.06),rgba(78,205,196,.06));border:1px solid rgba(162,89,255,.18);border-radius:var(--radius);padding:20px 24px;margin-top:24px; }
+  .ib-t{font-size:15px;font-weight:700;margin-bottom:12px; }
+  .ibi{display:flex;gap:8px;margin-bottom:10px;align-items:flex-start; }.ibi:last-child{margin-bottom:0; }
+  .ibi-ic{font-size:16px;flex-shrink:0;margin-top:1px; }
+  .ibi strong{color:var(--text);font-size:12.5px; }.ibi p{font-size:12px;color:var(--text-secondary);margin-top:2px; }
+
+  /* Sources */
+  .src-box{margin-top:24px;padding:14px;border-radius:var(--radius-sm);background:rgba(255,255,255,.02);border:1px solid var(--border); }
+  .src-t{font-size:11.5px;font-weight:600;color:var(--text-secondary);margin-bottom:8px; }
+  .src-l{font-size:10.5px;color:var(--text-secondary);line-height:1.95;word-break:break-all; }
+  .src-l a{color:var(--accent-b);text-decoration:none; }.src-l a:hover{text-decoration:underline; }
+
+  /* Data highlight */
+  .dh{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:18px;margin-bottom:24px; }
+  .dg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px; }
+  .di{text-align:center; }
+  .dv{font-size:26px;font-weight:800;background:linear-gradient(135deg,var(--accent-p),var(--accent-s));-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+  .dl{font-size:11px;color:var(--text-secondary);margin-top:2px; }
+
+  /* Empty / Coming soon */
+  .empty-state{text-align:center;padding:60px 20px;color:var(--text-secondary); }
+  .empty-state .emoji{font-size:48px;margin-bottom:14px; }
+  .empty-state h3{font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px; }
+  .empty-state p{font-size:13px; }
+
+  /* Footer */
+  .footer{text-align:center;margin-top:32px;padding-top:18px;border-top:1px solid var(--border);font-size:11.5px;color:var(--text-secondary); }
+  .footer a{color:var(--accent-s);text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ========== HEADER ========== -->
+<div class="header">
+  <div class="badge-w">🎨 Design Weekly</div>
+  <h1>AI 设计工具周刊</h1>
+  <div class="sub">UI/UX + 视觉设计 AI工具最新进展 · 每周一更新</div>
+</div>
+
+<!-- ========== TAB BAR ========== -->
+<div class="tab-bar" id="tabBar">
+  <span class="tab-label">期数</span>
+  <button class="tab-btn active" data-tab="vol01" onclick="switchTab('vol01', this)">📖 Vol.01<span class="tab-date">04.21–04.27</span></button>
+  <button class="tab-btn" data-tab="vol02" onclick="switchTab('vol02', this)">📖 Vol.02<span class="tab-date">04.28–05.04</span></button>
+  <button class="tab-btn" data-tab="vol03" onclick="switchTab('vol03', this)">📖 Vol.03<span class="tab-date">05.05–05.11</span></button>
+  <button class="tab-btn" data-tab="vol04" onclick="switchTab('vol04', this)">📖 Vol.04<span class="tab-date">05.12–05.18</span></button>
+  <!-- 新一期自动追加 tab-btn，并移除最新期的 active 给新期 -->
+</div>
+
+
+<!-- ==================== VOL.01 CONTENT ==================== -->
+<div class="tab-content active" id="tab-vol01">
+
+  <!-- Key Numbers -->
+  <div class="dh"><div class="dg">
+    <div class="di"><div class="dv">6</div><div class="dl">本周重大发布/更新</div></div>
+    <div class="di"><div class="dv">10+</div><div class="dl">主流工具覆盖</div></div>
+    <div class="di"><div class="dv">90%+</div><div class="dl">效率提升峰值</div></div>
+    <div class="di"><div class="dv">1512</div><div class="dl">GPT-Image-2 ELO登顶</div></div>
+  </div></div>
+
+  <!-- Headlines -->
+  <div class="section">
+    <h2 class="sec-title">🔥 本周头条 · UI/UX 设计工具</h2>
+    <div class="hl-grid">
+
+      <div class="hl-card hot">
+        <span class="rank r1">1</span>
+        <h3>Claude Design 发布：5分钟出原型</h3>
+        <div class="src">📅 04.17 | Anthropic</div>
+        <p>Anthropic 推出 Claude Design，设计小白也能通过文本提示词制作专业级网页原型。左右分栏交互，支持多轮对话明确需求，可导出 HTML/PDF。</p>
+        <div class="tags"><span class="tag ht">⚠️ 25分钟耗尽80%</span><span class="tag">UI直通代码型</span></div>
+        <div class="links-row">
+          <a href="https://finance.sina.com.cn/tech/digi/2026-04-18/doc-inhuxchh0267458.shtml" target="_blank" class="lk-article">📰 原文链接</a>
+          <a href="https://www.anthropic.com/claude" target="_blank" class="lk-official">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="hl-card new">
+        <span class="rank r2">2</span>
+        <h3>Figma 里程碑：AI Agent 直接上画布</h3>
+        <div class="src">📅 04.07 | Figma 官方博客</div>
+        <p>Figma 允许 AI Agent 直接在画布上进行设计操作——使用现有设计系统创建 UI、修改布局、访问变量令牌。Skills 系统用 Markdown 指导 AI 行为。</p>
+        <div class="tags"><span class="tag nt">🆕 AI Agent画布协作</span><span class="tag nt">Skills系统</span><span class="tag nt">自我修复</span></div>
+        <div class="links-row">
+          <a href="https://dev.to/spookuspookus/figma-made-a-huge-step-forward-in-ai-design-april-2026-1cin" target="_blank" class="lk-article">📰 原文链接</a>
+          <a href="https://www.figma.com/" target="_blank" class="lk-official">🌐 官网</a>
+          <a href="figma-ai-cases.html" class="lk-detail">🔧 查看实战案例 →</a>
+        </div>
+      </div>
+
+      <div class="hl-card trend">
+        <span class="rank r3">3</span>
+        <h3>阿里 Meoo（秒悟）：四大模型集成</h3>
+        <div class="src">📅 04.15 | 阿里巴巴 ATH事业群</div>
+        <p>集成千问+Kimi+GLM+MiniMax 四大模型的全栈AI开发工具。自然语言描述→1分钟出完整网站，前后端数据库部署一条龙。</p>
+        <div class="tags"><span class="tag tt">🆕 四大模型集成</span><span class="tag tt">全栈一键部署</span><span class="tag">零代码</span></div>
+        <div class="links-row">
+          <a href="https://finance.sina.com.cn/tech/roll/2026-04-15/doc-inhuqnau4066250.shtml" target="_blank" class="lk-article">📰 原文链接</a>
+          <a href="https://meoo.aliyun.com/" target="_blank" class="lk-official">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="hl-card new">
+        <h3>Canva AI 2.0：分层可编辑设计模型</h3>
+        <div class="src">📅 04.16 | Canva 官方</div>
+        <p>推出 Canva Design Model —— 专为设计结构训练的基础模型。生成的是独立对象而非锁死 PNG，单 Prompt 出完整可编辑设计稿。</p>
+        <div class="tags"><span class="tag nt">🆕 分层输出</span><span class="tag">品牌智能</span><span class="tag">HTML导出</span></div>
+        <div class="links-row">
+          <a href="https://www.sketchto.com/zh/posts/product-reviews/claude-design-vs-figma-ai-vs-canva-ai-2" target="_blank" class="lk-article">📰 原文链接</a>
+          <a href="https://www.canva.com/" target="_blank" class="lk-official">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="hl-card trend">
+        <h3>Pencil SWARM Mode：多Agent并行设计</h3>
+        <div class="src">📅 02.25 更新 | Pencil.dev</div>
+        <p>Pencil 突破10万用户，发布 SWARM Mode 多Agent并行工作模式。新增 Windows 版、自定义字体、PDF 导出。已扩展支持6个AI平台。</p>
+        <div class="tags"><span class="tag tt">🔥 10万+用户</span><span class="tag tt">多Agent并行</span><span class="tag tt">免费Early Access</span></div>
+        <div class="links-row">
+          <a href="https://rar.design/posts/pencil-swarm-mode-ai-design-update" target="_blank" class="lk-article">📰 原文链接</a>
+          <a href="https://pencil.dev/" target="_blank" class="lk-official">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="hl-card hot">
+        <h3>GPT-Image-2 登顶：UI Mockup + 中文99%</h3>
+        <div class="src">📅 04.21 | OpenAI</div>
+        <p>OpenAI 新一代图像生成模型正式发布，LM Arena ELO 1512分登顶。中文文字渲染准确率超99%、原生4K输出、UI Mockup 截图级。</p>
+        <div class="tags"><span class="tag ht">🏆 ELO登顶1512</span><span class="tag ht">中文排版99%</span><span class="tag ht">原生4K</span></div>
+        <div class="links-row">
+          <a href="https://chatimg.ai/zh/blog/gpt-image-2" target="_blank" class="lk-article">📰 原文链接</a>
+          <a href="https://openai.com/" target="_blank" class="lk-official">🌐 官网</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Visual Design -->
+  <div class="section">
+    <h2 class="sec-title">🎨 视觉设计 AI 资讯</h2>
+    <div class="v-grid">
+
+      <div class="v-card">
+        <h4>🖼️ Midjourney V8.1 Alpha</h4>
+        <div class="v-meta">📅 04.15 发布 · Midjourney 官方</div>
+        <div class="v-desc">最新V8.1 Alpha实现<strong>5倍速出图</strong>+ 原生 2K 高清生成，艺术感继续保持顶级水准。</div>
+        <div class="v-links">
+          <a href="https://aiproducthub.cn/sites/midjourney-v8-1-alpha.html" target="_blank" class="vla">📰 评测原文</a>
+          <a href="https://www.midjourney.com/" target="_blank" class="vlo">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>📸 GPT-Image-2 (Images 2.0)</h4>
+        <div class="v-meta">📅 04.21 正式发布 · OpenAI</div>
+        <div class="v-desc"><strong>ELO 1512分全球登顶</strong>。中文文字渲染超99%、UI Mockup 截图级、原生4K最高4096×4096。</div>
+        <div class="v-links">
+          <a href="https://chatimg.ai/zh/blog/gpt-image-2" target="_blank" class="vla">📰 深度拆解</a>
+          <a href="https://openai.com/index/images/" target="_blank" class="vlo">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>🎨 Canva AI 2.0</h4>
+        <div class="v-meta">📅 04.16 发布 · Canva</div>
+        <div class="v-desc">基于<strong>Canva Design Model</strong>——专为设计结构训练的基础模型。<strong>分层可编辑输出</strong>，Brand Intelligence 自动应用品牌资产。</div>
+        <div class="v-links">
+          <a href="https://www.sketchto.com/zh/posts/product-reviews/claude-design-vs-figma-ai-vs-canva-ai-2" target="_blank" class="vla">📰 三方横评</a>
+          <a href="https://www.canva.com/ai/" target="_blank" class="vlo">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>🌈 Stable Diffusion 生态更新</h4>
+        <div class="v-meta">📅 2026 Q1-Q2 · 开源社区</div>
+        <div class="v-desc">SD 3.5/4.0 持续迭代，<strong>风格工业化控制</strong>成为新方向。ComfyUI 节点生态持续繁荣。</div>
+        <div class="v-links">
+          <a href="https://nav-ai.cn/ai%E7%BB%98%E5%9B%BE%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90%E3%80%902026%E6%9C%80%E6%96%B0%E3%80%91/" target="_blank" class="vla">📰 2026指南</a>
+          <a href="https://stability.ai/" target="_blank" class="vlo">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>✏️ Pencil.dev MCP画布</h4>
+        <div class="v-meta">📅 02.25 SWARM更新 · Pencil</div>
+        <div class="v-desc">嵌入 VS Code 的 AI Agent 驱动 MCP 画布。<strong>SWARM Mode</strong>让多个 AI Agent 平行设计不同页面/风格方案。</div>
+        <div class="v-links">
+          <a href="https://zeeklog.com/aikai-fa-gong-ju-pencil-dev-ai-shi-dai-kai-fa-zhe-bi-bei-de-she-ji-gong-ju-cong-an-zhuang-dao-shi-zhan-jiao-xue-13" target="_blank" class="vla">📰 实战指南</a>
+          <a href="https://pencil.dev/" target="_blank" class="vlo">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>📊 AI绘图行业格局变化</h4>
+        <div class="v-meta">📅 2026年4月综合 · 多源汇总</div>
+        <div class="v-desc">2026年AI绘图进入<strong>"精准控制+风格工业化"</strong>新阶段。GPT-Image-2在文字渲染和UI Mockup上形成差异化优势。</div>
+        <div class="v-links">
+          <a href="https://orquitool.com/zh/blog/ai-image-tools-2026-comparison-dalle-midjourney-stable-diffu" target="_blank" class="vla">📰 全面对比</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Figma AI (Summary + link to detail) -->
+  <div class="section">
+    <h2 class="sec-title">🔧 Figma AI 最新动态</h2>
+    <div class="figma-summary">
+      <h3>🤖 Figma "Agents Meet the Canvas" — AI Agent 直接上画布协作</h3>
+      <p>基于 2026年3月24日 Figma 重大更新。核心变化：<strong>AI Agent 从「外部建议者」升级为「画布协作者」</strong>，可直接调用 Figma API 创建图层、操作组件、访问设计令牌。配套推出 Skills 系统（Markdown 格式的设计指令集）和 MCP Server（让 Claude Code / Cursor / VS Code 等 IDE 调用画布）。</p>
+
+      <div class="feat-row">
+        <div class="feat-item"><div class="fi-icon">✏️</div><div class="fi-name">Replace Content</div><div class="fi-desc">AI生成真实感文案替换占位符</div></div>
+        <div class="feat-item"><div class="fi-icon">🖼️</div><div class="fi-name">Make an Image</div><div class="fi-desc">Prompt生成产品配图</div></div>
+        <div class="feat-item"><div class="fi-icon">✂️</div><div class="fi-name">Select Area</div><div class="fi-desc">智能选择图片特定对象</div></div>
+        <div class="feat-item"><div class="fi-icon">🔍</div><div class="fi-name">Find More Like</div><div class="fi-desc">搜索团队内相似组件和文件</div></div>
+        <div class="feat-item"><div class="fi-icon">📐</div><div class="fi-name">First Draft</div><div class="fi-desc">文字转UI初稿（线框/高保真）</div></div>
+        <div class="feat-item"><div class="fi-icon">🤖</div><div class="fi-name">MCP Server</div><div class="fi-desc">IDE调用Figma画布API</div></div>
+        <div class="feat-item"><div class="fi-icon">📱</div><div class="fi-name">Dev Mode</div><div class="fi-desc">多框架代码输出</div></div>
+        <div class="feat-item"><div class="fi-icon">🌐</div><div class="fi-name">Figma Sites</div><div class="fi-desc">生产级网站构建器</div></div>
+        <div class="feat-item"><div class="fi-icon">📝</div><div class="fi-name">Skills系统</div><div class="fi-desc">Markdown指令集引导AI行为</div></div>
+      </div>
+
+      <div class="figma-links">
+        <a href="https://www.figma.com/blog/the-figma-canvas-is-now-open-to-agents/" target="_blank" class="fl-of">📖 Figma 官方博客</a>
+        <a href="https://blog.logrocket.com/ux-design/figma-ai-2026-quick-overview/" target="_blank" class="fl-lr">📖 LogRocket 全功能详解</a>
+        <a href="https://rorklab.net/en/articles/rork-ai/figma-ai-agent-app-ui-automation" target="_blank" class="fl-rk">📖 Rork Lab 自动化实操</a>
+        <a href="https://www.figma.com/release-notes/" target="_blank" class="fl-of">📖 Release Notes</a>
+        <a href="figma-ai-cases.html" class="fl-case">🔧 查看完整案例集 →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool Comparison -->
+  <div class="section">
+    <h2 class="sec-title">📊 主流AI设计工具全景对比</h2>
+    <table class="ctbl">
+      <thead><tr><th>工具</th><th>核心优势</th><th>主要短板</th><th>最佳场景</th><th>热度</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="tn" style="color:var(--accent-p);">🟣 Figma AI<br><small>(Make)</small></td>
+          <td><span class="pro-tag">AI Agent直接上画布</span><span class="pro-tag">Skills系统引导</span><span class="pro-tag">自我修复迭代</span>插件生态无敌</td>
+          <td><span class="con-tag">Make代码臃肿不可用</span><span class="con-tag">需付费Token优化</span>仅支持React</td>
+          <td>Figma团队AI辅助设计/组件生成/设计系统维护</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:88%"></div></div><span class="sv" style="color:var(--accent-b)">8.8</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-b);">🔵 Claude Design</td>
+          <td><span class="pro-tag">极低门槛5分钟出图</span><span class="pro-tag">小白友好</span><span class="pro-tag">多轮对话交互</span></td>
+          <td><span class="con-tag">Token消耗极高</span><span class="con-tag">25分钟烧80%</span>高频成本压力大</td>
+          <td>快速概念验证/Demo演示/非设计师做原型</td>
+          <td><div class="sb"><div class="st"><div class="sf md" style="width:72%"></div></div><span class="sv" style="color:var(--warning)">7.2</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:#10a37f;">🟢 ChatGPT<br><small>(Images 2.0)</small></td>
+          <td><span class="pro-tag">ELO 1512登顶</span><span class="pro-tag">中文排版99%</span><span class="pro-tag">UI Mockup截图级</span>原生4K输出</td>
+          <td><span class="con-tag">仅图像生成无编辑</span>非设计工作流工具<br>需配合其他工具完成流程</td>
+          <td>产品Mockup/营销素材/海报包装/UI概念图</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:85%"></div></div><span class="sv" style="color:var(--accent-b)">8.5</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-s);">🩵 UXbot</td>
+          <td><span class="pro-tag">流程画布独创</span><span class="pro-tag">三端原生代码</span><span class="pro-tag">效率提升90%+</span>全链路覆盖</td>
+          <td><span class="con-tag">品牌较新</span>生态仍在建设中</td>
+          <td>需求→原型→HTML/Vue/Kotlin/Swift</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:82%"></div></div><span class="sv" style="color:var(--accent-b)">8.2</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:#ff6b35;">🟠 Pencil.dev</td>
+          <td><span class="pro-tag">SWARM多Agent并行</span><span class="pro-tag">跨平台AI支持</span><span class="pro-tag">VS Code内嵌</span>10万+用户</td>
+          <td><span class="con-tag">需IDE环境</span>非独立设计App<br>设计师学习成本较高</td>
+          <td>开发者兼做设计/MVP快速产出/多风格探索</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:79%"></div></div><span class="sv" style="color:var(--accent-b)">7.9</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:#0055ff;">🔷 Framer AI</td>
+          <td><span class="pro-tag">1-2小时发布级页面</span><span class="pro-tag">网站产品优秀</span>动效强</td>
+          <td><span class="con-tag">不支持移动端</span>复杂交互受限</td>
+          <td>Landing Page/网站快速构建/Portfolio</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:76%"></div></div><span class="sv" style="color:var(--accent-b)">7.6</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-w);">🔴 Canva AI 2.0</td>
+          <td><span class="pro-tag">分层可编辑输出</span><span class="pro-tag">品牌智能自动应用</span><span class="pro-tag">HTML导出</span>专用设计结构模型</td>
+          <td><span class="con-tag">不适合生产级App UI</span>Research Preview阶段</td>
+          <td>社交媒体/Newsletter/中小企业品牌物料</td>
+          <td><div class="sb"><div class="st"><div class="sf md" style="width:77%"></div></div><span class="sv" style="color:var(--warning)">7.7</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-g);">🟡 Meoo 秒悟</td>
+          <td><span class="pro-tag">四大模型集成</span><span class="pro-tag">全栈自动化</span><span class="pro-tag">一键云部署</span>零基础也能做产品</td>
+          <td><span class="con-tag">早期测试阶段</span>功能仍在打磨</td>
+          <td>零基础创业者/MVP验证/内部工具搭建</td>
+          <td><div class="sb"><div class="st"><div class="sf md" style="width:70%"></div></div><span class="sv" style="color:var(--warning)">7.0</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-s);">🩵 Pixso</td>
+          <td><span class="pro-tag">国产合规安全</span><span class="pro-tag">鸿蒙代码生成</span><span class="pro-tag">私有化部署</span></td>
+          <td><span class="con-tag">国际生态弱于Figma</span>社区规模有限</td>
+          <td>政企项目/鸿蒙开发/数据合规场景</td>
+          <td><div class="sb"><div class="st"><div class="sf md" style="width:74%"></div></div><span class="sv" style="color:var(--warning)">7.4</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Quick Pick -->
+  <div class="section">
+    <h2 class="sec-title">💡 选型建议速查</h2>
+    <table class="ptbl">
+      <thead><tr><th>你的场景</th><th>推荐方案</th><th>理由</th></tr></thead>
+      <tbody>
+        <tr><td class="ps">🚀 早期验证 / 概念阶段</td><td><span class="pk p1">UXbot 流程画布</span> + <span class="pk p2">Claude Design</span></td><td class="pr">准备时间缩短80%，快速验证可行性</td></tr>
+        <tr><td class="ps">🌐 Web端产品快速构建</td><td><span class="pk p1">Figma AI</span> 或 <span class="pk p2">Framer AI</span></td><td class="pr">Figma Agent画布协作 / Framer 1-2小时出发布页</td></tr>
+        <tr><td class="ps">📱 移动端 / 多端原生开发</td><td><span class="pk p1">UXbot 三端同步输出</span></td><td class="pr">Kotlin/Swift/Vue原生代码直接可用</td></tr>
+        <tr><td class="ps">🖼️ 营销视觉 / Mockup / 包装</td><td><span class="pk p1">ChatGPT Images 2.0</span> + <span class="pk p2">Canva AI 2.0</span></td><td class="pr">GPT-Image-2中文排版99%+Canva分层编辑</td></tr>
+        <tr><td class="ps">🛠️ 开发者兼顾设计</td><td><span class="pk p1">Pencil.dev SWARM</span> + <span class="pk p2">Figma AI</span></td><td class="pr">VS Code内嵌多Agent并行+Figma精修闭环</td></tr>
+        <tr><td class="ps">🛠️ 零基础想做完整产品</td><td><span class="pk p1">Meoo（秒悟）</span></td><td class="pr">四大模型兜底，前后端数据库一条龙</td></tr>
+        <tr><td class="ps">🏢 企业级 / 政企项目</td><td><span class="pk p1">Pixso Paico AI</span></td><td class="pr">国产合规 + 鸿蒙适配 + 私有化部署</td></tr>
+        <tr><td class="ps">👥 团队协作 + 版本管理</td><td><span class="pk p1">Figma</span> / <span class="pk p2">Pixso</span></td><td class="pr">成熟协作体系（版本管理、组件库、审阅）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Trends -->
+  <div class="section">
+    <h2 class="sec-title">📈 行业趋势总结</h2>
+    <ul class="tl">
+      <li class="ti"><span class="tnum">1</span><div class="tc"><h4>「AI设计格局被改写的一周」—— 4.16 Canva / 4.17 Claude Design / 4.21 GPT-Image-2</h4><p>三天内三家巨头密集发布，Google Trends「claude design」搜索量一周暴涨900%。AI设计从"辅助工具"全面升级为"核心生产力"。</p></div></li>
+      <li class="ti"><span class="tnum">2</span><div class="tc"><h4>Figma 关键转折：AI Agent 从"外部建议者"变为"画布协作者"</h4><p>Skills 系统（Markdown指令集）、自我修复迭代、设计令牌同步……Figma 让 AI 进入设计环境内部工作。<a href="https://www.figma.com/release-notes/" target="_blank" style="color:var(--accent-b);font-size:11px;">→ Release Notes</a></p></div></li>
+      <li class="ti"><span class="tnum">3</span><div class="tc"><h4>视觉设计 AI 迎来"文字渲染拐点"：GPT-Image-2 中文准确率 99%</h4><p>AI绘图长期被诟病的"乱写字"被彻底解决。中文排版达商用级别，UI Mockup 可与真实界面混淆。</p></div></li>
+      <li class="ti"><span class="tnum">4</span><div class="tc"><h4>三种路线并存 + 第四种浮现："AI设计Agent"</h4><p>独立生成型·UI直通代码型·主流工具集成AI之外，Pencil SWARM的多Agent并行、Figma Skills的指令化引导都在向 Agent 化演进。</p></div></li>
+      <li class="ti"><span class="tnum">5</span><div class="tc"><h4>本土化 + 垂直场景成为突围路径</h4><p>阿里Meoo入局、Pixso强化Paico AI。国内工具在政企、教育、电商等垂直领域构建差异化壁垒。<a href="https://cloud.tencent.com/developer/article/2658585" target="_blank" style="color:var(--accent-b);font-size:11px;">→ 腾讯云深度分析</a></p></div></li>
+    </ul>
+  </div>
+
+  <!-- Insight -->
+  <div class="ibx">
+    <div class="ib-t">💎 核心洞察</div>
+    <div class="ibi"><span class="ibi-ic">🎯</span><div><strong>本周关键词：「Agent 化」与「结构化理解」</strong><p>Figma 让 AI Agent 上画布、Pencil 让多 Agent 并行、Canva 训练专用设计结构模型 —— 共同指向一个方向：AI 正从"能出图的黑盒"进化为"懂设计规则的协作者"。重复劳动交给 Agent，人类聚焦创意决策。</p></div></div>
+    <div class="ibi"><span class="ibi-ic">🔮</span><div><strong>2026下半场五大看点</strong><p>① Token 定价策略是否引发价格战 · ② 鸿蒙生态拉动效应 · ③ 跨工具 AI Agent 自动协作 · ④ 垂直领域工具涌现(B端/数据可视化) · ⑤ 视觉设计与UI设计的融合加速(GPT-Image-2的UI Mockup是信号)</p></div></div>
+  </div>
+
+  <!-- Sources -->
+  <div class="src-box">
+    <div class="src-t">📎 信息来源</div>
+    <div class="src-l">
+      📰 <a href="https://finance.sina.com.cn/tech/digi/2026-04-18/doc-inhuxchh0267458.shtml" target="_blank">IT之家 — Claude Design 实测</a> ·
+      📰 <a href="https://dev.to/spookuspookus/figma-made-a-huge-step-forward-in-ai-design-april-2026-1cin" target="_blank">DEV Community — Figma AI深度解读</a> ·
+      📰 <a href="https://finance.sina.com.cn/tech/roll/2026-04-15/doc-inhuqnau4066250.shtml" target="_blank">新浪科技 — 阿里Meoo</a> ·
+      📰 <a href="https://rar.design/posts/pencil-swarm-mode-ai-design-update" target="_blank">RAR攻略 — Pencil SWARM</a> ·
+      📰 <a href="https://chatimg.ai/zh/blog/gpt-image-2" target="_blank">ChatImg — GPT-Image-2</a> ·
+      📰 <a href="https://www.figma.com/blog/the-figma-canvas-is-now-open-to-agents/" target="_blank">Figma Official — Agents Meet the Canvas</a>
+    </div>
+  </div>
+
+</div><!-- /tab-vol01 -->
+
+
+<!-- ==================== VOL.02 (Placeholder) ==================== -->
+<div class="tab-content" id="tab-vol02">
+  <div class="empty-state">
+    <div class="emoji">📅</div>
+    <h3>Vol.02 敬请期待</h3>
+    <p>2026年5月4日（周一）10:00 自动更新</p>
+  </div>
+</div>
+
+<!-- ==================== VOL.03 (Placeholder) ==================== -->
+<div class="tab-content" id="tab-vol03">
+  <div class="empty-state">
+    <div class="emoji">📅</div>
+    <h3>Vol.03 敬请期待</h3>
+    <p>2026年5月11日（周一）10:00 自动更新</p>
+  </div>
+</div>
+
+<!-- ==================== VOL.04 (Placeholder) ==================== -->
+<div class="tab-content" id="tab-vol04">
+  <div class="empty-state">
+    <div class="emoji">📅</div>
+    <h3>Vol.04 敬请期待</h3>
+    <p>2026年5月18日（周一）10:00 自动更新</p>
+  </div>
+</div>
+
+
+<div class="footer">
+  🎨 设计周刊 &nbsp;·&nbsp; 由 AI 整理 &nbsp;·&nbsp;
+  <a href="https://github.com/710622830-cyber/custom-ip-weekly">GitHub Pages 托管</a><br>
+  <span style="opacity:.4;margin-top:5px;display:inline-block;">每周一上午10:00自动更新 · Tab切换查看各期内容</span>
+</div>
+
+</div>
+
+<script>
+function switchTab(tabId, btn) {
+  // Hide all
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  // Show selected
+  document.getElementById('tab-' + tabId).classList.add('active');
+  btn.classList.add('active');
+  // Update URL hash without scroll
+  history.pushState(null, '', '#' + tabId);
+}
+// Restore from hash on load
+window.addEventListener('load', () => {
+  const hash = location.hash.replace('#', '');
+  if (hash && document.getElementById('tab-' + hash)) {
+    const btn = document.querySelector(`[data-tab="${hash}"]`);
+    if (btn) switchTab(hash, btn);
+  }
+});
+</script>
+</body>
+</html>
