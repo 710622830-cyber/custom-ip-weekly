@@ -171,16 +171,17 @@
 <!-- ========== TAB BAR ========== -->
 <div class="tab-bar" id="tabBar">
   <span class="tab-label">期数</span>
-  <button class="tab-btn active" data-tab="vol01" onclick="switchTab('vol01', this)">📖 Vol.01<span class="tab-date">04.21–04.27</span></button>
-  <button class="tab-btn" data-tab="vol02" onclick="switchTab('vol02', this)">📖 Vol.02<span class="tab-date">04.28–05.04</span></button>
+  <button class="tab-btn" data-tab="vol01" onclick="switchTab('vol01', this)">📖 Vol.01<span class="tab-date">04.21–04.27</span></button>
+  <button class="tab-btn active" data-tab="vol02" onclick="switchTab('vol02', this)">📖 Vol.02<span class="tab-date">04.28–05.04</span></button>
   <button class="tab-btn" data-tab="vol03" onclick="switchTab('vol03', this)">📖 Vol.03<span class="tab-date">05.05–05.11</span></button>
   <button class="tab-btn" data-tab="vol04" onclick="switchTab('vol04', this)">📖 Vol.04<span class="tab-date">05.12–05.18</span></button>
+  <button class="tab-btn" data-tab="vol05" onclick="switchTab('vol05', this)">📖 Vol.05<span class="tab-date">05.19–05.25</span></button>
   <!-- 新一期自动追加 tab-btn，并移除最新期的 active 给新期 -->
 </div>
 
 
 <!-- ==================== VOL.01 CONTENT ==================== -->
-<div class="tab-content active" id="tab-vol01">
+<div class="tab-content" id="tab-vol01">
 
   <!-- Key Numbers -->
   <div class="dh"><div class="dg">
@@ -491,13 +492,318 @@
 
 
 <!-- ==================== VOL.02 (Placeholder) ==================== -->
-<div class="tab-content" id="tab-vol02">
-  <div class="empty-state">
-    <div class="emoji">📅</div>
-    <h3>Vol.02 敬请期待</h3>
-    <p>2026年5月4日（周一）10:00 自动更新</p>
+<div class="tab-content active" id="tab-vol02">
+
+  <!-- Key Numbers -->
+  <div class="dh"><div class="dg">
+    <div class="di"><div class="dv">8+</div><div class="dl">本周重大发布/更新</div></div>
+    <div class="di"><div class="dv">5x</div><div class="dl">Midjourney V8.1提速</div></div>
+    <div class="di"><div class="dv">30+</div><div class="dl">AI模型生态集成</div></div>
+    <div class="di"><div class="dv">17:11</div><div class="dl">GPT-I2 vs MJ V7 胜场</div></div>
+  </div></div>
+
+  <!-- Headlines -->
+  <div class="section">
+    <h2 class="sec-title">🔥 本周头条 · UI/UX 设计工具</h2>
+    <div class="hl-grid">
+
+      <div class="hl-card hot">
+        <span class="rank r1">1</span>
+        <h3>Figma Make 大升级：语音输入 + Zapier连接器</h3>
+        <div class="src">📅 04.30 | Figma 官方</div>
+        <p>Make 迎来4项重大更新：语音转文字输入提示词、问题卡片（结构化选项+权衡描述）、版本历史追踪与即时回滚、Zapier连接器打通Google Drive/Office/Zoom等9000+应用。</p>
+        <div class="tags"><span class="tag ht">⚠️ 语音交互</span><span class="tag ht">9000+应用集成</span><span class="tag ht">版本回滚</span></div>
+        <div class="links-row">
+          <a href="https://www.creativeainews.com/blog/figma-make-zapier-connector-voice-prompts/" target="_blank" class="lk-article">📰 原文链接</a>
+          <a href="https://www.figma.com/" target="_blank" class="lk-official">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="hl-card new">
+        <span class="rank r2">2</span>
+        <h3>Canva × GPT-Image-2 首日集成：Magic Layers 可编辑</h3>
+        <div class="src">📅 04.27 | Canva / OpenAI</div>
+        <p>Canva AI 2.0 在发布首日即集成 GPT-Image-2，通过 Magic Layers 将 AI 生成的平面海报自动拆分为<strong>100%可编辑的分层设计</strong>。文字可改、对象可移动、完全可控。</p>
+        <div class="tags"><span class="tag nt">🆕 首日集成GPT-I2</span><span class="tag nt">Magic Layers</span><span class="tag nt">全可编辑输出</span></div>
+        <div class="links-row">
+          <a href="https://pasqualepillitteri.it/en/news/1466/canva-gpt-image-2-editable-posters-magic-layers" target="_blank" class="lk-article">📰 原文链接</a>
+          <a href="https://www.canva.com/magic-layers/" target="_blank" class="lk-official">🌐 官网</a>
+          <a href="https://www.msn.com/en-us/news/other/canva-integrates-gpt-image-2-for-fully-editable-ai-posters/gm-GMEBB58E1C" target="_blank" class="lk-article">📰 MSN报道</a>
+        </div>
+      </div>
+
+      <div class="hl-card trend">
+        <span class="rank r3">3</span>
+        <h3>Adobe Firefly AI Assistant：跨CC创意代理发布</h3>
+        <div class="src">📅 04.15 | Adobe 官方</div>
+        <p>Adobe 推出由 Creative Agent 驱动的 Firefly AI Assistant——单一对话接口跨 Photoshop/Premiere/Lightroom 等编排多步工作流。支持 Claude 第三方协作、Frame.io 反馈自动修改。</p>
+        <div class="tags"><span class="tag tt">🆕 创意Agent架构</span><span class="tag tt">跨CC全应用</span><span class="tag tt">Claude集成</span><span class="tag tt">30+模型生态</span></div>
+        <div class="links-row">
+          <a href="https://news.adobe.com/news/2026/04/adobe-new-creative-agent" target="_blank" class="lk-article">📰 原文链接</a>
+          <a href="https://www.adobe.com/" target="_blank" class="lk-official">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="hl-card new">
+        <h3>GPT-Image-2 vs Midjourney V7：5天30Prompt实测</h3>
+        <div class="src">📅 05.01-05.03 | OpenAIToolsHub</div>
+        <p>开发者用30个提示词连续5天深度对比。结果：<strong>GPT-I2 赢17场/MJ V7赢11场/2平</strong>。GPT-I2在文字渲染和品牌控制上碾压级领先；MJ V7在首图美感和光影氛围上更胜一筹。</p>
+        <div class="tags"><span class="tag nt">🆕 30 Prompt实测</span><span class="tag nt">17:11胜场比</span><span class="tag nt">生产 vs 灵感定位分化</span></div>
+        <div class="links-row">
+          <a href="https://www.openaitoolshub.org/zh-cn/blog/gpt-image-2-vs-midjourney-v7" target="_blank" class="lk-article">📰 深度实测报告</a>
+          <a href="https://www.elser.ai/zh/blog/gpt-image-2-vs-midjourney-v7" target="_blank" class="lk-article">📰 全面对比</a>
+        </div>
+      </div>
+
+      <div class="hl-card trend">
+        <h3>Midjourney V8.1 正式版：原生2K + 5倍速</h3>
+        <div class="src">📅 04.30 发布 · Midjourney</div>
+        <p>V8.1 Alpha 升级正式版：<strong>原生2K高清默认输出、生成速度提升5倍、成本降低3倍</strong>。恢复V7经典美学风格，图像提示功能增强。底层架构全面重写。</p>
+        <div class="tags"><span class="tag tt">🔥 原生2K默认</span><span class="tag tt">5倍速出图</span><span class="tag tt">成本降3倍</span></div>
+        <div class="links-row">
+          <a href="https://felloai.com/cs/midjourney-v8-1-review/" target="_blank" class="lk-article">📰 完整评测</a>
+          <a href="https://updates.midjourney.com/v8-1-alpha/" target="_blank" class="lk-official">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="hl-card hot">
+        <h3>Figma 性能大飞跃：矢量编辑10倍提速</h3>
+        <div class="src">📅 04.24 | Figma 工程团队</div>
+        <p>性能优化里程碑：矢量编辑速度最高提升<strong>10倍</strong>，Make帧率提升4倍，内存警告减少92%。桌面端文件切换实现无感跳转+后台预加载。</p>
+        <div class="tags"><span class="tag ht">⚡ 矢量编辑10x</span><span class="tag ht">内存警告-92%</span><span class="tag ht">帧率4x</span></div>
+        <div class="links-row">
+          <a href="https://www.figma.com/release-notes/" target="_blank" class="lk-article">📰 Release Notes</a>
+          <a href="https://releasebot.io/updates/figma" target="_blank" class="lk-official">🌐 更新时间线</a>
+        </div>
+      </div>
+
+    </div>
   </div>
-</div>
+
+  <!-- Visual Design -->
+  <div class="section">
+    <h2 class="sec-title">🎨 视觉设计 AI 资讯</h2>
+    <div class="v-grid">
+
+      <div class="v-card">
+        <h4>🖼️ Midjourney V8.1 正式版</h4>
+        <div class="v-meta">📅 04.30 发布 · Midjourney 官方</div>
+        <div class="v-desc">从 Alpha 到正式版。<strong>原生2K HD默认开启、速度5倍、成本3倍降低</strong>。回归V7美学风格，图像提示增强。</div>
+        <div class="v-links">
+          <a href="https://felloai.com/cs/midjourney-v8-1-review/" target="_blank" class="vla">📰 完整评测</a>
+          <a href="https://updates.midjourney.com/v8-1-alpha/" target="_blank" class="vlo">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>🤝 Canva × GPT-Image-2 Magic Layers</h4>
+        <div class="v-meta">📅 04.27 集成 · Canva / OpenAI</div>
+        <div class="v-desc">首日接入GPT-Image-2，AI海报→<strong>Magic Layers自动分层</strong>→文字/对象完全可编辑。彻底解决AI生成物"不可修改"痛点。</div>
+        <div class="v-links">
+          <a href="https://pasqualepillitteri.it/en/news/1466/canva-gpt-image-2-editable-posters-magic-layers" target="_blank" class="vla">📰 技术详解</a>
+          <a href="https://www.canva.com/magic-layers/" target="_blank" class="vlo">🌐 Magic Layers官网</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>✏️ GPT-Image-2 vs MJ V7 对决</h4>
+        <div class="v-meta">📅 05.01-05.03 实测 · OpenAIToolsHub</div>
+        <div class="v-desc"><strong>30 Prompt / 5天深度横评</strong>：GPT-I2赢17场（文字/品牌控制），MJ赢11场（光影/氛围）。定位明确：生产工具 vs 视觉灵感。</div>
+        <div class="v-links">
+          <a href="https://www.openaitoolshub.org/zh-cn/blog/gpt-image-2-vs-midjourney-v7" target="_blank" class="vla">📰 5天实测全文</a>
+          <a href="https://www.elser.ai/zh/blog/gpt-image-2-vs-midjourney-v7" target="_blank" class="vla">📰 一对一正面对比</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>🎨 Adobe Firefly AI Assistant</h4>
+        <div class="v-meta">📅 04.15 发布 · Adobe</div>
+        <div class="v-desc"><strong>Creative Agent驱动</strong>，单一对话跨PS/PR/LR等编排多步工作流。集成Claude第三方模型、Kling 3.0视频模型、30+行业模型生态。</div>
+        <div class="v-links">
+          <a href="https://news.adobe.com/news/2026/04/adobe-new-creative-agent" target="_blank" class="vla">📰 官方公告</a>
+          <a href="https://helpx.adobe.com/firefly/web/whats-new/new-features/whats-new.html" target="_blank" class="vlo">🌐 功能更新页</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>🔧 Figma 图像参考方式扩展</h4>
+        <div class="v-meta">📅 04.29 更新 · Figma</div>
+        <div class="v-desc">AI图像生成新增<strong>三种参考图添加方式</strong>：点击画布节点引用、复制粘贴到提示框、拖放文件。覆盖Figma/FigJam/Slides/Buzz/Draw全产品线。</div>
+        <div class="v-links">
+          <a href="https://www.figma.com/release-notes/" target="_blank" class="vla">📰 Release Notes</a>
+          <a href="https://figmalion.com/topics/app-updates" target="_blank" class="vla">📰 Figmalion解读</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>📐 Figma Draw 增强：路径文字+纹理控制</h4>
+        <div class="v-meta">📅 04.29 更新 · Figma</div>
+        <div class="v-desc">Draw模式可直接用Auto Layout、新增<strong>路径文字工具</strong>、独立X/Y轴噪点纹理控制、渐变+混合模式预设。设计师切换频率大幅降低。</div>
+        <div class="v-links">
+          <a href="https://upskill.biz/breaking-down-figmas-2026-update-new-features-ai-tools-and-web-design-workflow-improvements/" target="_blank" class="vla">📰 功能拆解</a>
+          <a href="https://www.figma.com/" target="_blank" class="vlo">🌐 官网</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Figma AI Summary -->
+  <div class="section">
+    <h2 class="sec-title">🔧 Figma AI 最新动态</h2>
+    <div class="figma-summary">
+      <h3>🤖 Figma 密集更新周 — Make升级 / 性能飞跃 / Draw增强 / FigJam MCP</h3>
+      <p>本周是 Figma 自 AI Agent 上画布以来最密集的一周更新。<strong>Make 新增语音输入+问题卡片+Zapier连接器</strong>，大幅降低使用门槛；底层性能优化让矢量编辑提速10倍、内存警告骤减92%；Draw 模式新增路径文字和精细纹理控制；FigJam 通过 MCP 成为编程代理的白板工具。</p>
+
+      <div class="feat-row">
+        <div class="feat-item"><div class="fi-icon">🎙️</div><div class="fi-name">Voice-to-Text</div><div class="fi-desc">Make聊天中口述生成干净文本</div></div>
+        <div class="feat-item"><div class="fi-icon">❓</div><div class="fi-name">Question Cards</div><div class="fi-desc">结构化选项带权衡描述引导决策</div></div>
+        <div class="feat-item"><div class="fi-icon">🔄</div><div class="fi-name">Version History</div><div class="fi-desc">构建版本追踪+即时回滚</div></div>
+        <div class="feat-item"><div class="fi-icon">🔗</div><div class="fi-name">Zapier Connector</div><div class="fi-desc">9000+第三方应用上下文引入</div></div>
+        <div class="feat-item"><div class="fi-icon">⚡</div><div class="fi-name">性能10x提升</div><div class="fi-desc">矢量编辑提速/内存警告-92%</div></div>
+        <div class="feat-item"><div class="fi-icon">🔤</div><div class="fi-name">Path Text Tool</div><div class="fi-desc">Draw中路径文字+圆形排版</div></div>
+        <div class="feat-item"><div class="fi-icon">🎨</div><div class="fi-name">Texture Control</div><div class="fi-desc">独立X/Y轴噪点+渐变预设</div></div>
+        <div class="feat-item"><div class="fi-icon">📊</div><div class="fi-name">FigJam MCP</div><div class="fi-desc">白板变编程代理图表生成器</div></div>
+        <div class="feat-item"><div class="fi-icon">🖼️</div><div class="fi-name">多源参考图</div><div class="fi-desc">画布节点/粘贴/拖放三路输入</div></div>
+      </div>
+
+      <div class="figma-links">
+        <a href="https://www.figma.com/release-notes/" target="_blank" class="fl-of">📖 Figma Release Notes</a>
+        <a href="https://releasebot.io/updates/figma" target="_blank" class="fl-lr">📖 Releasebot 时间线</a>
+        <a href="https://help.figma.com/hc/en/articles/40219873508247-Release-notes-roundup-May-2026" target="_blank" class="fl-rk">📖 May 2026 Roundup</a>
+        <a href="https://www.creativeainews.com/blog/figma-make-zapier-connector-voice-prompts/" target="_blank" class="fl-of">📖 Make更新详解</a>
+        <a href="figma-ai-cases.html" class="fl-case">🔧 查看完整案例集 →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool Comparison -->
+  <div class="section">
+    <h2 class="sec-title">📊 主流AI设计工具全景对比</h2>
+    <table class="ctbl">
+      <thead><tr><th>工具</th><th>核心优势</th><th>主要短板</th><th>最佳场景</th><th>热度</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="tn" style="color:var(--accent-p);">🟣 Figma AI<br><small>(Make)</small></td>
+          <td><span class="pro-tag">AI Agent画布协作</span><span class="pro-tag">Make语音输入</span><span class="pro-tag">Zapier 9000+集成</span><span class="pro-tag">矢量编辑10x提速</span></td>
+          <td><span class="con-tag">Make代码臃肿不可用</span><span class="con-tag">需付费Token优化</span>仅React框架</td>
+          <td>Figma团队AI辅助设计/组件生成/快速原型</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:90%"></div></div><span class="sv" style="color:var(--accent-b)">9.0</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-b);">🔵 Claude Design</td>
+          <td><span class="pro-tag">极低门槛5分钟出原型</span><span class="pro-tag">小白友好</span><span class="pro-tag">Opus 4.7驱动</span></td>
+          <td><span class="con-tag">Token消耗极高(25min烧80%)</span><span class="con-tag">高频使用成本压力大</span></td>
+          <td>快速概念验证/Demo演示/非设计师做原型</td>
+          <td><div class="sb"><div class="st"><div class="sf md" style="width:73%"></div></div><span class="sv" style="color:var(--warning)">7.3</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:#10a37f;">🟢 ChatGPT<br><small>(Images 2.0)</small></td>
+          <td><span class="pro-tag">ELO 1512登顶</span><span class="pro-tag">中文排版99%</span><span class="pro-tag">Canva首日集成</span><span class="pro-tag">对话式精确修改</span></td>
+          <td><span class="con-tag">仅图像无编辑工作流</span>需配合其他工具完成流程</td>
+          <td>产品Mockup/营销素材/海报/UI概念图</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:87%"></div></div><span class="sv" style="color:var(--accent-b)">8.7</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-s);">🩵 UXbot</td>
+          <td><span class="pro-tag">流程画布独创</span><span class="pro-tag">三端原生代码</span><span class="pro-tag">效率提升90%+</span>云端部署</td>
+          <td><span class="con-tag">品牌较新</span>生态仍在建设中</td>
+          <td>需求→原型→HTML/Vue/Kotlin/Swift全链路</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:83%"></div></div><span class="sv" style="color:var(--accent-b)">8.3</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:#ff6b35;">🟠 Pencil.dev</td>
+          <td><span class="pro-tag">SWARM多Agent并行</span><span class="pro-tag">VS Code内嵌</span><span class="pro-tag">Claude Code原生</span><span class="pro-tag">10万+用户</span></td>
+          <td><span class="con-tag">需IDE环境</span>非独立设计App<br>学习成本较高</td>
+          <td>开发者兼顾设计/MVP快速产出/多风格探索</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:80%"></div></div><span class="sv" style="color:var(--accent-b)">8.0</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:#0055ff;">🔷 Framer AI</td>
+          <td><span class="pro-tag">1-2小时发布页面</span><span class="pro-tag">网站产品优秀</span>动效强</td>
+          <td><span class="con-tag">不支持移动端</span>复杂交互受限</td>
+          <td>Landing Page/网站快速构建/Portfolio</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:77%"></div></div><span class="sv" style="color:var(--accent-b)">7.7</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-w);">🔴 Canva AI 2.0</td>
+          <td><span class="pro-tag">Magic Layers可编辑</span><span class="pro-tag">GPT-I2首日集成</span><span class="pro-tag">品牌智能自动应用</span></td>
+          <td><span class="con-tag">不适合生产级App UI</span>Research Preview阶段</td>
+          <td>社交媒体/Newsletter/品牌物料/AI海报编辑</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:82%"></div></div><span class="sv" style="color:var(--accent-b)">8.2</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-g);">🟡 Meoo 秒悟</td>
+          <td><span class="pro-tag">四大模型集成</span><span class="pro-tag">全栈自动化</span><span class="pro-tag">一键云部署</span></td>
+          <td><span class="con-tag">早期测试阶段</span>功能仍在打磨</td>
+          <td>零基础创业者/MVP验证/内部工具搭建</td>
+          <td><div class="sb"><div class="st"><div class="sf md" style="width:71%"></div></div><span class="sv" style="color:var(--warning)">7.1</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-s);">🩵 Pixso</td>
+          <td><span class="pro-tag">国产合规安全</span><span class="pro-tag">鸿蒙代码生成</span><span class="pro-tag">私有化部署</span>D2C交付</td>
+          <td><span class="con-tag">国际生态弱于Figma</span>社区规模有限</td>
+          <td>政企项目/鸿蒙开发/数据合规场景</td>
+          <td><div class="sb"><div class="st"><div class="sf md" style="width:75%"></div></div><span class="sv" style="color:var(--warning)">7.5</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Quick Pick -->
+  <div class="section">
+    <h2 class="sec-title">💡 选型建议速查</h2>
+    <table class="ptbl">
+      <thead><tr><th>你的场景</th><th>推荐方案</th><th>理由</th></tr></thead>
+      <tbody>
+        <tr><td class="ps">🚀 早期验证 / 概念阶段</td><td><span class="pk p1">UXbot 流程画布</span> + <span class="pk p2">Claude Design</span></td><td class="pr">准备时间缩短80%，快速验证可行性</td></tr>
+        <tr><td class="ps">🌐 Web端产品快速构建</td><td><span class="pk p1">Figma AI (Make)</span> 或 <span class="pk p2">Framer AI</span></td><td class="pr">Make语音输入+Zapier / Framer 1-2小时出发布页</td></tr>
+        <tr><td class="ps">📱 移动端 / 多端原生开发</td><td><span class="pk p1">UXbot 三端同步输出</span></td><td class="pr">Kotlin/Swift/Vue原生代码直接可用</td></tr>
+        <tr><td class="ps">🖼️ 营销视觉 / Mockup / 海报</td><td><span class="pk p1">ChatGPT Images 2.0</span> → <span class="pk p2">Canva Magic Layers</span></td><td class="pr">GPT-I2生成+Canva分层编辑=完美闭环</td></tr>
+        <tr><td class="ps">🛠️ 开发者兼顾设计</td><td><span class="pk p1">Pencil.dev SWARM</span> + <span class="pk p2">Figma AI</span></td><td class="pr">VS Code内嵌多Agent并行+Figma精修闭环</td></tr>
+        <tr><td class="ps">🛠️ 零基础想做完整产品</td><td><span class="pk p1">Meoo（秒悟）</span></td><td class="pr">四大模型兜底，前后端数据库一条龙</td></tr>
+        <tr><td class="ps">🎬 多媒体创作 / 视频+图像</td><td><span class="pk p1">Adobe Firefly Assistant</span></td><td class="pr">Creative Agent跨CC编排+Kling 3.0视频+30+模型</td></tr>
+        <tr><td class="ps">👥 团队协作 + 版本管理</td><td><span class="pk p1">Figma</span> / <span class="pk p2">Pixso</span></td><td class="pr">成熟协作体系（版本管理、组件库、审阅）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Trends -->
+  <div class="section">
+    <h2 class="sec-title">📈 行业趋势总结</h2>
+    <ul class="tl">
+      <li class="ti"><span class="tnum">1</span><div class="tc"><h4>「集成周」—— GPT-I2入驻Canva、Adobe集成Claude、Figma接通Zapier</h4><p>本周最大信号：AI设计工具从"单打独斗"进入<strong>生态互联时代</strong>。Canva首日集成GPT-I2、Adobe Firefly接入Claude、Figma Make通过Zapier打通9000+应用。孤岛正在消失。</p></div></li>
+      <li class="ti"><span class="tnum">2</span><div class="tc"><h4>GPT-Image-2 vs Midjourney V7 定位分化：「生产工具」vs「灵感引擎」</h4><p>30 Prompt实测数据清晰揭示：GPT-I2胜在<strong>可控性</strong>（文字/品牌色/局部修改），MJ胜在<strong>美学冲击力</strong>（光影/氛围/构图）。两者不是替代关系而是互补关系。<a href="https://www.openaitoolshub.org/zh-cn/blog/gpt-image-2-vs-midjourney-v7" target="_blank" style="color:var(--accent-b);font-size:11px;">→ 实测报告</a></p></div></li>
+      <li class="ti"><span class="tnum">3</span><div class="tc"><h4>Figma 一周4项重磅更新：Make体验+性能+Draw+FigJam MCP 全面进化</h4><p>语音输入降低门槛、问题卡片引导决策、矢量编辑10倍提速、FigJam变成编程白板。<strong>Figma正在把自己重新定义为"AI设计操作系统"</strong>而非单纯设计工具。</p></div></li>
+      <li class="ti"><span class="tnum">4</span><div class="tc"><h4>「可编辑」成为AI图像新标准：Canva Magic Layers + GPT-I2 = 平面→分层的质变</h4><p>AI生成长期痛点是不可编辑。Canva用 Magic Layers 解决了这个问题——AI生成的海报自动拆分为可编辑图层。这可能是本周最具实用价值的进展。</p></div></li>
+      <li class="ti"><span class="tnum">5</span><div class="tc"><h4>Creative Agent 架构崛起：Adobe领跑、Figma跟进、全行业向Agent化演进</h4><p>Adobe Firefly AI Assistant 用单一对话编排跨应用工作流、Figma Skills用Markdown引导AI行为、Pencil用SWARM做多Agent并行。<strong>"告诉AI做什么"正在取代"教AI怎么做"</strong>。<a href="https://news.adobe.com/news/2026/04/adobe-new-creative-agent" target="_blank" style="color:var(--accent-b);font-size:11px;">→ Adobe公告</a></p></div></li>
+    </ul>
+  </div>
+
+  <!-- Insight -->
+  <div class="ibx">
+    <div class="ib-t">💎 核心洞察</div>
+    <div class="ibi"><span class="ibi-ic">🎯</span><div><strong>本周关键词：「生态互联」与「可编辑AI」</strong><p>如果说Vol.01的关键词是"Agent化"，那Vol.02的核心叙事就是<strong>互联互通</strong>。GPT-I2入驻Canva、Adobe联手Claude、Figma接通Zapier——AI设计工具不再各自为战。同时，Magic Layers证明"可编辑AI输出"才是落地的最后一公里。未来的竞争维度不是谁的模型更强，而是谁能让AI更好地融入现有工作流。</p></div></div>
+    <div class="ibi"><span class="ibi-ic">🔮</span><div><strong>2026年中六大看点</strong><p>① GPT-I2 API开放后的第三方工具井喷 · ② Midjourney V9是否继续走速度/性价比路线 · ③ Figma Dev Mode能否输出非React代码 · ④ Adobe Creative Agent公测后实际表现 · ⑤ 国产工具(Pixso/Meoo)能否借鸿蒙窗口突围 · ⑥ "AI设计Agent间自动协作"何时从概念到现实</p></div></div>
+  </div>
+
+  <!-- Sources -->
+  <div class="src-box">
+    <div class="src-t">📎 信息来源</div>
+    <div class="src-l">
+      📰 <a href="https://www.creativeainews.com/blog/figma-make-zapier-connector-voice-prompts/" target="_blank">Creative AI News — Figma Make更新</a> ·
+      📰 <a href="https://pasqualepillitteri.it/en/news/1466/canva-gpt-image-2-editable-posters-magic-layers" target="_blank">Pasquale Pillitteri — Canva×GPT-I2</a> ·
+      📰 <a href="https://news.adobe.com/news/2026/04/adobe-new-creative-agent" target="_blank">Adobe官方 — Creative Agent</a> ·
+      📰 <a href="https://felloai.com/cs/midjourney-v8-1-review/" target="_blank">FelloAI — MJ V8.1评测</a> ·
+      📰 <a href="https://www.openaitoolshub.org/zh-cn/blog/gpt-image-2-vs-midjourney-v7" target="_blank">OpenAIToolsHub — GPT-I2 vs MJ V7</a> ·
+      📰 <a href="https://www.figma.com/release-notes/" target="_blank">Figma Official — Release Notes</a> ·
+      📰 <a href="https://releasebot.io/updates/figma" target="_blank">Releasebot — Figma时间线</a> ·
+      📰 <a href="https://www.elser.ai/zh/blog/gpt-image-2-vs-midjourney-v7" target="_blank">Elser AI — GPT-I2 vs MJ V7对比</a> ·
+      📰 <a href="https://figmalion.com/topics/app-updates" target="_blank">Figmalion — AI图像编辑工具</a>
+    </div>
+  </div>
+
+</div><!-- /tab-vol02 -->
 
 <!-- ==================== VOL.03 (Placeholder) ==================== -->
 <div class="tab-content" id="tab-vol03">
@@ -514,6 +820,15 @@
     <div class="emoji">📅</div>
     <h3>Vol.04 敬请期待</h3>
     <p>2026年5月18日（周一）10:00 自动更新</p>
+  </div>
+</div>
+
+<!-- ==================== VOL.05 (Placeholder) ==================== -->
+<div class="tab-content" id="tab-vol05">
+  <div class="empty-state">
+    <div class="emoji">📅</div>
+    <h3>Vol.05 敬请期待</h3>
+    <p>2026年5月25日（周一）10:00 自动更新</p>
   </div>
 </div>
 
