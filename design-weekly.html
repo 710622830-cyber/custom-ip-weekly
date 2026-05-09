@@ -172,8 +172,8 @@
 <div class="tab-bar" id="tabBar">
   <span class="tab-label">期数</span>
   <button class="tab-btn" data-tab="vol01" onclick="switchTab('vol01', this)">📖 Vol.01<span class="tab-date">04.21–04.27</span></button>
-  <button class="tab-btn active" data-tab="vol02" onclick="switchTab('vol02', this)">📖 Vol.02<span class="tab-date">04.28–05.04</span></button>
-  <button class="tab-btn" data-tab="vol03" onclick="switchTab('vol03', this)">📖 Vol.03<span class="tab-date">05.05–05.11</span></button>
+<button class="tab-btn" data-tab="vol02" onclick="switchTab('vol02', this)">📖 Vol.02<span class="tab-date">04.28–05.04</span></button>
+<button class="tab-btn active" data-tab="vol03" onclick="switchTab('vol03', this)">📖 Vol.03<span class="tab-date">05.05–05.11</span></button>
   <button class="tab-btn" data-tab="vol04" onclick="switchTab('vol04', this)">📖 Vol.04<span class="tab-date">05.12–05.18</span></button>
   <button class="tab-btn" data-tab="vol05" onclick="switchTab('vol05', this)">📖 Vol.05<span class="tab-date">05.19–05.25</span></button>
   <!-- 新一期自动追加 tab-btn，并移除最新期的 active 给新期 -->
@@ -492,7 +492,7 @@
 
 
 <!-- ==================== VOL.02 (Placeholder) ==================== -->
-<div class="tab-content active" id="tab-vol02">
+<div class="tab-content" id="tab-vol02">
 
   <!-- Key Numbers -->
   <div class="dh"><div class="dg">
@@ -805,14 +805,133 @@
 
 </div><!-- /tab-vol02 -->
 
-<!-- ==================== VOL.03 (Placeholder) ==================== -->
-<div class="tab-content" id="tab-vol03">
-  <div class="empty-state">
-    <div class="emoji">📅</div>
-    <h3>Vol.03 敬请期待</h3>
-    <p>2026年5月11日（周一）10:00 自动更新</p>
+<!-- ==================== VOL.03 (2026-05-05 ~ 05-11) ==================== -->
+<div class="tab-content active" id="tab-vol03">
+  <div class="dh">
+    <div class="dg">
+      <div class="di">
+        <div class="dv">10+</div>
+        <div class="dl">Figma 新功能</div>
+      </div>
+      <div class="di">
+        <div class="dv">4强</div>
+        <div class="dl">AI 视频模型</div>
+      </div>
+      <div class="di">
+        <div class="dv">MCP</div>
+        <div class="dl">协议标准化</div>
+      </div>
+      <div class="di">
+        <div class="dv">2.0</div>
+        <div class="dl">Sora 新版本</div>
+      </div>
+    </div>
   </div>
-</div>
+
+  <div class="section">
+    <div class="sec-title">🎨 Figma May 2026 Release：Agents 与 MCP 全面落地</div>
+    <div class="hl-grid">
+      <div class="hl-card">
+        <div class="hl-tag">Figma Agents</div>
+        <div class="hl-title">画布里的 AI 协作者</div>
+        <div class="hl-desc">Figma 正式上线 Agents，可在 design 文件内直接调用：自动生成组件变体、批量整理图层、根据 PRD 产出初稿 wireframe，支持在 dev mode 中协同产出代码。</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-tag">MCP 接入</div>
+        <div class="hl-title">Figma ↔ IDE 双向通道</div>
+        <div class="hl-desc">官方 MCP Server 已进入正式版，Cursor / Claude Code / VS Code 可直接读取 design tokens、组件 schema 与 auto layout 规则，极大降低设计到代码的翻译成本。</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-tag">Skills 系统</div>
+        <div class="hl-title">团队级提示词资产</div>
+        <div class="hl-desc">新推出的 Skills 允许团队把设计规范、命名约定、可复用流程封装为可共享 Skill，Agents 调用时自动载入，首次把"设计系统"变成 AI 的长期记忆。</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-tag">Write to Canvas</div>
+        <div class="hl-title">从对话到画布一步到位</div>
+        <div class="hl-desc">AI 可将结构化内容（表格、流程、页面框架）直接绘制到 Figma 画布，保持 auto layout 可编辑性，告别"截图贴图"式的 AI 产出。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">🎬 AI 视频四强对决：Sora 2.0 领跑，Kling / Runway / Pika 紧追</div>
+    <div class="hl-grid">
+      <div class="hl-card">
+        <div class="hl-tag">Sora 2.0</div>
+        <div class="hl-title">一致性与物理拟真质变</div>
+        <div class="hl-desc">OpenAI 发布 Sora 2.0，长镜头角色一致性、光影与流体物理效果全面提升，支持 30s 4K 输出，开放 API 与风格 LoRA 上传能力。</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-tag">Kling 2.5</div>
+        <div class="hl-title">中文语义与口型同步</div>
+        <div class="hl-desc">快手可灵 2.5 在中文 prompt 理解、数字人口型、多机位镜头语言上进一步拉开身位，成为国内商用视频首选。</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-tag">Runway Gen-3</div>
+        <div class="hl-title">Motion Brush 精细化</div>
+        <div class="hl-desc">Gen-3 Turbo 更新 Motion Brush 2，可对画面任意区域分层指定运动轨迹，配合 Act-Two 面部捕捉，影视级可控性业内领先。</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-tag">Pika 2.2</div>
+        <div class="hl-title">特效模板与工作流</div>
+        <div class="hl-desc">Pika 聚焦短视频工作流，新增 Pikaffects 特效库与时间线式编辑，面向 UGC 与广告创意场景快速产出成片。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">🖼️ 图像生成：Midjourney v7 与开源阵营并进</div>
+    <div class="hl-grid">
+      <div class="hl-card">
+        <div class="hl-tag">Midjourney v7</div>
+        <div class="hl-title">个性化与 Draft Mode</div>
+        <div class="hl-desc">v7 引入 Personalization v2 与 Draft Mode，出图速度提升 10 倍、成本减半，风格一致性显著改善，适合高频设计探索。</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-tag">FLUX.2</div>
+        <div class="hl-title">开源阵营扛旗者</div>
+        <div class="hl-desc">Black Forest Labs 发布 FLUX.2，文字渲染、人物结构、prompt adherence 三项指标逼近闭源一线，本地部署友好。</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-tag">Ideogram 3.0</div>
+        <div class="hl-title">海报与排版利器</div>
+        <div class="hl-desc">Ideogram 3.0 主打 Logo / 海报 / UI 样机生成，文字排版效果领先，是平面与品牌设计的首选辅助工具。</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-tag">Nano Banana</div>
+        <div class="hl-title">Google 的编辑神器</div>
+        <div class="hl-desc">Gemini 2.5 Flash Image（Nano Banana）凭借极强的局部编辑与身份保持能力，成为电商换装、海报改字的热门选择。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">📚 本周延伸阅读</div>
+    <div class="hl-grid">
+      <div class="hl-card">
+        <div class="hl-tag">官方博客</div>
+        <div class="hl-title">Figma Config 2026 Recap</div>
+        <div class="hl-desc">Figma 官方发布的 Config 2026 Recap 汇总 Agents、MCP、Skills 三大更新的完整演示与案例，是设计团队落地 AI 工作流的第一手资料。</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-tag">研究报告</div>
+        <div class="hl-title">a16z：AI 视频模型格局</div>
+        <div class="hl-desc">a16z 最新 State of AI Video 报告，对比 Sora / Kling / Runway / Pika 四家在一致性、可控性、商业化上的真实数据，值得完整阅读。</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-tag">实操教程</div>
+        <div class="hl-title">MCP × 设计系统：从 token 到代码</div>
+        <div class="hl-desc">社区爆款教程，手把手演示如何用 Figma MCP + Cursor 搭建一条 "设计 token → Tailwind config → 组件代码" 的全自动链路。</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-tag">趋势观察</div>
+        <div class="hl-title">Vibe Coding 与设计师角色演化</div>
+        <div class="hl-desc">本周热议话题：当 Agents 能直接出组件代码、AI 能写到画布，设计师的职责正加速从"画图"迁移到"定义系统与策展 AI"。</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /tab-vol03 -->
 
 <!-- ==================== VOL.04 (Placeholder) ==================== -->
 <div class="tab-content" id="tab-vol04">
