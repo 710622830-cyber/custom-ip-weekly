@@ -173,9 +173,10 @@
   <span class="tab-label">期数</span>
   <button class="tab-btn" data-tab="vol01" onclick="switchTab('vol01', this)">📖 Vol.01<span class="tab-date">04.21–04.27</span></button>
 <button class="tab-btn" data-tab="vol02" onclick="switchTab('vol02', this)">📖 Vol.02<span class="tab-date">04.28–05.04</span></button>
-<button class="tab-btn active" data-tab="vol03" onclick="switchTab('vol03', this)">📖 Vol.03<span class="tab-date">05.05–05.11</span></button>
-  <button class="tab-btn" data-tab="vol04" onclick="switchTab('vol04', this)">📖 Vol.04<span class="tab-date">05.12–05.18</span></button>
-  <button class="tab-btn" data-tab="vol05" onclick="switchTab('vol05', this)">📖 Vol.05<span class="tab-date">05.19–05.25</span></button>
+<button class="tab-btn" data-tab="vol03" onclick="switchTab('vol03', this)">📖 Vol.03<span class="tab-date">05.05–05.11</span></button>
+  <button class="tab-btn active" data-tab="vol04" onclick="switchTab('vol04', this)">📖 Vol.04<span class="tab-date">05.12–05.18</span></button>
+      <button class="tab-btn" data-tab="vol05" onclick="switchTab('vol05', this)">📖 Vol.05<span class="tab-date">05.19–05.25</span></button>
+    <button class="tab-btn" data-tab="vol06" onclick="switchTab('vol06', this)">📖 Vol.06<span class="tab-date">05.26–06.01</span></button>
   <!-- 新一期自动追加 tab-btn，并移除最新期的 active 给新期 -->
 </div>
 
@@ -806,7 +807,7 @@
 </div><!-- /tab-vol02 -->
 
 <!-- ==================== VOL.03 (2026-05-05 ~ 05-11) ==================== -->
-<div class="tab-content active" id="tab-vol03">
+<div class="tab-content" id="tab-vol03">
   <div class="dh">
     <div class="dg">
       <div class="di">
@@ -933,13 +934,133 @@
   </div>
 </div><!-- /tab-vol03 -->
 
-<!-- ==================== VOL.04 (Placeholder) ==================== -->
-<div class="tab-content" id="tab-vol04">
-  <div class="empty-state">
-    <div class="emoji">📅</div>
-    <h3>Vol.04 敬请期待</h3>
-    <p>2026年5月18日（周一）10:00 自动更新</p>
+<!-- ==================== VOL.04 ==================== -->
+<div class="tab-content active" id="tab-vol04">
+
+  <!-- Key Numbers -->
+  <div class="dh">
+    <div class="dg"><div class="di"><span class="dv">Images 2.0</span><span class="dl">ChatGPT 原生生图</span></div></div>
+    <div class="dg"><div class="di"><span class="dv">2.0</span><span class="dl">Seedance 视频生成</span></div></div>
+    <div class="dg"><div class="di"><span class="dv">Vibe Design</span><span class="dl">Pencil.dev</span></div></div>
+    <div class="dg"><div class="di"><span class="dv">6款</span><span class="dl">Figma AI 新工具</span></div></div>
   </div>
+
+  <!-- Sec1: AI 设计工具 -->
+  <div class="sec-title">🎨 AI 设计工具</div>
+  <div class="hl-grid">
+    <div class="hl-card">
+      <span class="hl-tag">新工具</span>
+      <h3 class="hl-title">Pencil.dev Vibe Design</h3>
+      <p class="hl-desc">AI驱动界面设计工具，与Claude Code配合实现自然语言设计UI，支持无限画布与MCP画布工具，开创Vibe Design + Vibe Coding新工作流</p>
+      <div class="hl-links"><a href="https://pencil.dev" target="_blank">官网 ↗</a></div>
+    </div>
+    <div class="hl-card">
+      <span class="hl-tag">重磅更新</span>
+      <h3 class="hl-title">Figma Make / Figma AI</h3>
+      <p class="hl-desc">Config 2025发布系列AI功能：AI Design-to-Code、Figma Website Builder、Buzz与Draw等AI设计工具，全面拥抱AI设计时代</p>
+      <div class="hl-links"><a href="https://figma.com" target="_blank">官网 ↗</a></div>
+    </div>
+    <div class="hl-card">
+      <span class="hl-tag">里程碑</span>
+      <h3 class="hl-title">ChatGPT Images 2.0</h3>
+      <p class="hl-desc">ChatGPT Images 2.0正式发布，能将文字与上下文融入图像生成，生成速度提升4倍，支持手术级精准编辑与局部修改</p>
+      <div class="hl-links"><a href="https://chat.openai.com" target="_blank">官网 ↗</a></div>
+    </div>
+    <div class="hl-card">
+      <span class="hl-tag">迭代</span>
+      <h3 class="hl-title">v0 by Vercel 升级</h3>
+      <p class="hl-desc">Vercel旗下AI前端组件生成工具持续迭代升级，支持更复杂的UI组件生成与交互逻辑，前端开发效率大幅提升</p>
+      <div class="hl-links"><a href="https://v0.dev" target="_blank">官网 ↗</a></div>
+    </div>
+  </div>
+
+  <!-- Sec2: AI 视频生成 -->
+  <div class="sec-title">🎬 AI 视频生成</div>
+  <div class="hl-grid">
+    <div class="hl-card">
+      <span class="hl-tag">新品</span>
+      <h3 class="hl-title">Seedance 2.0</h3>
+      <p class="hl-desc">字节跳动新一代AI视频生成模型，统一多模态音视频联合生成架构，支持文字/图片/音频/视频四种模态输入，1080p至2K电影级画质，音画同步，多镜头叙事</p>
+      <div class="hl-links"><a href="https://seedance.ai" target="_blank">官网 ↗</a></div>
+    </div>
+    <div class="hl-card">
+      <span class="hl-tag">更新</span>
+      <h3 class="hl-title">Sora 2</h3>
+      <p class="hl-desc">OpenAI视频生成模型Sora迎来重大更新，视频质量与一致性显著提升，支持更长时长与更复杂的镜头运动控制</p>
+      <div class="hl-links"><a href="https://sora.com" target="_blank">官网 ↗</a></div>
+    </div>
+    <div class="hl-card">
+      <span class="hl-tag">国产</span>
+      <h3 class="hl-title">Kling AI</h3>
+      <p class="hl-desc">快手AI视频生成工具Kling持续迭代，支持更长视频生成与更精准的运动控制，稳居国产视频生成第一梯队</p>
+      <div class="hl-links"><a href="https://klingai.com" target="_blank">官网 ↗</a></div>
+    </div>
+    <div class="hl-card">
+      <span class="hl-tag">迭代</span>
+      <h3 class="hl-title">Runway Gen-3 Alpha</h3>
+      <p class="hl-desc">Runway视频生成模型Gen-3 Alpha持续优化，在运动一致性与画面质量上取得突破，支持更精细的镜头与风格控制</p>
+      <div class="hl-links"><a href="https://runwayml.com" target="_blank">官网 ↗</a></div>
+    </div>
+  </div>
+
+  <!-- Sec3: 图像生成 -->
+  <div class="sec-title">🖼️ 图像生成</div>
+  <div class="hl-grid">
+    <div class="hl-card">
+      <span class="hl-tag">新版</span>
+      <h3 class="hl-title">Midjourney v7</h3>
+      <p class="hl-desc">Midjourney最新版本v7发布，图像质量与细节处理大幅提升，支持更精准的风格控制与构图能力，艺术表现力再上新台阶</p>
+      <div class="hl-links"><a href="https://midjourney.com" target="_blank">官网 ↗</a></div>
+    </div>
+    <div class="hl-card">
+      <span class="hl-tag">开源</span>
+      <h3 class="hl-title">FLUX.2</h3>
+      <p class="hl-desc">Black Forest Labs推出FLUX.2图像模型，在文生图质量与生成速度上取得新突破，开源社区生态持续活跃</p>
+      <div class="hl-links"><a href="https://blackforestlabs.ai" target="_blank">官网 ↗</a></div>
+    </div>
+    <div class="hl-card">
+      <span class="hl-tag">精准编辑</span>
+      <h3 class="hl-title">ChatGPT Images 2.0</h3>
+      <p class="hl-desc">GPT Image支持手术级精准编辑与局部修改，Images 2.0生成速度提升4倍，文字渲染与上下文理解能力显著增强</p>
+      <div class="hl-links"><a href="https://chat.openai.com" target="_blank">官网 ↗</a></div>
+    </div>
+    <div class="hl-card">
+      <span class="hl-tag">文字渲染</span>
+      <h3 class="hl-title">Ideogram 3.0</h3>
+      <p class="hl-desc">Ideogram 3.0发布，文字渲染能力再次突破，在图像中生成准确文字的能力领先业界，设计实用性大幅提升</p>
+      <div class="hl-links"><a href="https://ideogram.ai" target="_blank">官网 ↗</a></div>
+    </div>
+  </div>
+
+  <!-- Sec4: 延伸阅读 -->
+  <div class="sec-title">📚 延伸阅读</div>
+  <div class="hl-grid">
+    <div class="hl-card">
+      <span class="hl-tag">趋势</span>
+      <h3 class="hl-title">Vibe Coding 正在改变开发方式</h3>
+      <p class="hl-desc">从Vibe Design到Vibe Coding，AI正在重塑从设计到开发的完整工作流，设计师与开发者的角色边界日益模糊</p>
+      <div class="hl-links"><a href="https://pencil.dev" target="_blank">阅读 ↗</a></div>
+    </div>
+    <div class="hl-card">
+      <span class="hl-tag">深度</span>
+      <h3 class="hl-title">Figma AI 能否取代设计师？</h3>
+      <p class="hl-desc">Config 2025的AI功能发布引发行业热议，从AI Design-to-Code到自动布局，设计师如何与AI协作而非被替代</p>
+      <div class="hl-links"><a href="https://figma.com/blog" target="_blank">阅读 ↗</a></div>
+    </div>
+    <div class="hl-card">
+      <span class="hl-tag">对比</span>
+      <h3 class="hl-title">2026 AI视频生成工具横评</h3>
+      <p class="hl-desc">Seedance 2.0 vs Sora 2 vs Kling vs Runway，四大AI视频生成工具在画质、一致性、可控性上的全面对比</p>
+      <div class="hl-links"><a href="https://runwayml.com" target="_blank">阅读 ↗</a></div>
+    </div>
+    <div class="hl-card">
+      <span class="hl-tag">观点</span>
+      <h3 class="hl-title">多模态AI如何重塑创意工作流</h3>
+      <p class="hl-desc">从文字到图像到视频，多模态AI正在打通创意生产的全链路，设计师需要重新定义自身价值与核心竞争力</p>
+      <div class="hl-links"><a href="https://midjourney.com" target="_blank">阅读 ↗</a></div>
+    </div>
+  </div>
+
 </div>
 
 <!-- ==================== VOL.05 (Placeholder) ==================== -->
@@ -951,6 +1072,16 @@
   </div>
 </div>
 
+
+
+<!-- ==================== VOL.06 (Placeholder) ==================== -->
+<div class="tab-content" id="tab-vol06">
+  <div class="empty-state">
+    <div class="emoji">📅</div>
+    <h3>Vol.06 敬请期待</h3>
+    <p>2026年6月1日（周一）10:00 自动更新</p>
+  </div>
+</div>
 
 <div class="footer">
   🎨 设计周刊 &nbsp;·&nbsp; 由 AI 整理 &nbsp;·&nbsp;
