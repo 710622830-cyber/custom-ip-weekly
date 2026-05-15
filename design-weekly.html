@@ -174,8 +174,8 @@
   <button class="tab-btn" data-tab="vol01" onclick="switchTab('vol01', this)">📖 Vol.01<span class="tab-date">04.21–04.27</span></button>
 <button class="tab-btn" data-tab="vol02" onclick="switchTab('vol02', this)">📖 Vol.02<span class="tab-date">04.28–05.04</span></button>
 <button class="tab-btn" data-tab="vol03" onclick="switchTab('vol03', this)">📖 Vol.03<span class="tab-date">05.05–05.11</span></button>
-  <button class="tab-btn active" data-tab="vol04" onclick="switchTab('vol04', this)">📖 Vol.04<span class="tab-date">05.12–05.18</span></button>
-      <button class="tab-btn" data-tab="vol05" onclick="switchTab('vol05', this)">📖 Vol.05<span class="tab-date">05.19–05.25</span></button>
+  <button class="tab-btn" data-tab="vol04" onclick="switchTab('vol04', this)">📖 Vol.04<span class="tab-date">05.12–05.18</span></button>
+      <button class="tab-btn active" data-tab="vol05" onclick="switchTab('vol05', this)">📖 Vol.05<span class="tab-date">05.19–05.25</span></button>
     <button class="tab-btn" data-tab="vol06" onclick="switchTab('vol06', this)">📖 Vol.06<span class="tab-date">05.26–06.01</span></button>
   <!-- 新一期自动追加 tab-btn，并移除最新期的 active 给新期 -->
 </div>
@@ -935,7 +935,7 @@
 </div><!-- /tab-vol03 -->
 
 <!-- ==================== VOL.04 (2026-05-12 ~ 05-18) ==================== -->
-<div class="tab-content active" id="tab-vol04">
+<div class="tab-content" id="tab-vol04">
 
   <!-- Key Numbers -->
   <div class="dh"><div class="dg">
@@ -1245,13 +1245,315 @@
 
 </div>
 
-<!-- ==================== VOL.05 (Placeholder) ==================== -->
-<div class="tab-content" id="tab-vol05">
-  <div class="empty-state">
-    <div class="emoji">📅</div>
-    <h3>Vol.05 敬请期待</h3>
-    <p>2026年5月25日（周一）10:00 自动更新</p>
+<!-- ==================== VOL.05 CONTENT ==================== -->
+<div class="tab-content active" id="tab-vol05">
+
+  <!-- Key Numbers -->
+  <div class="dh"><div class="dg">
+    <div class="di"><div class="dv">I/O</div><div class="dl">Google I/O 2026</div></div>
+    <div class="di"><div class="dv">Gen-4</div><div class="dl">Runway 原生音频</div></div>
+    <div class="di"><div class="dv">Skills</div><div class="dl">Figma Make 自定义</div></div>
+    <div class="di"><div class="dv">10x</div><div class="dl">Figma Draw 矢量加速</div></div>
+  </div></div>
+
+  <!-- Headlines -->
+  <div class="section">
+    <h2 class="sec-title">🔥 本周头条 · UI/UX 设计工具</h2>
+    <div class="hl-grid">
+
+      <div class="hl-card hot">
+        <span class="rank r1">1</span>
+        <h3>Google I/O 2026:Gemini Omni 统一多模态模型泄露</h3>
+        <div class="src">📅 05.19–05.20 · Google I/O 2026</div>
+        <p>大会前夕Gemini Omni意外泄露——"Powered by Omni"出现在Gemini视频生成界面。如果确认,这将是首个原生覆盖文本+图片+视频三模态的统一模型,可能取代Veo系列成为Google创作引擎核心。</p>
+        <div class="tags"><span class="tag ht">🏆 统一多模态</span><span class="tag ht">文本+图片+视频</span><span class="tag ht">替代Veo?</span></div>
+        <div class="links-row">
+          <a href="https://oimi.ai/zh/blog/google-gemini-omni-leak" target="_blank" class="lk-article">📰 泄露全解析</a>
+          <a href="https://io.google/2026/" target="_blank" class="lk-official">🌐 I/O 官网</a>
+        </div>
+      </div>
+
+      <div class="hl-card hot">
+        <span class="rank r2">2</span>
+        <h3>Figma Make Custom Skills:Markdown可复用提示词系统</h3>
+        <div class="src">📅 05.11 发布 · Figma</div>
+        <p>Figma Make上线Custom Skills——用Markdown编写可复用AI指令,支持斜杠命令调用(如/insert-sample-data、/build-from-prd)。设计规范与工作流可固化成团队AI资产,设计师的"新护城河"。</p>
+        <div class="tags"><span class="tag ht">🏆 Markdown Skills</span><span class="tag ht">斜杠命令</span><span class="tag ht">团队AI资产</span></div>
+        <div class="links-row">
+          <a href="https://help.figma.com/hc/en-us/articles/40283639496599-Custom-skills-for-Figma-Make" target="_blank" class="lk-article">📰 官方文档</a>
+          <a href="https://rar.design/posts/figma-make-custom-skills-designer-moat" target="_blank" class="lk-article">📰 设计师护城河分析</a>
+        </div>
+      </div>
+
+      <div class="hl-card new">
+        <span class="rank r3">3</span>
+        <h3>Runway Gen-4:原生音视频同步+UGC模板</h3>
+        <div class="src">📅 05.03 发布 · Runway</div>
+        <p>Runway发布Gen-4视频生成模型,五大升级:原生音视频同步生成、真实物理运动引擎、增强提示词一致性、TikTok/Reels UGC模板、多模型API混合工作流。AI视频进入"有声有色"时代。</p>
+        <div class="tags"><span class="tag nt">🆕 原生音频</span><span class="tag nt">物理引擎</span><span class="tag nt">UGC模板</span></div>
+        <div class="links-row">
+          <a href="https://www.vo3ai.com/blog/runway-gen-4-just-dropped-5-surprising-upgrades-ai-video-makers-need-to-know-2026-05-03" target="_blank" class="lk-article">📰 五大升级详解</a>
+          <a href="https://runwayml.com" target="_blank" class="lk-official">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="hl-card trend">
+        <h3>Figma 5月大更新:AI Skills+MCP FigJam+语音输入</h3>
+        <div class="src">📅 05.05 发布会 · Figma</div>
+        <p>Figma五月Release Notes发布会密集更新:Make语音转文本输入、Question Cards结构化选择、版本历史回溯、移动端Make预览;MCP新增FigJam白板读写技能;AI信用额度分组管控;Draw矢量编辑10x加速。</p>
+        <div class="tags"><span class="tag tt">🔥 语音输入Make</span><span class="tag tt">MCP FigJam</span><span class="tag">10x矢量加速</span></div>
+        <div class="links-row">
+          <a href="https://help.figma.com/hc/en-us/articles/40219873508247-Release-notes-roundup-May-2026" target="_blank" class="lk-article">📰 5月发布汇总</a>
+          <a href="https://www.figma.com" target="_blank" class="lk-official">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="hl-card new">
+        <h3>Google Stitch 2.0:Vibe Design+Voice Canvas+免费</h3>
+        <div class="src">📅 03.18 更新 · Google Labs</div>
+        <p>Google从Labs实验升级为完整设计工具:5屏无限画布、Voice Canvas语音驱动设计、React代码导出、MCP Server对接Claude Code/Cursor。完全免费,Vibe Design理念对标Pencil.dev。</p>
+        <div class="tags"><span class="tag nt">🆕 Voice Canvas</span><span class="tag nt">免费</span><span class="tag">MCP Server</span></div>
+        <div class="links-row">
+          <a href="https://www.nxcode.io/zh/resources/news/google-stitch-complete-guide-vibe-design-2026" target="_blank" class="lk-article">📰 完全指南</a>
+          <a href="https://stitch.withgoogle.com" target="_blank" class="lk-official">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="hl-card trend">
+        <h3>Seedance 2.0:字节跳动多模态音视频统一生成</h3>
+        <div class="src">📅 持续更新 · ByteDance SEED</div>
+        <p>字节跳动推出统一多模态架构,支持文本/图片/音频/视频四模态输入,原生1080p-2K电影级画质、音画同步、多镜头叙事,2分钟生成专业级AI视频。国产视频模型质量追平Runway。</p>
+        <div class="tags"><span class="tag tt">🔥 四模态输入</span><span class="tag tt">音画同步</span><span class="tag">2K电影级</span></div>
+        <div class="links-row">
+          <a href="https://www.atlascloud.ai/zh/blog/guides/seedance-2.0-complete-guide" target="_blank" class="lk-article">📰 完全指南</a>
+          <a href="https://seed.bytedance.com/zh/seedance2_0" target="_blank" class="lk-official">🌐 官网</a>
+        </div>
+      </div>
+
+    </div>
   </div>
+
+  <!-- Visual Design -->
+  <div class="section">
+    <h2 class="sec-title">🎨 视觉设计 AI 资讯</h2>
+    <div class="v-grid">
+
+      <div class="v-card">
+        <h4>🎬 Runway Gen-4 原生音频生成</h4>
+        <div class="v-meta">📅 05.03 发布 · Runway</div>
+        <div class="v-desc"><strong>首次实现音视频同步生成</strong>,对话、环境音效、声景帧级合成。物理运动引擎升级,UGC模板支持TikTok/Reels竖屏输出,多模型API混合管线。</div>
+        <div class="v-links">
+          <a href="https://www.vo3ai.com/blog/runway-gen-4-just-dropped-5-surprising-upgrades-ai-video-makers-need-to-know-2026-05-03" target="_blank" class="vla">📰 五大升级</a>
+          <a href="https://runwayml.com" target="_blank" class="vlo">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>🔮 Gemini Omni 泄露:统一多模态模型</h4>
+        <div class="v-meta">📅 05.02 泄露 · Google</div>
+        <div class="v-desc"><strong>"Powered by Omni"出现在Gemini界面</strong>,可能是首个原生覆盖文本+图片+视频三模态的统一模型。若确认,将取代Veo系列,彻底改变多模型协作的创作工作流。</div>
+        <div class="v-links">
+          <a href="https://oimi.ai/zh/blog/google-gemini-omni-leak" target="_blank" class="vla">📰 泄露全解析</a>
+          <a href="https://www.jxp.com/blog/gemini-omni-leak-google-ai-video-strategy-io-2026" target="_blank" class="vla">📰 视频策略分析</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>🎞️ Seedance 2.0:字节多模态视频</h4>
+        <div class="v-meta">📅 2026 Q1 发布 · ByteDance</div>
+        <div class="v-desc"><strong>统一多模态音视频联合生成架构</strong>,支持文本/图片/音频/视频四模态输入。原生1080p-2K画质,音画同步,多镜头叙事,2分钟出片。国产视频模型追平国际一线。</div>
+        <div class="v-links">
+          <a href="https://seed.bytedance.com/zh/seedance2_0" target="_blank" class="vla">📰 官方介绍</a>
+          <a href="https://www.atlascloud.ai/zh/blog/guides/seedance-2.0-complete-guide" target="_blank" class="vla">📰 完全指南</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>🎨 Adobe Firefly + PS 2026:Boards集成</h4>
+        <div class="v-meta">📅 05.05 更新 · Adobe</div>
+        <div class="v-desc">Photoshop 2026(v27.5)正式集成<strong>Firefly Boards</strong>,打通生成式AI探索与精细修图工作流。Creative Agent跨CC编排+Kling 3.0视频模型+30+行业模型生态。</div>
+        <div class="v-links">
+          <a href="https://post.smzdm.com/p/al3v4r9e/" target="_blank" class="vla">📰 PS更新详解</a>
+          <a href="https://www.adobe.com" target="_blank" class="vlo">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>🖼️ ChatGPT Images 2.0 进入Figma生态</h4>
+        <div class="v-meta">📅 04.21 集成 · OpenAI × Figma</div>
+        <div class="v-desc">GPT-Image-2已集成到Figma全产品线的<strong>Make Image与Edit Image</strong>。支持信息图表、多语言生成、面部保持、更好编辑体验。参考图新增拖拽/粘贴/按钮三种方式。</div>
+        <div class="v-links">
+          <a href="https://releasebot.io/updates/figma" target="_blank" class="vla">📰 Figma集成公告</a>
+          <a href="https://chat.openai.com" target="_blank" class="vlo">🌐 官网</a>
+        </div>
+      </div>
+
+      <div class="v-card">
+        <h4>📊 Figma Dev Mode 2026:前端交付新范式</h3>
+        <div class="v-meta">📅 05.01 更新 · Figma</div>
+        <div class="v-desc"><strong>Dev Mode升级为前端团队核心交付工具</strong>,Code Connect深度整合MCP,设计系统变量直接流入代码环境。Agent可在Figma画布创建/编辑设计并同步到开发侧。</div>
+        <div class="v-links">
+          <a href="https://johal.in/figma-dev-mode-20260-is-game-changer-2026-frontend/" target="_blank" class="vla">📰 2026前端变革</a>
+          <a href="https://www.figma.com" target="_blank" class="vlo">🌐 官网</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Figma AI Summary -->
+  <div class="section">
+    <h2 class="sec-title">🔧 Figma AI 最新动态</h2>
+    <div class="figma-summary">
+      <h3>🤖 Figma 5月大更新:从AI辅助到AI原生设计操作系统</h3>
+      <p>2026年5月,Figma密集发布Make Custom Skills、MCP FigJam读写、语音输入等重磅更新,标志着Figma从"AI辅助工具"进化为<strong>"AI原生设计操作系统"</strong>。核心变化:Make Skills让设计规范成为可复用AI指令;MCP打通Figma画布↔FigJam白板↔IDE三端;Agent工作流从代码→画布和画布→代码双向贯通。</p>
+
+      <div class="feat-row">
+        <div class="feat-item"><div class="fi-icon">📝</div><div class="fi-name">Make Skills</div><div class="fi-desc">Markdown可复用AI指令</div></div>
+        <div class="feat-item"><div class="fi-icon">🎤</div><div class="fi-name">语音输入</div><div class="fi-desc">Make语音转文本提示</div></div>
+        <div class="feat-item"><div class="fi-icon">📋</div><div class="fi-name">Question Cards</div><div class="fi-desc">结构化选项决策</div></div>
+        <div class="feat-item"><div class="fi-icon">🔄</div><div class="fi-name">版本历史</div><div class="fi-desc">Make版本回溯</div></div>
+        <div class="feat-item"><div class="fi-icon">📱</div><div class="fi-name">移动端Make</div><div class="fi-desc">iOS/Android预览</div></div>
+        <div class="feat-item"><div class="fi-icon">📋</div><div class="fi-name">MCP FigJam</div><div class="fi-desc">Agent读写白板</div></div>
+        <div class="feat-item"><div class="fi-icon">🎨</div><div class="fi-name">Draw 10x</div><div class="fi-desc">矢量编辑10倍加速</div></div>
+        <div class="feat-item"><div class="fi-icon">🔐</div><div class="fi-name">PLANTs</div><div class="fi-desc">服务端集成Token</div></div>
+        <div class="feat-item"><div class="fi-icon">🖼️</div><div class="fi-name">GPT-Image-2</div><div class="fi-desc">全产品线集成</div></div>
+      </div>
+
+      <div class="figma-links">
+        <a href="https://help.figma.com/hc/en-us/articles/40219873508247-Release-notes-roundup-May-2026" target="_blank" class="fl-of">📖 5月发布汇总</a>
+        <a href="https://help.figma.com/hc/en-us/articles/40283639496599-Custom-skills-for-Figma-Make" target="_blank" class="fl-lr">📖 Skills文档</a>
+        <a href="https://rar.design/posts/figma-make-custom-skills-designer-moat" target="_blank" class="fl-rk">📖 设计师护城河</a>
+        <a href="figma-ai-cases.html" class="fl-case">🔧 查看完整案例集 →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool Comparison -->
+  <div class="section">
+    <h2 class="sec-title">📊 主流AI设计工具全景对比</h2>
+    <table class="ctbl">
+      <thead><tr><th>工具</th><th>核心优势</th><th>主要短板</th><th>最佳场景</th><th>热度</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="tn" style="color:var(--accent-p);">🟣 Figma AI<br><small>(Make+Skills)</small></td>
+          <td><span class="pro-tag">Make Skills可复用</span><span class="pro-tag">MCP FigJam读写</span><span class="pro-tag">语音输入</span>插件生态无敌</td>
+          <td><span class="con-tag">Make代码仍臃肿</span><span class="con-tag">Skills暂不支持团队共享</span></td>
+          <td>Figma团队AI辅助设计/组件生成/设计系统维护</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:93%"></div></div><span class="sv" style="color:var(--accent-b)">9.3</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:#4285f4;">🔵 Google Stitch<br><small>2.0</small></td>
+          <td><span class="pro-tag">Voice Canvas语音</span><span class="pro-tag">MCP Server</span><span class="pro-tag">完全免费</span>5屏无限画布</td>
+          <td><span class="con-tag">Labs实验阶段</span>生态薄弱<br>仅React导出</td>
+          <td>语音驱动快速原型/MVP验证/零成本探索</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:82%"></div></div><span class="sv" style="color:var(--accent-b)">8.2</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:#10a37f;">🟢 ChatGPT<br><small>(Images 2.0)</small></td>
+          <td><span class="pro-tag">ELO 1512登顶</span><span class="pro-tag">中文排版99%</span><span class="pro-tag">Figma全产品集成</span>原生4K</td>
+          <td><span class="con-tag">仅图像生成无编辑</span>非设计工作流工具<br>需配合其他工具</td>
+          <td>产品Mockup/营销素材/Figma内AI生图</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:88%"></div></div><span class="sv" style="color:var(--accent-b)">8.8</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-s);">🩵 UXbot</td>
+          <td><span class="pro-tag">流程画布独创</span><span class="pro-tag">三端原生代码</span><span class="pro-tag">效率90%+</span>全链路覆盖</td>
+          <td><span class="con-tag">品牌较新</span>生态仍在建设中</td>
+          <td>需求→原型→HTML/Vue/Kotlin/Swift</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:83%"></div></div><span class="sv" style="color:var(--accent-b)">8.3</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:#ff6b35;">🟠 Pencil.dev</td>
+          <td><span class="pro-tag">MCP双向画布</span><span class="pro-tag">Vibe Design</span><span class="pro-tag">VS Code内嵌</span>Claude Code协同</td>
+          <td><span class="con-tag">需IDE环境</span>非独立设计App<br>设计师学习成本高</td>
+          <td>开发者兼做设计/MVP快速产出/多风格探索</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:80%"></div></div><span class="sv" style="color:var(--accent-b)">8.0</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:#0055ff;">🔷 Framer AI</td>
+          <td><span class="pro-tag">1-2小时发布级页面</span><span class="pro-tag">网站产品优秀</span>动效强</td>
+          <td><span class="con-tag">不支持移动端</span>复杂交互受限</td>
+          <td>Landing Page/网站快速构建/Portfolio</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:77%"></div></div><span class="sv" style="color:var(--accent-b)">7.7</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-w);">🔴 Canva AI 2.0</td>
+          <td><span class="pro-tag">Magic Layers可编辑</span><span class="pro-tag">品牌智能</span><span class="pro-tag">HTML导出</span>设计结构模型</td>
+          <td><span class="con-tag">不适合生产级App UI</span>Research Preview</td>
+          <td>社交媒体/Newsletter/中小企业品牌物料</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:82%"></div></div><span class="sv" style="color:var(--accent-b)">8.2</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-g);">🟡 Paico AI</td>
+          <td><span class="pro-tag">国产设计系统</span><span class="pro-tag">鸿蒙代码生成</span><span class="pro-tag">私有化部署</span></td>
+          <td><span class="con-tag">新发布打磨中</span>生态仍在建设</td>
+          <td>国内团队/政企项目/鸿蒙开发</td>
+          <td><div class="sb"><div class="st"><div class="sf md" style="width:71%"></div></div><span class="sv" style="color:var(--warning)">7.1</span></div></td>
+        </tr>
+        <tr>
+          <td class="tn" style="color:var(--accent-s);">🩵 Adobe Firefly</td>
+          <td><span class="pro-tag">Creative Agent跨CC</span><span class="pro-tag">PS 2026 Boards</span><span class="pro-tag">30+模型</span></td>
+          <td><span class="con-tag">订阅成本高</span>需Creative Cloud全家桶</td>
+          <td>专业创意工作者/多媒体制作/影视后期</td>
+          <td><div class="sb"><div class="st"><div class="sf hi" style="width:84%"></div></div><span class="sv" style="color:var(--accent-b)">8.4</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Quick Pick -->
+  <div class="section">
+    <h2 class="sec-title">💡 选型建议速查</h2>
+    <table class="ptbl">
+      <thead><tr><th>你的场景</th><th>推荐方案</th><th>理由</th></tr></thead>
+      <tbody>
+        <tr><td class="ps">🚀 早期验证 / 概念阶段</td><td><span class="pk p1">Google Stitch 2.0</span> + <span class="pk p2">Claude Design</span></td><td class="pr">免费语音驱动快速出图+5分钟概念验证</td></tr>
+        <tr><td class="ps">🌐 Web端产品快速构建</td><td><span class="pk p1">Figma AI (Make+Skills)</span></td><td class="pr">Skills固化设计规范,Agent画布协作,一键出原型</td></tr>
+        <tr><td class="ps">📱 移动端 / 多端原生开发</td><td><span class="pk p1">UXbot 三端同步输出</span></td><td class="pr">Kotlin/Swift/Vue原生代码直接可用</td></tr>
+        <tr><td class="ps">🖼️ 营销视觉 / Mockup / 包装</td><td><span class="pk p1">ChatGPT Images 2.0</span> + <span class="pk p2">Canva AI 2.0</span></td><td class="pr">GPT-Image-2已集成Figma+Canva分层编辑</td></tr>
+        <tr><td class="ps">🛠️ 开发者兼顾设计</td><td><span class="pk p1">Pencil.dev MCP</span> + <span class="pk p2">Stitch 2.0</span></td><td class="pr">MCP双向画布+语音驱动,零成本</td></tr>
+        <tr><td class="ps">🎬 多媒体创作 / 视频制作</td><td><span class="pk p1">Runway Gen-4</span> + <span class="pk p2">Seedance 2.0</span></td><td class="pr">原生音频+物理引擎 vs 四模态+2K画质</td></tr>
+        <tr><td class="ps">🏢 企业级 / 政企项目</td><td><span class="pk p1">Figma Enterprise</span> / <span class="pk p2">Paico AI</span></td><td class="pr">PLANTs服务端Token+AI信用管控 vs 国产私有化</td></tr>
+        <tr><td class="ps">👥 团队AI资产沉淀</td><td><span class="pk p1">Figma Make Skills</span></td><td class="pr">Markdown固化设计规范为可复用AI指令(团队共享即将上线)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Trends -->
+  <div class="section">
+    <h2 class="sec-title">📈 行业趋势总结</h2>
+    <ul class="tl">
+      <li class="ti"><span class="tnum">1</span><div class="tc"><h4>「统一多模态模型元年」—— Gemini Omni泄露,文本+图片+视频三合一</h4><p>Google I/O 2026前夕,Gemini Omni的泄露预示着AI创作工具的范式转变:单一模型原生覆盖文本/图片/视频三模态,不再需要多模型串联。如果确认,这将是2026年AI生成领域品类定义级事件。</p></div></li>
+      <li class="ti"><span class="tnum">2</span><div class="tc"><h4>「设计师的AI护城河」—— Figma Make Skills让设计规范成为可编程资产</h4><p>Markdown可复用指令+斜杠命令调用,设计师首次能将品牌规范、设计标准固化为AI可直接执行的"技能"。这不是简单提示词模板,而是设计知识的形式化表达——设计师的价值从"画图"升级为"教AI画图"。</p></div></li>
+      <li class="ti"><span class="tnum">3</span><div class="tc"><h4>「AI视频进入有声时代」—— Runway Gen-4原生音频+Seedance四模态</h4><p>Runway Gen-4首次实现音视频同步生成,Seedance 2.0支持文本/图片/音频/视频四模态输入。AI视频从"无声短片"进化为"有声电影",后期配音工作流被根本性颠覆。</p></div></li>
+      <li class="ti"><span class="tnum">4</span><div class="tc"><h4>「MCP生态大爆发」—— Figma FigJam读写+Stitch MCP Server+Pencil双向画布</h4><p>MCP协议在5月迎来生态大爆发:Figma MCP新增FigJam白板读写,Google Stitch上线MCP Server对接Claude Code/Pencil双向画布持续迭代。设计工具↔IDE的双向通道正在成为行业标配。</p></div></li>
+      <li class="ti"><span class="tnum">5</span><div class="tc"><h4>「语音驱动设计」—— Stitch Voice Canvas + Figma Make语音输入</h4><p>语音从"辅助交互"升级为"设计输入方式":Stitch 2.0的Voice Canvas让用户用嘴"画"界面,Figma Make的语音转文本让双手解放。Vibe Design的新入口是语音。<a href="https://geminizh.cn/stitch2" target="_blank" style="color:var(--accent-b);font-size:11px;">→ Stitch 2.0指南</a></p></div></li>
+    </ul>
+  </div>
+
+  <!-- Insight -->
+  <div class="ibx">
+    <div class="ib-t">💎 核心洞察</div>
+    <div class="ibi"><span class="ibi-ic">🎯</span><div><strong>本周关键词:「统一模型」与「可编程设计」</strong><p>Gemini Omni泄露标志着AI生成从"多模型串联"向"单一模型统一"的范式转变;Figma Make Skills则标志着设计知识从"隐性经验"向"可编程AI指令"的范式转变。两条线殊途同归:创作的门槛在降低,但创作者的核心价值(审美判断、规范定义)反而被放大。</p></div></div>
+    <div class="ibi"><span class="ibi-ic">🔮</span><div><strong>Google I/O 2026五大看点</strong><p>① Gemini Omni是否正式发布并确认三模态统一 · ② Stitch 2.0是否从Labs毕业成为正式产品 · ③ Gemini 3.2/3.5的速度效率升级 · ④ 记忆功能"Teamfood"是否亮相 · ⑤ 订阅层级(Advance/Pro/Ultra)调整</p></div></div>
+  </div>
+
+  <!-- Sources -->
+  <div class="src-box">
+    <div class="src-t">📎 信息来源</div>
+    <div class="src-l">
+      📰 <a href="https://oimi.ai/zh/blog/google-gemini-omni-leak" target="_blank">Oimi — Gemini Omni泄露全解析</a> ·
+      📰 <a href="https://help.figma.com/hc/en-us/articles/40219873508247-Release-notes-roundup-May-2026" target="_blank">Figma — 5月Release Notes汇总</a> ·
+      📰 <a href="https://help.figma.com/hc/en-us/articles/40283639496599-Custom-skills-for-Figma-Make" target="_blank">Figma — Make Custom Skills文档</a> ·
+      📰 <a href="https://rar.design/posts/figma-make-custom-skills-designer-moat" target="_blank">Rar.Design — 设计师AI护城河</a> ·
+      📰 <a href="https://www.vo3ai.com/blog/runway-gen-4-just-dropped-5-surprising-upgrades-ai-video-makers-need-to-know-2026-05-03" target="_blank">VO3AI — Runway Gen-4五大升级</a> ·
+      📰 <a href="https://www.nxcode.io/zh/resources/news/google-stitch-complete-guide-vibe-design-2026" target="_blank">NxCode — Stitch 2.0完全指南</a> ·
+      📰 <a href="https://seed.bytedance.com/zh/seedance2_0" target="_blank">ByteDance — Seedance 2.0</a> ·
+      📰 <a href="https://post.smzdm.com/p/al3v4r9e/" target="_blank">什么值得买 — PS 2026更新</a>
+    </div>
+  </div>
+
 </div>
 
 
