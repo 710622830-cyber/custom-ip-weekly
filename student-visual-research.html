@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>学生视觉调研 · 三学段版 ｜ 设计周刊</title>
 <style>
-  <style>
+  
   /* ===== design-weekly theme override ===== */
   :root {
     --ink:#e8eaed;
@@ -92,13 +92,16 @@
   tr:last-child td{border-bottom:0;}
   td strong{font-weight:700;}
 
-  .call{border-left:3px solid var(--ink);background:#F5F4F0;padding:16px 20px;border-radius:0 10px 10px 0;margin:22px 0;}
+  .call{border-left:3px solid var(--ink);background:var(--card);padding:16px 20px;border-radius:0 10px 10px 0;margin:22px 0;}
   .call .t{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;}
   .call p:last-child{margin-bottom:0;}
-  .call-warn{border-left-color:var(--warn);background:#FEF6EC;}
-  .call-vis{border-left-color:var(--a-vis);background:#EDF8F5;}
-  .call-psy{border-left-color:var(--a-psy);background:#FFF1ED;}
-  .call-tribe{border-left-color:var(--a-tribe);background:#F3F0FF;}
+  .call-warn{border-left-color:var(--warn);background:rgba(255,149,0,.08);}
+  .call-vis{border-left-color:var(--a-vis);background:rgba(78,205,196,.08);}
+  .call-psy{border-left-color:var(--a-psy);background:rgba(255,107,107,.08);}
+  .call-tribe{border-left-color:var(--a-tribe);background:rgba(162,89,255,.08);}
+  .call-ink{border-left-color:var(--ink);background:var(--card);}
+  .r-tag{font-size:12.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);margin-bottom:8px;}
+  .r-tag::before{content:"▍";color:var(--a-tribe);margin-right:4px;}
 
   .persona{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;gap:12px;}
   .persona .ph{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--muted);}
@@ -1220,7 +1223,7 @@
       <div class="stat"><span class="n">65.3%</span><span class="l">初中生用短视频了解新闻热点<br><i>北师大 2024–2025 抽样</i></span></div>
     </div>
     <p>初中生短视频使用目的的排序非常说明问题：<strong>看新闻热点 65.3% &gt; 学习知识 64.8% &gt; 娱乐放松 57.0% &gt; 聊天社交 36.7%</strong>。短视频在这个学段完成了从玩具到工具的身份转换——它同时是<strong>搜索引擎、社交货币和世界观来源</strong>。B 站则以 29% 的渗透率成为深度内容的主阵地：番剧、知识区、虚拟主播共同构成"圈层深水区"。</p>
-    <div class="rule r-ink">
+    <div class="call call-ink">
       <div class="r-tag">与小学/高中的结构差异</div>
       <p><strong>小学</strong>是单层共享屏幕（家庭平板 + 家长监管）；<strong>初中</strong>是双层过渡（公共微信 + 私有 QQ，第一次出现"家长不在场"的数字空间）；<strong>高中</strong>是三层栖息地（公共通勤层 / 同辈社交层 / 兴趣情绪层）。<strong>视觉设计真正要进入的初中语境，是 QQ + B 站 + 谷子店构成的第二层</strong>。</p>
     </div>
@@ -1272,7 +1275,7 @@
         <p class="p">黑话可用但需有注释路径；字体带情绪（手写/书法/涂鸦）；语气是"懂行的同好"，切忌"官方腔"。</p>
       </div>
     </div>
-    <div class="rule r-vis">
+    <div class="call call-vis">
       <div class="r-tag">一页记忆卡</div>
       <p><strong>初中段 = 情绪浓度 + 设定感 + 彩蛋机制 + 同好语气</strong>。设计对象是"正在试用不同自我的少年 + 他们刚刚建立的同好圈"。</p>
     </div>
@@ -1441,7 +1444,7 @@
       <div class="stat"><span class="n">38.5%</span><span class="l">城市未成年人拥有 iPad/平板<br><i>青少年蓝皮书 2024</i></span></div>
     </div>
     <p>与高中"三层栖息地"不同，小学生的数字生活基本是<strong>单层结构</strong>：娱乐、学习、社交全部挤在同一块被家长监管的屏幕上。这意味着：</p>
-    <div class="rule r-ink">
+    <div class="call call-ink">
       <div class="r-tag">共享屏幕的三条视觉推论</div>
       <p><strong>① 被看见即合规</strong>——界面永远可能被家长瞟到，过暗、过艳、过于"游戏感"的视觉都容易触发干预。视觉上"看起来像学习工具"是一种生存策略。</p>
       <p><strong>② 横竖皆宜</strong>——平板横屏使用占比高，交互与视觉必须同时适配横竖两种姿态，这与初中"竖屏优先"完全不同。</p>
@@ -1497,7 +1500,7 @@
         <p class="p">大字号 + 高字重 + 感叹号；主句不超过 12 字；避免反讽、双关、生僻字。文案语气是<strong>"热心的同伴"</strong>，不是"权威的老师"。</p>
       </div>
     </div>
-    <div class="rule r-vis">
+    <div class="call call-vis">
       <div class="r-tag">一页记忆卡</div>
       <p><strong>小学段 = 糖果色 + 圆润造型 + 稀有度可视化 + 3 秒反馈</strong>。设计对象不是"用户"，是"正在用视觉搭建认知脚手架的孩子 + 一旁监督的家长"。</p>
     </div>
