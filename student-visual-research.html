@@ -6,20 +6,20 @@
 <title>学生视觉调研 · 三学段版 ｜ 设计周刊</title>
 <style>
   
-  /* ===== design-weekly theme override ===== */
+  /* ===== 浅色主题 ===== */
   :root {
-    --ink:#e8eaed;
-    --ink-2:#9aa0b0;
-    --muted:#9aa0b0;
-    --line:#2a2e3d;
-    --bg:#0f1117;
-    --card:#1a1d28;
-    --a-psy:#ff6b6b;
-    --a-tribe:#a259ff;
-    --a-vis:#4ecdc4;
-    --a-data:#54a0ff;
-    --warn:#ff9500;
-    --radius:12px;
+    --ink:#16161A;
+    --ink-2:#3A3A42;
+    --muted:#6E6E78;
+    --line:#E7E4DD;
+    --bg:#FBFAF7;
+    --card:#FFFFFF;
+    --a-psy:#FF6B4A;
+    --a-tribe:#7B5CFF;
+    --a-vis:#00A88F;
+    --a-data:#2B4CFF;
+    --warn:#E8871E;
+    --radius:14px;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -165,19 +165,18 @@
   footer{margin-top:64px;border-top:1px solid var(--line);padding:30px 0 56px;font-size:12.5px;color:var(--muted);}
   footer b{color:var(--ink-2);}
 
-  /* ===== design-weekly 子页通用样式 ===== */
-  body { background: var(--bg); color: var(--ink); font-family: -apple-system,'PingFang SC','Microsoft YaHei',sans-serif; line-height: 1.7; }
-  a.back-nav { display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#54a0ff;text-decoration:none;margin-bottom:24px;padding:8px 16px;border-radius:8px;background:rgba(84,160,255,.06);border:1px solid rgba(84,160,255,.15); }
-  a.back-nav:hover { background:rgba(84,160,255,.12); }
+  /* ===== design-weekly 子页通用样式（已适配浅色背景） ===== */
+  a.back-nav { display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#2B4CFF;text-decoration:none;margin-bottom:24px;padding:8px 16px;border-radius:8px;background:rgba(43,76,255,.06);border:1px solid rgba(43,76,255,.22); }
+  a.back-nav:hover { background:rgba(43,76,255,.12); }
   .header { text-align:center;margin-bottom:24px; }
-  .badge { display:inline-block;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a259ff;margin-bottom:12px;padding:6px 18px;border:1px solid rgba(162,89,255,.3);border-radius:20px;background:rgba(162,89,255,.06); }
-  .header h1 { font-size:clamp(26px,3.6vw,42px);font-weight:800;background:linear-gradient(135deg,#a259ff,#4ecdc4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;letter-spacing: -.4px; }
-  .header .sub { font-size:14px; color:#9aa0b0; max-width: 720px; margin: 0 auto; }
-  .source-line { text-align:center;margin-bottom:32px;font-size:13px;color:#9aa0b0; max-width: 960px; margin-left:auto; margin-right:auto; line-height:1.95; }
-  .source-line a { color:#54a0ff;text-decoration:none; }
+  .badge { display:inline-block;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#7B5CFF;margin-bottom:12px;padding:6px 18px;border:1px solid rgba(123,92,255,.3);border-radius:20px;background:rgba(123,92,255,.06); }
+  .header h1 { font-size:clamp(26px,3.6vw,42px);font-weight:800;background:linear-gradient(135deg,#7B5CFF,#00A88F);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;letter-spacing: -.4px; }
+  .header .sub { font-size:14px; color:#6E6E78; max-width: 720px; margin: 0 auto; }
+  .source-line { text-align:center;margin-bottom:32px;font-size:13px;color:#6E6E78; max-width: 960px; margin-left:auto; margin-right:auto; line-height:1.95; }
+  .source-line a { color:#2B4CFF;text-decoration:none; }
   .source-line a:hover { text-decoration:underline; }
-  .source-line .src-meta { color:#9aa0b0;font-size:12px;margin-right:4px; }
-  .stage-tabs button.active { background: linear-gradient(135deg,#a259ff,#4ecdc4); border-color: transparent; color: #fff; }
+  .source-line .src-meta { color:#6E6E78;font-size:12px;margin-right:4px; }
+  .stage-tabs button.active { background: linear-gradient(135deg,#7B5CFF,#00A88F); border-color: transparent; color: #fff; }
   .stage-sub { text-align:center; font-size:13px; color: var(--muted); margin-bottom: 28px; }
   .container-inner { /* inner wrapper for panels */ }
   .panel-hero { padding: 36px 0 18px; border-bottom:1px solid var(--line); }
