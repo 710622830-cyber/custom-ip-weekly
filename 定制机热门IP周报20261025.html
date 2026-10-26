@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎮 游戏·动漫 全网热榜 | 2026年10月第3周（W43）</title>
+  <style>
+    :root {
+      --bg: #0d0d14;
+      --card: #161622;
+      --card2: #1e1e2e;
+      --border: #2a2a40;
+      --accent1: #ff6b6b;
+      --accent2: #ffd93d;
+      --accent3: #6bcb77;
+      --accent4: #4d96ff;
+      --accent5: #c77dff;
+      --text: #e8e8f0;
+      --muted: #888;
+      --high: #ff4757;
+      --mid: #ffa502;
+      --low: #2ed573;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+      min-height: 100vh;
+      padding: 0 0 60px;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 48px 20px 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(77,150,255,.18) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 50%, rgba(199,125,255,.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-size: clamp(22px, 5vw, 40px);
+      font-weight: 800;
+      letter-spacing: .02em;
+      background: linear-gradient(90deg, #4d96ff, #c77dff, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero .subtitle {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .hero .tags {
+      margin-top: 16px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center;
+    }
+    .hero .tags span {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    /* Nav tabs */
+    .nav-bar {
+      display: flex;
+      overflow-x: auto;
+      gap: 0;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-bar a {
+      text-decoration: none;
+      color: var(--muted);
+      padding: 14px 22px;
+      font-size: 14px;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all .2s;
+    }
+    .nav-bar a:hover { color: var(--text); border-color: var(--accent4); }
+
+    /* Main layout */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 16px;
+    }
+
+    /* Section title */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 32px 0 18px;
+      padding: 14px 18px;
+      background: linear-gradient(90deg, var(--card) 0%, var(--card2) 100%);
+      border-radius: 10px;
+      border-left: 4px solid var(--accent4);
+    }
+    .section-title .icon { font-size: 28px; }
+    .section-title h2 { font-size: 18px; font-weight: 600; }
+    .section-title .badge {
+      margin-left: auto;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      background: var(--accent4);
+      color: #fff;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    /* Card */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.3);
+    }
+    .card-img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      background: var(--card2);
+    }
+    .card-img-placeholder {
+      width: 100%;
+      height: 130px;
+      background: var(--card2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+    .card-body { padding: 14px; }
+    .card-rank {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      line-height: 22px;
+      text-align: center;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--card2);
+      margin-right: 6px;
+    }
+    .card-rank.top3 { background: linear-gradient(135deg, #ffd93d, #ff6b6b); color: #000; }
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .card-title a {
+      color: var(--text);
+      text-decoration: none;
+    }
+    .card-title a:hover { color: var(--accent4); }
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .heat-badge {
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .heat-high { background: rgba(255,71,87,.15); color: var(--high); }
+    .heat-mid { background: rgba(255,165,2,.15); color: var(--mid); }
+    .heat-low { background: rgba(46,213,115,.15); color: var(--low); }
+    .type-badge {
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      background: rgba(77,150,255,.12);
+      color: var(--accent4);
+    }
+    .card-stat {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .card-ip-tag {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Quick links */
+    .quick-links {
+      margin-top: 48px;
+      padding: 24px;
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .quick-links h3 {
+      font-size: 16px;
+      margin-bottom: 14px;
+      color: var(--muted);
+    }
+    .quick-links a {
+      display: inline-block;
+      margin: 5px 8px 5px 0;
+      padding: 6px 14px;
+      background: var(--card2);
+      border-radius: 20px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13px;
+      transition: background .2s;
+    }
+    .quick-links a:hover { background: var(--accent4); }
+
+    /* Footer */
+    .footer {
+      margin-top: 48px;
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      .section-title { flex-wrap: wrap; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>🎮 游戏 · 动漫 全网热榜</h1>
+  <p class="subtitle">数据采集周期：2026年10月19日—10月25日 &nbsp;|&nbsp; 第43周 &nbsp;|&nbsp; 来源：B站 / 微博 / 抖音 / 百度 / 小红书 / 米游社</p>
+  <div class="tags">
+      <span>🌃 边缘行者2登顶</span>
+      <span>⚔️ 王者荣耀周年庆</span>
+      <span>🌊 鸣潮3.7锁暝登场</span>
+      <span>⚡ 绝区零3.4联动崩铁</span>
+      <span>🔍 药屋少女S3热播</span>
+      <span>🍁 2026秋番期中考</span>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="nav-bar">
+  <a href="#bilibili">📺 B站热榜</a>
+  <a href="#weibo">🔴 微博热搜</a>
+  <a href="#douyin">🎵 抖音热点</a>
+  <a href="#baidu">🔵 百度游戏榜</a>
+  <a href="#xiaohongshu">📕 小红书</a>
+  <a href="#miyoushe">🌟 米游社</a>
+  <a href="#anime">🌸 秋番动漫</a>
+  <a href="#top10">🏆 综合TOP10</a>
+</nav>
+
+<div class="container">
+
+  <!-- ===== B站 ===== -->
+  <div class="section-title bilibili" id="bilibili">
+    <div class="icon">📺</div>
+    <div>
+      <h2>B站 游戏·动漫 热门榜</h2>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">数据来源：飞瓜B站 / 幻米热榜 · 2026-10-25</div>
+    </div>
+    <div class="badge">周榜 Top 8</div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <img class="card-img" src="https://upload-static.hoyoverse.com/hk4e/upload/fb/common.jpg" alt="原神"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">✨</div>
+      <div class="card-body">
+        <span class="card-rank top3">1</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=原神4.2版本" target="_blank" title="B站搜索">原神 4.2新版本 & 六周年庆</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·版本更新</span>
+        </div>
+        <div class="card-stat">📈 播放量 640万+ | 新大地图开放+六周年庆限定福利，二创热潮再起</div>
+        <div class="ip-tag"><strong>IP风格：</strong>奇幻开放世界，元素战斗系统，米哈游旗舰IP</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_sr.png" alt="星穹铁道"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🛸</div>
+      <div class="card-body">
+        <span class="card-rank top3">2</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=崩铁4.7乐子神" target="_blank" title="B站搜索">崩铁 4.7「乐子神智取米哈游」</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·活动</span>
+        </div>
+        <div class="card-stat">📈 播放量 560万+ | 乐子神系列网页活动第三话上线，玩梗二创刷屏</div>
+        <div class="ip-tag"><strong>IP风格：</strong>太空歌剧RPG，回合制战斗，星际文明世界观</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://webstatic.mihoyo.com/zzz/event/e20231121-preview-share/index.html" alt="绝区零"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">⚡</div>
+      <div class="card-body">
+        <span class="card-rank top3">3</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=绝区零3.4联动" target="_blank" title="B站搜索">绝区零 3.4联动崩铁 官宣</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·联动</span>
+        </div>
+        <div class="card-stat">📈 播放量 510万+ | 知更鸟&卡芙卡将登陆新艾利都，米哈游跨作联动炸场</div>
+        <div class="ip-tag"><strong>IP风格：</strong>都市幻想动作，快节奏战斗，二次元风格革新</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="王者荣耀"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">⚔️</div>
+      <div class="card-body">
+        <span class="card-rank">4</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=王者荣耀周年庆" target="_blank" title="B站搜索">王者荣耀 周年庆（10.24）</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·周年庆</span>
+        </div>
+        <div class="card-stat">📈 播放量 470万+ | 限定节日皮肤+专属排位福利，回忆杀视频刷屏</div>
+        <div class="ip-tag"><strong>IP风格：</strong>中国神话×MOBA，东方英雄竞技</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://aki-cdn-resource.kurogame.com/aki-upload-website/prod/20240511/7i99ot5r8x.png" alt="鸣潮"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🌊</div>
+      <div class="card-body">
+        <span class="card-rank">5</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=鸣潮锁暝" target="_blank" title="B站搜索">鸣潮 3.7下半 锁暝登场</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·版本更新</span>
+        </div>
+        <div class="card-stat">📈 播放量 330万+ | 10.22新角色锁暝卡池开启，专武沉冥技能解析热传</div>
+        <div class="ip-tag"><strong>IP风格：</strong>末世废土开放世界，声骸收集系统</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://i0.hdslb.com/bfs/archive/cyberpunk-edgerunners.jpg" alt="边缘行者"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🌃</div>
+      <div class="card-body">
+        <span class="card-rank">6</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=赛博朋克边缘行者2" target="_blank" title="B站搜索">赛博朋克：边缘行者2 开播</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">动漫·新番</span>
+        </div>
+        <div class="card-stat">📈 播放量 290万+ | 10.20 Netflix开播即登顶，TRIGGER新作讨论爆棚</div>
+        <div class="ip-tag"><strong>IP风格：</strong>赛博朋克群像剧，夜之城残酷美学</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="蛋仔派对"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🥚</div>
+      <div class="card-body">
+        <span class="card-rank">7</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=蛋仔派对三丽鸥" target="_blank" title="B站搜索">蛋仔派对 三丽鸥联动&金秋游园会</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·联动</span>
+        </div>
+        <div class="card-stat">📈 播放量 250万+ | 三丽鸥联动外观+金秋游园会新地图攻略热传</div>
+        <div class="ip-tag"><strong>IP风格：</strong>派对竞技游戏，休闲社交，萌系联动</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="和平精英"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🔫</div>
+      <div class="card-body">
+        <span class="card-rank">8</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=和平精英金秋赛季" target="_blank" title="B站搜索">和平精英 金秋主题赛季</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·赛季</span>
+        </div>
+        <div class="card-stat">📈 播放量 200万+ | 海岛限定场景+全新枪械皮肤，主播实况热度上升</div>
+        <div class="ip-tag"><strong>IP风格：</strong>军事射击竞技，战术对抗</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== 微博 ===== -->
+  <div class="section-title weibo" id="weibo">
+    <div class="icon">🔴</div>
+    <div>
+      <h2>微博 游戏·动漫 热搜榜</h2>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">数据来源：微博热搜 / 微热点 · 2026-10-25</div>
+    </div>
+    <div class="badge">热搜 Top 8</div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="王者荣耀"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">⚔️</div>
+      <div class="card-body">
+        <span class="card-rank top3">1</span>
+        <span class="card-title"><a href="https://s.weibo.com/weibo?q=王者荣耀周年庆" target="_blank" title="微博搜索">王者荣耀周年庆 全民热议</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·周年庆</span>
+        </div>
+        <div class="card-stat">📈 阅读量 15.2亿+ | 10.24周年庆限定皮肤与活动引爆热搜</div>
+        <div class="ip-tag"><strong>IP风格：</strong>中国神话×MOBA，电竞国民游戏</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://upload-static.hoyoverse.com/hk4e/upload/fb/common.jpg" alt="原神"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">✨</div>
+      <div class="card-body">
+        <span class="card-rank top3">2</span>
+        <span class="card-title"><a href="https://s.weibo.com/weibo?q=原神六周年" target="_blank" title="微博搜索">原神六周年 4.2新版本</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·版本</span>
+        </div>
+        <div class="card-stat">📈 阅读量 12.6亿+ | 六周年庆+4.2新地图双话题登榜</div>
+        <div class="ip-tag"><strong>IP风格：</strong>奇幻开放世界，元素战斗，米哈游旗舰</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://i0.hdslb.com/bfs/archive/cyberpunk-edgerunners.jpg" alt="边缘行者"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🌃</div>
+      <div class="card-body">
+        <span class="card-rank top3">3</span>
+        <span class="card-title"><a href="https://s.weibo.com/weibo?q=边缘行者2" target="_blank" title="微博搜索">赛博朋克：边缘行者2 开播</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">动漫·新番</span>
+        </div>
+        <div class="card-stat">📈 阅读量 9.8亿+ | 10.20开播首周登顶秋季新番榜，全网刷屏</div>
+        <div class="ip-tag"><strong>IP风格：</strong>赛博朋克群像剧，夜之城残酷美学</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://aki-cdn-resource.kurogame.com/aki-upload-website/prod/20240511/7i99ot5r8x.png" alt="鸣潮"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🌊</div>
+      <div class="card-body">
+        <span class="card-rank">4</span>
+        <span class="card-title"><a href="https://s.weibo.com/weibo?q=鸣潮锁暝" target="_blank" title="微博搜索">鸣潮3.7下半 锁暝登场</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·版本</span>
+        </div>
+        <div class="card-stat">📈 阅读量 5.2亿+ | 10.22锁暝卡池开启，导电同奏体系热议</div>
+        <div class="ip-tag"><strong>IP风格：</strong>末世废土开放世界，声骸收集</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://webstatic.mihoyo.com/zzz/event/e20231121-preview-share/index.html" alt="绝区零"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">⚡</div>
+      <div class="card-body">
+        <span class="card-rank">5</span>
+        <span class="card-title"><a href="https://s.weibo.com/weibo?q=绝区零联动崩铁" target="_blank" title="微博搜索">绝区零×崩铁联动官宣</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·联动</span>
+        </div>
+        <div class="card-stat">📈 阅读量 4.6亿+ | 知更鸟&卡芙卡3.4版本登陆新艾利都</div>
+        <div class="ip-tag"><strong>IP风格：</strong>都市幻想动作，快节奏战斗，二次元革新</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_sr.png" alt="星穹铁道"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🛸</div>
+      <div class="card-body">
+        <span class="card-rank">6</span>
+        <span class="card-title"><a href="https://s.weibo.com/weibo?q=崩铁乐子神" target="_blank" title="微博搜索">崩铁「乐子神智取米哈游」</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·活动</span>
+        </div>
+        <div class="card-stat">📈 阅读量 3.9亿+ | 系列活动第三话「培训」玩梗出圈</div>
+        <div class="ip-tag"><strong>IP风格：</strong>太空歌剧RPG，回合制战斗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="蛋仔派对"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🥚</div>
+      <div class="card-body">
+        <span class="card-rank">7</span>
+        <span class="card-title"><a href="https://s.weibo.com/weibo?q=蛋仔派对三丽鸥" target="_blank" title="微博搜索">蛋仔派对三丽鸥联动</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·联动</span>
+        </div>
+        <div class="card-stat">📈 阅读量 2.6亿+ | 金秋游园会+三丽鸥萌系外观晒图热潮</div>
+        <div class="ip-tag"><strong>IP风格：</strong>派对竞技游戏，休闲社交</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="英雄联盟手游"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🏆</div>
+      <div class="card-body">
+        <span class="card-rank">8</span>
+        <span class="card-title"><a href="https://s.weibo.com/weibo?q=英雄联盟手游金秋赛事" target="_blank" title="微博搜索">英雄联盟手游 金秋赛事</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·赛事</span>
+        </div>
+        <div class="card-stat">📈 阅读量 1.8亿+ | 限定英雄上线+金秋赛事活动热议</div>
+        <div class="ip-tag"><strong>IP风格：</strong>峡谷MOBA，端游还原电竞</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== 抖音 ===== -->
+  <div class="section-title douyin" id="douyin">
+    <div class="icon">🎵</div>
+    <div>
+      <h2>抖音 游戏·动漫 热点榜</h2>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">数据来源：蝉妈妈 / 飞瓜抖音 · 2026-10-25</div>
+    </div>
+    <div class="badge">热点 Top 8</div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="王者荣耀"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">⚔️</div>
+      <div class="card-body">
+        <span class="card-rank top3">1</span>
+        <span class="card-title"><a href="https://www.douyin.com/search/王者荣耀周年庆" target="_blank" title="抖音搜索">王者荣耀周年庆 回忆杀剪辑</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·周年庆</span>
+        </div>
+        <div class="card-stat">📈 播放量 8200万+ | 周年庆回忆视频引发全网共鸣</div>
+        <div class="ip-tag"><strong>IP风格：</strong>中国神话×MOBA，电竞国民</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://upload-static.hoyoverse.com/hk4e/upload/fb/common.jpg" alt="原神"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">✨</div>
+      <div class="card-body">
+        <span class="card-rank top3">2</span>
+        <span class="card-title"><a href="https://www.douyin.com/search/原神4.2版本" target="_blank" title="抖音搜索">原神4.2 新地图探索实况</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·版本</span>
+        </div>
+        <div class="card-stat">📈 播放量 7100万+ | 4.2大地图探索+六周年福利视频热传</div>
+        <div class="ip-tag"><strong>IP风格：</strong>奇幻开放世界，元素战斗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://i0.hdslb.com/bfs/archive/cyberpunk-edgerunners.jpg" alt="边缘行者"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🌃</div>
+      <div class="card-body">
+        <span class="card-rank top3">3</span>
+        <span class="card-title"><a href="https://www.douyin.com/search/赛博朋克边缘行者2" target="_blank" title="抖音搜索">边缘行者2 名场面二创</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">动漫·新番</span>
+        </div>
+        <div class="card-stat">📈 播放量 6400万+ | 开播首周名场面剪辑与解说刷屏</div>
+        <div class="ip-tag"><strong>IP风格：</strong>赛博朋克群像剧，夜之城美学</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://aki-cdn-resource.kurogame.com/aki-upload-website/prod/20240511/7i99ot5r8x.png" alt="鸣潮"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🌊</div>
+      <div class="card-body">
+        <span class="card-rank">4</span>
+        <span class="card-title"><a href="https://www.douyin.com/search/鸣潮锁暝" target="_blank" title="抖音搜索">鸣潮锁暝 实机演示</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·版本</span>
+        </div>
+        <div class="card-stat">📈 播放量 3600万+ | 10.22新角色实机与专武沉冥演示热传</div>
+        <div class="ip-tag"><strong>IP风格：</strong>末世废土开放世界</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://webstatic.mihoyo.com/zzz/event/e20231121-preview-share/index.html" alt="绝区零"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">⚡</div>
+      <div class="card-body">
+        <span class="card-rank">5</span>
+        <span class="card-title"><a href="https://www.douyin.com/search/绝区零3.4联动" target="_blank" title="抖音搜索">绝区零×崩铁联动 PV解析</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·联动</span>
+        </div>
+        <div class="card-stat">📈 播放量 3100万+ | 知更鸟&卡芙卡联动PV逐帧解析爆火</div>
+        <div class="ip-tag"><strong>IP风格：</strong>都市幻想动作，快节奏战斗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="和平精英"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🔫</div>
+      <div class="card-body">
+        <span class="card-rank">6</span>
+        <span class="card-title"><a href="https://www.douyin.com/search/和平精英金秋赛季" target="_blank" title="抖音搜索">和平精英 金秋赛季实况</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·赛季</span>
+        </div>
+        <div class="card-stat">📈 播放量 2600万+ | 海岛限定场景打卡与吃鸡集锦热传</div>
+        <div class="ip-tag"><strong>IP风格：</strong>军事射击竞技，战术对抗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="蛋仔派对"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🥚</div>
+      <div class="card-body">
+        <span class="card-rank">7</span>
+        <span class="card-title"><a href="https://www.douyin.com/search/蛋仔派对金秋游园会" target="_blank" title="抖音搜索">蛋仔派对 金秋游园会</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·派对</span>
+        </div>
+        <div class="card-stat">📈 播放量 2100万+ | 新闯关地图攻略与联机互坑名场面</div>
+        <div class="ip-tag"><strong>IP风格：</strong>派对竞技游戏，休闲社交</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_sr.png" alt="星穹铁道"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🛸</div>
+      <div class="card-body">
+        <span class="card-rank">8</span>
+        <span class="card-title"><a href="https://www.douyin.com/search/崩铁乐子神" target="_blank" title="抖音搜索">崩铁乐子神 活动剪辑</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·活动</span>
+        </div>
+        <div class="card-stat">📈 播放量 1700万+ | 「乐子神智取米哈游」玩梗短视频扩散</div>
+        <div class="ip-tag"><strong>IP风格：</strong>太空歌剧RPG，回合制</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== 百度 ===== -->
+  <div class="section-title baidu" id="baidu">
+    <div class="icon">🔵</div>
+    <div>
+      <h2>百度 游戏热门榜</h2>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">数据来源：百度指数 / 百度热榜 · 2026-10-25</div>
+    </div>
+    <div class="badge">热榜 Top 8</div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="王者荣耀"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">⚔️</div>
+      <div class="card-body">
+        <span class="card-rank top3">1</span>
+        <span class="card-title"><a href="https://www.baidu.com/s?wd=王者荣耀周年庆" target="_blank" title="百度搜索">王者荣耀 周年庆活动</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·周年庆</span>
+        </div>
+        <div class="card-stat">📈 搜索指数 1020万+ | 周年庆皮肤查询量暴涨</div>
+        <div class="ip-tag"><strong>IP风格：</strong>中国神话×MOBA，电竞国民</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://upload-static.hoyoverse.com/hk4e/upload/fb/common.jpg" alt="原神"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">✨</div>
+      <div class="card-body">
+        <span class="card-rank top3">2</span>
+        <span class="card-title"><a href="https://www.baidu.com/s?wd=原神4.2版本" target="_blank" title="百度搜索">原神4.2版本 六周年</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·版本</span>
+        </div>
+        <div class="card-stat">📈 搜索指数 890万+ | 新版本攻略与周年庆福利搜索热潮</div>
+        <div class="ip-tag"><strong>IP风格：</strong>奇幻开放世界，元素战斗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://aki-cdn-resource.kurogame.com/aki-upload-website/prod/20240511/7i99ot5r8x.png" alt="鸣潮"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🌊</div>
+      <div class="card-body">
+        <span class="card-rank top3">3</span>
+        <span class="card-title"><a href="https://www.baidu.com/s?wd=鸣潮锁暝培养" target="_blank" title="百度搜索">鸣潮锁暝 培养攻略</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·攻略</span>
+        </div>
+        <div class="card-stat">📈 搜索指数 760万+ | 锁暝突破材料与专武沉冥攻略搜索激增</div>
+        <div class="ip-tag"><strong>IP风格：</strong>末世废土开放世界，声骸收集</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://webstatic.mihoyo.com/zzz/event/e20231121-preview-share/index.html" alt="绝区零"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">⚡</div>
+      <div class="card-body">
+        <span class="card-rank">4</span>
+        <span class="card-title"><a href="https://www.baidu.com/s?wd=绝区零3.4联动" target="_blank" title="百度搜索">绝区零3.4 联动角色查询</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·联动</span>
+        </div>
+        <div class="card-stat">📈 搜索指数 620万+ | 知更鸟&卡芙卡角色资料搜索热</div>
+        <div class="ip-tag"><strong>IP风格：</strong>都市幻想动作，快节奏战斗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_sr.png" alt="星穹铁道"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🛸</div>
+      <div class="card-body">
+        <span class="card-rank">5</span>
+        <span class="card-title"><a href="https://www.baidu.com/s?wd=崩铁4.7版本" target="_blank" title="百度搜索">崩铁4.7版本 活动攻略</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·版本</span>
+        </div>
+        <div class="card-stat">📈 搜索指数 480万+ | 乐子神网页活动通关攻略搜索热</div>
+        <div class="ip-tag"><strong>IP风格：</strong>太空歌剧RPG，回合制</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="蛋仔派对"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🥚</div>
+      <div class="card-body">
+        <span class="card-rank">6</span>
+        <span class="card-title"><a href="https://www.baidu.com/s?wd=蛋仔派对三丽鸥联动" target="_blank" title="百度搜索">蛋仔派对 三丽鸥联动</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·联动</span>
+        </div>
+        <div class="card-stat">📈 搜索指数 350万+ | 联动外观获取方式搜索热度上升</div>
+        <div class="ip-tag"><strong>IP风格：</strong>派对竞技游戏，休闲社交</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="和平精英"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🔫</div>
+      <div class="card-body">
+        <span class="card-rank">7</span>
+        <span class="card-title"><a href="https://www.baidu.com/s?wd=和平精英金秋赛季" target="_blank" title="百度搜索">和平精英 金秋赛季</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·赛季</span>
+        </div>
+        <div class="card-stat">📈 搜索指数 260万+ | 新赛季上分攻略与皮肤查询</div>
+        <div class="ip-tag"><strong>IP风格：</strong>军事射击竞技，战术对抗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="恋与深空"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">💕</div>
+      <div class="card-body">
+        <span class="card-rank">8</span>
+        <span class="card-title"><a href="https://www.baidu.com/s?wd=恋与深空新活动" target="_blank" title="百度搜索">恋与深空 新活动</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·乙女</span>
+        </div>
+        <div class="card-stat">📈 搜索指数 210万+ | 限时活动与卡池规划搜索稳定</div>
+        <div class="ip-tag"><strong>IP风格：</strong>3D恋爱互动，乙女向</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== 小红书 ===== -->
+  <div class="section-title xiaohongshu" id="xiaohongshu">
+    <div class="icon">📕</div>
+    <div>
+      <h2>小红书 游戏·动漫 热门笔记</h2>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">数据来源：千瓜数据 / 蝉妈妈 · 2026-10-25</div>
+    </div>
+    <div class="badge">热门 Top 8</div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="恋与深空"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">💕</div>
+      <div class="card-body">
+        <span class="card-rank top3">1</span>
+        <span class="card-title"><a href="https://www.xiaohongshu.com/search_result?keyword=恋与深空新卡面" target="_blank" title="小红书搜索">恋与深空 新卡面分享</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·乙女</span>
+        </div>
+        <div class="card-stat">📈 笔记量 16万+ | 限时卡面美图与抽卡分享刷屏</div>
+        <div class="ip-tag"><strong>IP风格：</strong>3D恋爱互动，乙女向</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://i0.hdslb.com/bfs/archive/cyberpunk-edgerunners.jpg" alt="边缘行者"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🌃</div>
+      <div class="card-body">
+        <span class="card-rank top3">2</span>
+        <span class="card-title"><a href="https://www.xiaohongshu.com/search_result?keyword=边缘行者2观后感" target="_blank" title="小红书搜索">边缘行者2 观后感热帖</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">动漫·新番</span>
+        </div>
+        <div class="card-stat">📈 笔记量 11万+ | 开播首周观后感与壁纸二创热传</div>
+        <div class="ip-tag"><strong>IP风格：</strong>赛博朋克群像剧，夜之城美学</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://upload-static.hoyoverse.com/hk4e/upload/fb/common.jpg" alt="原神"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">✨</div>
+      <div class="card-body">
+        <span class="card-rank top3">3</span>
+        <span class="card-title"><a href="https://www.xiaohongshu.com/search_result?keyword=原神4.2攻略" target="_blank" title="小红书搜索">原神4.2 探索攻略</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·攻略</span>
+        </div>
+        <div class="card-stat">📈 笔记量 9.5万+ | 新地图宝箱点位与解谜攻略合集</div>
+        <div class="ip-tag"><strong>IP风格：</strong>奇幻开放世界，元素战斗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://aki-cdn-resource.kurogame.com/aki-upload-website/prod/20240511/7i99ot5r8x.png" alt="鸣潮"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🌊</div>
+      <div class="card-body">
+        <span class="card-rank">4</span>
+        <span class="card-title"><a href="https://www.xiaohongshu.com/search_result?keyword=鸣潮锁暝攻略" target="_blank" title="小红书搜索">鸣潮锁暝 配队攻略</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·攻略</span>
+        </div>
+        <div class="card-stat">📈 笔记量 6.8万+ | 锁暝导电同奏配队与声骸推荐</div>
+        <div class="ip-tag"><strong>IP风格：</strong>末世废土开放世界</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="蛋仔派对"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🥚</div>
+      <div class="card-body">
+        <span class="card-rank">5</span>
+        <span class="card-title"><a href="https://www.xiaohongshu.com/search_result?keyword=蛋仔派对三丽鸥" target="_blank" title="小红书搜索">蛋仔三丽鸥联动晒图</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·联动</span>
+        </div>
+        <div class="card-stat">📈 笔记量 5.2万+ | 三丽鸥联动外观穿搭晒图热潮</div>
+        <div class="ip-tag"><strong>IP风格：</strong>派对竞技游戏，萌系联动</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="王者荣耀"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">⚔️</div>
+      <div class="card-body">
+        <span class="card-rank">6</span>
+        <span class="card-title"><a href="https://www.xiaohongshu.com/search_result?keyword=王者荣耀周年庆皮肤" target="_blank" title="小红书搜索">王者周年庆皮肤穿搭</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·皮肤</span>
+        </div>
+        <div class="card-stat">📈 笔记量 4.1万+ | 周年庆限定皮肤美图与周边分享</div>
+        <div class="ip-tag"><strong>IP风格：</strong>中国神话×MOBA，电竞国民</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_sr.png" alt="星穹铁道"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🛸</div>
+      <div class="card-body">
+        <span class="card-rank">7</span>
+        <span class="card-title"><a href="https://www.xiaohongshu.com/search_result?keyword=崩铁4.7攻略" target="_blank" title="小红书搜索">崩铁4.7 活动攻略</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·攻略</span>
+        </div>
+        <div class="card-stat">📈 笔记量 3.3万+ | 乐子神活动通关路线与奖励一览</div>
+        <div class="ip-tag"><strong>IP风格：</strong>太空歌剧RPG，回合制</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="光与夜之恋"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🌙</div>
+      <div class="card-body">
+        <span class="card-rank">8</span>
+        <span class="card-title"><a href="https://www.xiaohongshu.com/search_result?keyword=光与夜之恋秋日" target="_blank" title="小红书搜索">光与夜之恋 秋日卡面</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·乙女</span>
+        </div>
+        <div class="card-stat">📈 笔记量 2.4万+ | 秋日主题卡面与同人创作分享</div>
+        <div class="ip-tag"><strong>IP风格：</strong>都市恋爱手游，乙女向</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== 米游社 ===== -->
+  <div class="section-title miyoushe" id="miyoushe">
+    <div class="icon">🌟</div>
+    <div>
+      <h2>米游社 热门话题</h2>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">数据来源：米游社热榜 · 2026-10-25</div>
+    </div>
+    <div class="badge">热门 Top 8</div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <img class="card-img" src="https://upload-static.hoyoverse.com/hk4e/upload/fb/common.jpg" alt="原神"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">✨</div>
+      <div class="card-body">
+        <span class="card-rank top3">1</span>
+        <span class="card-title"><a href="https://www.miyoushe.com/ys/search?keyword=原神4.2版本" target="_blank" title="米游社搜索">原神4.2版本 新地图讨论</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·版本</span>
+        </div>
+        <div class="card-stat">📈 帖子量 7.2万+ | 新大地图探索与解谜讨论爆发</div>
+        <div class="ip-tag"><strong>IP风格：</strong>奇幻开放世界，元素战斗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://upload-static.hoyoverse.com/hk4e/upload/fb/common.jpg" alt="原神"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">✨</div>
+      <div class="card-body">
+        <span class="card-rank top3">2</span>
+        <span class="card-title"><a href="https://www.miyoushe.com/ys/search?keyword=原神绮星盛会" target="_blank" title="米游社搜索">原神「绮星盛会」网页活动</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·活动</span>
+        </div>
+        <div class="card-stat">📈 帖子量 5.9万+ | 千星奇域网页活动奖励讨论热烈</div>
+        <div class="ip-tag"><strong>IP风格：</strong>奇幻开放世界，元素战斗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_sr.png" alt="星穹铁道"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🛸</div>
+      <div class="card-body">
+        <span class="card-rank top3">3</span>
+        <span class="card-title"><a href="https://www.miyoushe.com/sr/search?keyword=崩铁乐子神" target="_blank" title="米游社搜索">崩铁 乐子神系列活动</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">游戏·活动</span>
+        </div>
+        <div class="card-stat">📈 帖子量 4.6万+ | 第三话「培训」剧情与玩梗讨论</div>
+        <div class="ip-tag"><strong>IP风格：</strong>太空歌剧RPG，回合制</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://webstatic.mihoyo.com/zzz/event/e20231121-preview-share/index.html" alt="绝区零"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">⚡</div>
+      <div class="card-body">
+        <span class="card-rank">4</span>
+        <span class="card-title"><a href="https://www.miyoushe.com/zzz/search?keyword=绝区零联动" target="_blank" title="米游社搜索">绝区零×崩铁联动热议</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·联动</span>
+        </div>
+        <div class="card-stat">📈 帖子量 3.8万+ | 知更鸟&卡芙卡联动造型讨论</div>
+        <div class="ip-tag"><strong>IP风格：</strong>都市幻想动作，快节奏战斗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://upload-static.hoyoverse.com/hk4e/upload/fb/common.jpg" alt="原神"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">✨</div>
+      <div class="card-body">
+        <span class="card-rank">5</span>
+        <span class="card-title"><a href="https://www.miyoushe.com/ys/search?keyword=原神六周年" target="_blank" title="米游社搜索">原神六周年 回顾专题</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·周年庆</span>
+        </div>
+        <div class="card-stat">📈 帖子量 3.1万+ | 六周年回忆向内容与福利讨论</div>
+        <div class="ip-tag"><strong>IP风格：</strong>奇幻开放世界，元素战斗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://webstatic.mihoyo.com/zzz/event/e20231121-preview-share/index.html" alt="绝区零"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">⚡</div>
+      <div class="card-body">
+        <span class="card-rank">6</span>
+        <span class="card-title"><a href="https://www.miyoushe.com/zzz/search?keyword=绝区零3.3前瞻" target="_blank" title="米游社搜索">绝区零3.3前瞻讨论</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·版本</span>
+        </div>
+        <div class="card-stat">📈 帖子量 2.4万+ | 「重返天空的旅程」新角色热议</div>
+        <div class="ip-tag"><strong>IP风格：</strong>都市幻想动作，快节奏战斗</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_sr.png" alt="星穹铁道"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🛸</div>
+      <div class="card-body">
+        <span class="card-rank">7</span>
+        <span class="card-title"><a href="https://www.miyoushe.com/sr/search?keyword=崩铁4.7版本" target="_blank" title="米游社搜索">崩铁4.7 版本攻略</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·攻略</span>
+        </div>
+        <div class="card-stat">📈 帖子量 1.9万+ | 新版本深渊配队与活动攻略</div>
+        <div class="ip-tag"><strong>IP风格：</strong>太空歌剧RPG，回合制</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://patchwiki.biligame.com/resources/assets/images/logo/logo_wzry.png" alt="崩坏3"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">💎</div>
+      <div class="card-body">
+        <span class="card-rank">8</span>
+        <span class="card-title"><a href="https://www.miyoushe.com/bh3/search?keyword=崩坏3新版本" target="_blank" title="米游社搜索">崩坏3 新版本讨论</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">游戏·剧情</span>
+        </div>
+        <div class="card-stat">📈 帖子量 1.4万+ | 新版本剧情与角色讨论稳定</div>
+        <div class="ip-tag"><strong>IP风格：</strong>科幻动作手游，女武神战斗</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== 秋番动漫 ===== -->
+  <div class="section-title anime" id="anime" style="border-left-color: var(--accent5);">
+    <div class="icon">🌸</div>
+    <div>
+      <h2>秋番动漫 热度榜</h2>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">数据来源：咪番每周榜（10.19-10.26）/ AniList · 2026-10-25</div>
+    </div>
+    <div class="badge" style="background: var(--accent5);">秋季榜 Top 8</div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <img class="card-img" src="https://i0.hdslb.com/bfs/archive/cyberpunk-edgerunners.jpg" alt="边缘行者"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🌃</div>
+      <div class="card-body">
+        <span class="card-rank top3">1</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=赛博朋克边缘行者2" target="_blank" title="B站搜索">赛博朋克：边缘行者2</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">ONA·TRIGGER</span>
+        </div>
+        <div class="card-stat">📈 综合评分 84 | 10.20 Netflix开播，↑42位首次登顶，人气10.3w</div>
+        <div class="ip-tag"><strong>IP风格：</strong>赛博朋克群像剧，夜之城残酷美学，年度霸权预定</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://i0.hdslb.com/bfs/archive/black-clover.jpg" alt="黑色五叶草"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🍀</div>
+      <div class="card-body">
+        <span class="card-rank top3">2</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=黑色五叶草第二季" target="_blank" title="B站搜索">黑色五叶草 第二季</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">TV·Pierrot</span>
+        </div>
+        <div class="card-stat">📈 综合评分 87 | 本季口碑最高分，人气9.8w，收藏3100</div>
+        <div class="ip-tag"><strong>IP风格：</strong>王道热血魔法，纯燃不搞虚的台柱番</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://i0.hdslb.com/bfs/archive/kusuriya.jpg" alt="药屋少女"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">💊</div>
+      <div class="card-body">
+        <span class="card-rank top3">3</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=药屋少女的呢喃第三季" target="_blank" title="B站搜索">药屋少女的呢喃 第三季</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-high">🔥 高热度</span>
+          <span class="type-badge">TV·OLM</span>
+        </div>
+        <div class="card-stat">📈 综合评分 85 | 人气10.5w本季最高，「掐脖吻」预告引爆讨论</div>
+        <div class="ip-tag"><strong>IP风格：</strong>后宫推理日常剧，低门槛高反转</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://i0.hdslb.com/bfs/archive/steel-ball-run.jpg" alt="飙马野郎"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🐎</div>
+      <div class="card-body">
+        <span class="card-rank">4</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=飙马野郎" target="_blank" title="B站搜索">飙马野郎 JOJO 第二&三赛段</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">ONA·david production</span>
+        </div>
+        <div class="card-stat">📈 综合评分 86 | 沙漠赛段「恶魔的手掌」事件接连爆发</div>
+        <div class="ip-tag"><strong>IP风格：</strong>竞速冒险，JOJO系列最高杰作动画化</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://i0.hdslb.com/bfs/archive/fx-warrior.jpg" alt="FX战士久留美"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">💹</div>
+      <div class="card-body">
+        <span class="card-rank">5</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=FX战士久留美" target="_blank" title="B站搜索">FX战士久留美</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">TV·羚邦</span>
+        </div>
+        <div class="card-stat">📈 本季话题度之王 | 投资题材太真实，粉丝吹爆路人吵翻</div>
+        <div class="ip-tag"><strong>IP风格：</strong>金融题材猎奇原创，「戒赌神作」争议不断</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://i0.hdslb.com/bfs/archive/ao-no-hako.jpg" alt="青之箱"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🏸</div>
+      <div class="card-body">
+        <span class="card-rank">6</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=青之箱第二季" target="_blank" title="B站搜索">青之箱 第二季</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">TV·恋爱运动</span>
+        </div>
+        <div class="card-stat">📈 综合评分 81 | 人气5.0w，青春群像持续升温</div>
+        <div class="ip-tag"><strong>IP风格：</strong>青春恋爱×羽毛球运动，治愈系日常</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://i0.hdslb.com/bfs/archive/goblin.jpg" alt="转生哥布林"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">👺</div>
+      <div class="card-body">
+        <span class="card-rank">7</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=转生成哥布林但是有问题么" target="_blank" title="B站搜索">转生成哥布林但是有问题么?</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">TV·异世界</span>
+        </div>
+        <div class="card-stat">📈 解说播放近6万 | 本季「乐子流量王」，夸黑同源争议大</div>
+        <div class="ip-tag"><strong>IP风格：</strong>异世界转生乐子番，不带脑子纯爽</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="https://i0.hdslb.com/bfs/archive/made-in-abyss.jpg" alt="来自深渊"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-placeholder" style="display:none">🕳️</div>
+      <div class="card-body">
+        <span class="card-rank">8</span>
+        <span class="card-title"><a href="https://search.bilibili.com/all?keyword=来自深渊觉醒的神秘" target="_blank" title="B站搜索">来自深渊 觉醒的神秘</a></span>
+        <div class="card-meta">
+          <span class="heat-badge heat-mid">⚡ 中热度</span>
+          <span class="type-badge">剧场版·Kinema Citrus</span>
+        </div>
+        <div class="card-stat">📈 综合评分 80 | 本周↑48位飙升至第9，剧场版黑马</div>
+        <div class="ip-tag"><strong>IP风格：</strong>深渊探险黑暗奇幻，美到窒息也虐到窒息</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== TOP10 ===== -->
+  <div class="section-title top10" id="top10" style="border-left-color: var(--accent2);">
+    <div class="icon">🏆</div>
+    <div>
+      <h2>综合热度 TOP10</h2>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">综合6大平台+秋番热度排名</div>
+    </div>
+    <div class="badge" style="background: var(--accent2);">本周 TOP10</div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border-radius:10px;border-left:3px solid var(--high);">
+      <span style="font-size:20px;font-weight:700;color:var(--high);">1</span>
+      <span style="font-weight:600;">王者荣耀周年庆（10.24）</span>
+      <span style="margin-left:auto;font-size:12px;color:var(--muted);">🔥 全网热度最高</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border-radius:10px;border-left:3px solid var(--high);">
+      <span style="font-size:20px;font-weight:700;color:var(--high);">2</span>
+      <span style="font-weight:600;">原神4.2版本 & 六周年庆</span>
+      <span style="margin-left:auto;font-size:12px;color:var(--muted);">🔥 高热度</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border-radius:10px;border-left:3px solid var(--high);">
+      <span style="font-size:20px;font-weight:700;color:var(--high);">3</span>
+      <span style="font-weight:600;">赛博朋克：边缘行者2 开播登顶</span>
+      <span style="margin-left:auto;font-size:12px;color:var(--muted);">🔥 高热度</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border-radius:10px;border-left:3px solid var(--mid);">
+      <span style="font-size:18px;font-weight:600;color:var(--mid);">4</span>
+      <span style="font-weight:600;">鸣潮3.7下半 锁暝登场</span>
+      <span style="margin-left:auto;font-size:12px;color:var(--muted);">⚡ 高热度</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border-radius:10px;border-left:3px solid var(--mid);">
+      <span style="font-size:18px;font-weight:600;color:var(--mid);">5</span>
+      <span style="font-weight:600;">绝区零×崩铁联动官宣（3.4）</span>
+      <span style="margin-left:auto;font-size:12px;color:var(--muted);">⚡ 中热度</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border-radius:10px;border-left:3px solid var(--mid);">
+      <span style="font-size:18px;font-weight:600;color:var(--mid);">6</span>
+      <span style="font-weight:600;">崩铁4.7「乐子神智取米哈游」</span>
+      <span style="margin-left:auto;font-size:12px;color:var(--muted);">⚡ 中热度</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border-radius:10px;border-left:3px solid var(--low);">
+      <span style="font-size:16px;font-weight:600;color:var(--low);">7</span>
+      <span style="font-weight:600;">黑色五叶草 第二季（本季最高分87）</span>
+      <span style="margin-left:auto;font-size:12px;color:var(--muted);">📈 稳定热度</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border-radius:10px;border-left:3px solid var(--low);">
+      <span style="font-size:16px;font-weight:600;color:var(--low);">8</span>
+      <span style="font-weight:600;">药屋少女的呢喃 第三季</span>
+      <span style="margin-left:auto;font-size:12px;color:var(--muted);">📈 稳定热度</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border-radius:10px;border-left:3px solid var(--low);">
+      <span style="font-size:16px;font-weight:600;color:var(--low);">9</span>
+      <span style="font-weight:600;">蛋仔派对三丽鸥联动 & 金秋游园会</span>
+      <span style="margin-left:auto;font-size:12px;color:var(--muted);">📈 稳定热度</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border-radius:10px;border-left:3px solid var(--low);">
+      <span style="font-size:16px;font-weight:600;color:var(--low);">10</span>
+      <span style="font-weight:600;">和平精英 金秋主题赛季</span>
+      <span style="margin-left:auto;font-size:12px;color:var(--muted);">📈 稳定热度</span>
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="quick-links">
+    <h3>🔗 快捷入口</h3>
+    <a href="https://search.bilibili.com/all?keyword=原神4.2" target="_blank">📺 B站搜索</a>
+    <a href="https://s.weibo.com/weibo?q=王者荣耀周年庆" target="_blank">🔴 微博搜索</a>
+    <a href="https://www.douyin.com/search/边缘行者2" target="_blank">🎵 抖音搜索</a>
+    <a href="https://www.baidu.com/s?wd=鸣潮锁暝" target="_blank">🔵 百度搜索</a>
+    <a href="https://www.xiaohongshu.com/search_result?keyword=恋与深空" target="_blank">📕 小红书搜索</a>
+    <a href="https://www.miyoushe.com/ys" target="_blank">🌟 米游社</a>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>📊 数据来源：飞瓜数据 / 蝉妈妈 / 千瓜数据 / 百度指数 / 微博热搜 / 米游社热榜 / 咪番每周榜</p>
+  <p style="margin-top:6px;">📅 数据采集周期：2026年10月19日—10月25日 &nbsp;|&nbsp; 生成时间：2026年10月26日</p>
+  <p style="margin-top:6px;">🎮 定制机热门IP周报 · 每周一更新 &nbsp;|&nbsp; GitHub Pages 自动发布</p>
+</div>
+
+</body>
+</html>
